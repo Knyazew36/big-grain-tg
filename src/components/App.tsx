@@ -1,5 +1,5 @@
-import { useEffect, useMemo } from 'react'
-import { Navigate, Route, Routes, HashRouter, useLocation } from 'react-router-dom'
+import { useMemo } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { retrieveLaunchParams, useSignal, isMiniAppDark } from '@telegram-apps/sdk-react'
 import { AppRoot } from '@telegram-apps/telegram-ui'
 
