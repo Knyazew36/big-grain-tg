@@ -1,17 +1,17 @@
-import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import react from '@vitejs/plugin-react-swc';
-import mkcert from 'vite-plugin-mkcert';
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
+import react from '@vitejs/plugin-react-swc'
+import mkcert from 'vite-plugin-mkcert'
+import tailwindcss from '@tailwindcss/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/reactjs-template/',
+  // base: '/reactjs-template/',
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'modern',
-      },
-    },
+        api: 'modern'
+      }
+    }
   },
   plugins: [
     // Allows using React dev server along with building a React application with Vite.
@@ -24,15 +24,14 @@ export default defineConfig({
     // Using this plugin requires admin rights on the first dev-mode launch.
     // https://www.npmjs.com/package/vite-plugin-mkcert
     process.env.HTTPS && mkcert(),
-        tailwindcss(),
+    tailwindcss()
   ],
   build: {
-    target: 'esnext',
+    target: 'esnext'
   },
   publicDir: './public',
   server: {
     // Exposes your dev server and makes it accessible for the devices in the same network.
-    host: true,
-  },
-});
-
+    host: true
+  }
+})
