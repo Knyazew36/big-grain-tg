@@ -7,12 +7,18 @@ import { ErrorResponse } from './type'
 import { toast } from 'sonner'
 // import { json } from 'stream/consumers'
 import React from 'react'
+import { retrieveRawInitData } from '@telegram-apps/sdk'
+
+const initDataRaw = retrieveRawInitData()
 
 const isProduction = false
 
 // Создаем экземпляр Axios
 const $api = axios.create({
-  withCredentials: true
+  withCredentials: true,
+  headers: {
+    Authorization: `tma ${initDataRaw}`
+  }
 })
 
 // Интерцептор для запросов
