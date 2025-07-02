@@ -1,7 +1,9 @@
 import { Page } from '@/components/Page'
 import React from 'react'
 import ProductsCard, { IProductsCard } from './card/ProductsCard'
-
+import { Button } from '@/components/ui/button'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { LucideMailWarning, Terminal } from 'lucide-react'
 const data: IProductsCard[] = [
   {
     count: 3,
@@ -38,6 +40,15 @@ export const ProductsPage = () => {
             placeholder='Поиск товара...'
           />
         </div>
+
+        <Alert
+          variant='destructive'
+          className='mt-4'
+        >
+          <LucideMailWarning />
+          <AlertTitle>Внимание!</AlertTitle>
+          <AlertDescription>На складе заканичвается чечевица</AlertDescription>
+        </Alert>
 
         {/* Grid */}
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8'>
