@@ -42,9 +42,9 @@ export const ProductsPage = () => {
           />
         </div>
 
-        <div className='flex flex-col mt-4 gap-2 flex-1 items-end'>
+        {/* <div className='flex flex-col mt-4 gap-2 flex-1 items-end'>
           <ProductCreate />
-        </div>
+        </div> */}
         <Alert
           variant='destructive'
           className='mt-4'

@@ -1,3 +1,4 @@
+import InputNumber from '@/shared/input-number/InputNumber'
 import clsx from 'clsx'
 import { FC } from 'react'
 
@@ -25,8 +26,13 @@ const ProductsCard: FC<IProductsCard> = ({ title, updatedAt, min, count, ed }) =
         <span className='block text-sm text-gray-500 dark:text-neutral-500'>остаток</span>
 
         <h3 className='text-3xl sm:text-4xl lg:text-5xl font-semibold text-gray-800 dark:text-neutral-200'>{`${count} ${ed}`}</h3>
+        <div className='flex flex-col gap-2 mt-4'>
+          <span className='block text-sm text-gray-500 dark:text-neutral-500'>Израсходовано</span>
+
+          <InputNumber />
+        </div>
       </div>
-      <dl className='flex justify-center items-center divide-x divide-gray-200 dark:divide-neutral-800'>
+      {/* <dl className='flex justify-center items-center divide-x divide-gray-200 dark:divide-neutral-800'>
         <dt className='pe-3'>
           <span className='text-green-600'>
             <svg
@@ -50,7 +56,7 @@ const ProductsCard: FC<IProductsCard> = ({ title, updatedAt, min, count, ed }) =
           <span className='text-sm font-semibold  text-gray-500 dark:text-neutral-500'>{updatedAt}</span>
           <span className='block text-sm text-gray-500 dark:text-neutral-500'>обновление</span>
         </dd>
-      </dl>
+      </dl> */}
     </div>
   )
 }

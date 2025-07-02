@@ -32,7 +32,7 @@ const MenuPage: FC = () => {
 
         <Link
           className='p-4 group mt-4 flex flex-col bg-pink-50 rounded-xl focus:outline-hidden dark:bg-pink-800/20'
-          to={'/'}
+          to={'/report'}
         >
           <div className='mb-4 flex flex-col justify-center items-center h-full'>
             <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-pink-200/50 text-white rounded-2xl dark:bg-pink-800/30'>
@@ -126,9 +126,9 @@ const MenuPage: FC = () => {
           {/* End Card */}
 
           {/* Card */}
-          {/* <a
+          <Link
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            href='canvas.html'
+            to={'/settings'}
           >
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-teal-50 text-white rounded-2xl dark:bg-teal-800/30'>
@@ -152,13 +152,11 @@ const MenuPage: FC = () => {
             </div>
             <div className='text-center mt-auto'>
               <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Whiteboard
+                Настройки
               </p>
             </div>
-          </a> */}
-          {/* End Card */}
+          </Link>
 
-          {/* Card */}
           <Link
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             to={'/products'}

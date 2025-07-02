@@ -1,6 +1,7 @@
+import { Toaster } from '@/components/ui/sonner'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-
+import { Bounce, ToastContainer, toast } from 'react-toastify'
 interface ServiceProviderProps {
   children: React.ReactNode
 }
@@ -23,7 +24,12 @@ const ServiceProvider = ({ children }: ServiceProviderProps) => {
     initPreline()
   }, [location.pathname])
 
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      <Toaster />
+    </>
+  )
 }
 
 export default ServiceProvider
