@@ -129,3 +129,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
+html {
+  height: var(--tg-viewport-height);
+}
