@@ -75,7 +75,7 @@ const ProductCreate: React.FC<ProductCreateProps> = ({ onSuccess }) => {
         </button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent showCloseButton={false}>
         <DialogHeader>
           <DialogTitle>Добавить наименование товара</DialogTitle>
           <DialogDescription>Товар добавится в список, при этом наличие товара или его появление делается через поступление товара</DialogDescription>
