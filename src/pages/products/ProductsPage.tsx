@@ -4,6 +4,7 @@ import ProductsCard, { IProductsCard } from './card/ProductsCard'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning, Terminal } from 'lucide-react'
+import ProductCreate from './create/ProductCreate'
 const data: IProductsCard[] = [
   {
     count: 3,
@@ -32,7 +33,7 @@ export const ProductsPage = () => {
   return (
     <Page back>
       {/* Card Section */}
-      <div className='max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
+      <div className='max-w-[85rem]  py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
         <div className='max-w-sm space-y-3'>
           <input
             type='text'
@@ -41,6 +42,9 @@ export const ProductsPage = () => {
           />
         </div>
 
+        <div className='flex flex-col mt-4 gap-2 flex-1 items-end'>
+          <ProductCreate />
+        </div>
         <Alert
           variant='destructive'
           className='mt-4'
@@ -60,6 +64,10 @@ export const ProductsPage = () => {
           ))}
         </div>
         {/* End Grid */}
+
+        {/* Products Table Card */}
+
+        {/* End Products Table Card */}
       </div>
       {/* End Card Section */}
     </Page>

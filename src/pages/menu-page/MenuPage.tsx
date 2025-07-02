@@ -3,14 +3,24 @@ import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
+import Confirmation from '@/widgets/confirmation/Confirmation'
 
 const MenuPage: FC = () => {
   return (
     <Page>
       <div className='flex flex-col flex-1 pt-4'>
-        <h1 className='text-xl font-semibold text-center mb-8'>Здравствуйте, Сергей</h1>
-        {/* Grid */}
+        {/* <h1 className='text-xl font-semibold text-center mb-8'>Здравствуйте, Сергей</h1>
+        Grid */}
 
+        {/* <Alert
+          variant='default'
+          className='mt-4 border-green-400'
+        >
+          <LucideMailWarning />
+          <AlertTitle>Поступление на склад</AlertTitle>
+          <AlertDescription>Поступление на склад 80 поддонов</AlertDescription>
+        </Alert> */}
+        <Confirmation />
         <Alert
           variant='destructive'
           className='mt-4'
@@ -20,9 +30,71 @@ const MenuPage: FC = () => {
           <AlertDescription>На складе заканичвается чечевица</AlertDescription>
         </Alert>
 
+        <Link
+          className='p-4 group mt-4 flex flex-col bg-pink-50 rounded-xl focus:outline-hidden dark:bg-pink-800/20'
+          to={'/'}
+        >
+          <div className='mb-4 flex flex-col justify-center items-center h-full'>
+            <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-pink-200/50 text-white rounded-2xl dark:bg-pink-800/30'>
+              <svg
+                className='shrink-0 size-5 xl:w-6 xl:h-6 text-pink-600 dark:text-pink-500'
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M7 2h10' />
+                <path d='M5 6h14' />
+                <rect
+                  width='18'
+                  height='12'
+                  x='3'
+                  y='10'
+                  rx='2'
+                />
+              </svg>
+            </span>
+          </div>
+          <div className='text-center mt-auto'>
+            <p className='truncate flex justify-center items-center gap-x-1 text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
+              Отчет за смену
+              <svg
+                className='shrink-0 size-3.5'
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth='2'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path
+                  className='lg:opacity-0 lg:-translate-x-1 lg:group-hover:opacity-100 lg:group-hover:translate-x-0 lg:group-focus:opacity-100 lg:group-focus:translate-x-0 lg:transition'
+                  d='M5 12h14'
+                />
+                <path
+                  className='lg:-translate-x-1.5 lg:group-hover:translate-x-0 lg:group-focus:translate-x-0 lg:transition'
+                  d='m12 5 7 7-7 7'
+                />
+              </svg>
+            </p>
+          </div>
+        </Link>
         <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-2 lg:gap-4 mt-8'>
           {/* Card */}
-          <a
+
+          {/* End Card */}
+
+          {/* Card */}
+
+          {/* <a
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             href='canvas.html'
           >
@@ -50,11 +122,11 @@ const MenuPage: FC = () => {
                 Blank page
               </p>
             </div>
-          </a>
+          </a> */}
           {/* End Card */}
 
           {/* Card */}
-          <a
+          {/* <a
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             href='canvas.html'
           >
@@ -83,7 +155,7 @@ const MenuPage: FC = () => {
                 Whiteboard
               </p>
             </div>
-          </a>
+          </a> */}
           {/* End Card */}
 
           {/* Card */}
@@ -129,7 +201,7 @@ const MenuPage: FC = () => {
             </div>
             <div className='text-center mt-auto'>
               <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Остатки
+                Остаток на складе
               </p>
             </div>
           </Link>
@@ -163,67 +235,7 @@ const MenuPage: FC = () => {
             </div>
             <div className='text-center mt-auto'>
               <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Empathy Maps
-              </p>
-            </div>
-          </a>
-          {/* End Card */}
-
-          {/* Card */}
-          <a
-            className='p-4 group flex flex-col bg-pink-50 rounded-xl focus:outline-hidden dark:bg-pink-800/20'
-            href='#'
-          >
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-pink-200/50 text-white rounded-2xl dark:bg-pink-800/30'>
-                <svg
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-pink-600 dark:text-pink-500'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path d='M7 2h10' />
-                  <path d='M5 6h14' />
-                  <rect
-                    width='18'
-                    height='12'
-                    x='3'
-                    y='10'
-                    rx='2'
-                  />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate flex justify-center items-center gap-x-1 text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                All templates
-                <svg
-                  className='shrink-0 size-3.5'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path
-                    className='lg:opacity-0 lg:-translate-x-1 lg:group-hover:opacity-100 lg:group-hover:translate-x-0 lg:group-focus:opacity-100 lg:group-focus:translate-x-0 lg:transition'
-                    d='M5 12h14'
-                  />
-                  <path
-                    className='lg:-translate-x-1.5 lg:group-hover:translate-x-0 lg:group-focus:translate-x-0 lg:transition'
-                    d='m12 5 7 7-7 7'
-                  />
-                </svg>
+                Создать приход
               </p>
             </div>
           </a>

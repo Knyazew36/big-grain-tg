@@ -16,11 +16,9 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/', Component: IndexPage },
+  { path: '/', Component: MenuPage },
 
   { path: '/products', Component: ProductsPage, title: 'Init Data' },
-  { path: '/menu', Component: MenuPage, title: 'Init Data' },
-  //
   { path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
   { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },
