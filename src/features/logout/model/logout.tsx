@@ -1,5 +1,5 @@
-import { removeFromLocalStorage } from '@/shared/utils'
+// import { removeFromLocalStorage } from '@/shared/utils'
 
 export const logout = () => {
-	removeFromLocalStorage('access_token')
+  // removeFromLocalStorage('access_token')
 }

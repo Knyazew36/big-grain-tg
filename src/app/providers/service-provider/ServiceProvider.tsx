@@ -2,13 +2,14 @@ import { Toaster } from '@/components/ui/sonner'
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Bounce, ToastContainer, toast } from 'react-toastify'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 interface ServiceProviderProps {
   children: React.ReactNode
 }
 async function loadPreline() {
   return import('preline/dist/index.js')
 }
-
+const queryClient = new QueryClient()
 const ServiceProvider = ({ children }: ServiceProviderProps) => {
   const location = useLocation()
 
@@ -26,8 +27,10 @@ const ServiceProvider = ({ children }: ServiceProviderProps) => {
 
   return (
     <>
-      {children}
-      <Toaster />
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <Toaster />
+      </QueryClientProvider>
     </>
   )
 }

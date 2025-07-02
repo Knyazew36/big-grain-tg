@@ -8,42 +8,40 @@ import { useEffect } from 'react'
 
 import { eventEmitter } from './eventEmitter'
 import { ErrorEventEmitter } from './type'
-import { useRouter } from 'next/navigation'
 import { logout } from '@/features/logout/model/logout'
 
 export const useErrorHandler = () => {
-	// const navigate = useNavigate()
-	// const logout = useLogout()
-	// const { setModal, setModalPayment } = useAppStore()
+  // const navigate = useNavigate()
+  // const logout = useLogout()
+  // const { setModal, setModalPayment } = useAppStore()
 
-	const router = useRouter()
+  // const router = useRouter()
 
-	useEffect(() => {
-		eventEmitter.on('request-error', handleRequestError)
-		return () => {
-			eventEmitter.off('request-error', handleRequestError)
-		}
-	}, [])
+  useEffect(() => {
+    eventEmitter.on('request-error', handleRequestError)
+    return () => {
+      eventEmitter.off('request-error', handleRequestError)
+    }
+  }, [])
 
-	const handleRequestError = (error: ErrorEventEmitter) => {
-		if (error.action === 'modal') {
-			// setModal({
-			// 	isActive: true,
-			// 	title: error.message,
-			// 	isNavigateBackOnClick: error.isNavigateBackOnClick
-			// })
-		}
-		if (error.action === 'logout') {
-			logout()
-			router.push('/auth/login')
-		}
-		if (error.action === 'navigation' && error.href) {
-			router.push(error.href)
-
-			// navigate(error.href)
-		}
-		if (error.action === 'pay-modal') {
-			// setModalPayment(true)
-		}
-	}
+  const handleRequestError = (error: ErrorEventEmitter) => {
+    if (error.action === 'modal') {
+      // setModal({
+      // 	isActive: true,
+      // 	title: error.message,
+      // 	isNavigateBackOnClick: error.isNavigateBackOnClick
+      // })
+    }
+    if (error.action === 'logout') {
+      logout()
+      // router.push('/auth/login')
+    }
+    if (error.action === 'navigation' && error.href) {
+      // router.push(error.href)
+      // navigate(error.href)
+    }
+    if (error.action === 'pay-modal') {
+      // setModalPayment(true)
+    }
+  }
 }

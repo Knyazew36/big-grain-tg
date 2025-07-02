@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Bounce, toast } from 'react-toastify'
 
-const ButtonAction = () => {
+interface IProps {
+  onSuccessClick: () => void
+  onCancelClick: () => void
+}
+const ButtonAction: FC<IProps> = ({ onSuccessClick }) => {
   const onClick = () => {
     toast.success('Сохранено', {
       position: 'top-center',
@@ -17,7 +21,7 @@ const ButtonAction = () => {
   }
   return (
     <>
-      <div className='fixed bottom-0 start-1/2 -translate-x-1/2 p-6 z-50 w-full max-w-md mx-auto hs-removing:translate-y-5 hs-removing:opacity-0 transition duration-300'>
+      <div className='sticky left-0 right-0 bottom-0  p-6 z-50 w-full max-w-md mx-auto hs-removing:translate-y-5 hs-removing:opacity-0 transition duration-300'>
         <div className='py-2 ps-5 pe-2 bg-stone-800 rounded-full shadow-md dark:bg-neutral-950'>
           <div className='flex justify-between items-center gap-x-3'>
             <a
@@ -32,14 +36,14 @@ const ButtonAction = () => {
                 className='text-stone-300 decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-neutral-400'
                 href='#'
               >
-                Cancel
+                Отмена
               </a>
               <div className='w-px h-4 bg-stone-700 dark:bg-neutral-700'></div>
               <button
-                onClick={onClick}
+                onClick={onSuccessClick}
                 className='text-green-400 decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-green-500'
               >
-                Save changes
+                Сохранить
               </button>
 
               {/* Close Button */}
