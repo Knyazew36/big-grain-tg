@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { hideBackButton, onBackButtonClick, showBackButton } from '@telegram-apps/sdk-react'
+import { hapticFeedback, hideBackButton, onBackButtonClick, showBackButton } from '@telegram-apps/sdk-react'
 import { type PropsWithChildren, useEffect } from 'react'
 
 export function Page({
@@ -17,6 +17,7 @@ export function Page({
     if (back) {
       showBackButton()
       return onBackButtonClick(() => {
+        hapticFeedback.impactOccurred('rigid')
         navigate(-1)
       })
     }
