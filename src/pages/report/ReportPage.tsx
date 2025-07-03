@@ -13,7 +13,7 @@ import { useProducts } from '@/entitites/product/api/product.api'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 const ReportPage = () => {
   const navigate = useNavigate()
-  const { data = [], isLoading, refetch } = useProducts(true)
+  const { data = [], isLoading } = useProducts(true)
   const { open } = useBottomSheetStore()
 
   const [searchTerm, setSearchTerm] = useState('')
@@ -49,16 +49,14 @@ const ReportPage = () => {
           consumed: Number(consumed)
         }))
     }
-    console.log('Отправка данных:', payload)
-
-    await shiftCreate(payload.consumptions)
-    open({
-      isOpen: true,
-      description: 'Отчет успешно отправлен',
-      onClose: () => {
-        navigate(-1)
-      }
-    })
+    try {
+      await shiftCreate(payload.consumptions)
+      open({
+        isOpen: true,
+        description: 'Отчет успешно отправлен'
+      })
+      navigate(-1)
+    } catch (error) {}
   }
 
   if (isLoading) {

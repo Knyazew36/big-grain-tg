@@ -1,3 +1,5 @@
+import { Product } from '@/entitites/product/model/product.type'
+
 export interface CreateReceiptDto {
   productId: number
   quantity: number
@@ -12,11 +14,7 @@ export interface Receipt {
 }
 
 export interface StatisticsProduct {
-  product: {
-    id: number
-    name: string
-    // другие поля продукта
-  } | null
+  product: Product | null
   quantity: number
 }
 

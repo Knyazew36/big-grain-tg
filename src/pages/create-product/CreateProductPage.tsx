@@ -32,7 +32,7 @@ const CreateProductPage = () => {
     try {
       await createProduct({
         name: data.name,
-        quantity: 0,
+        quantity: data.quantity || 0,
         minThreshold: data.minThreshold,
         unit: data.unit
       })
