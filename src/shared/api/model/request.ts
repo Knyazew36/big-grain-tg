@@ -17,9 +17,7 @@ const isProduction = false
 const $api = axios.create({
   withCredentials: true,
   headers: {
-    // Authorization: `tma ${initDataRaw}`
-    Authorization:
-      'tma user=%7B%22id%22%3A239676985%2C%22first_name%22%3A%22%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%22%2C%22last_name%22%3A%22%D0%9A%D0%BD%D1%8F%D0%B7%D0%B5%D0%B2%22%2C%22username%22%3A%22Knyaz_sv%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FdVwpqY8rwKcDgyKCeVKKd95SfUDZ89Fhpw-zbGDB6Rg.svg%22%7D&chat_instance=1241933813281428270&chat_type=private&auth_date=1751548199&signature=Gfjtl1_MpDU0mt92mRG533fPClAVzkoPxnwf9l_R6AS8IDqgkIhuLLLy7N5YTRSYRr2ly_oqDC2mRqbsAidgAA&hash=698b78be17404fbe0e13c95e23db5aaa6b7af23b688d17704b9b66d8ad0cfd2b'
+    Authorization: `tma ${initDataRaw}`
   }
 })
 
