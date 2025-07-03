@@ -1,13 +1,22 @@
 import { Page } from '@/components/Page'
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
 import Confirmation from '@/widgets/confirmation/Confirmation'
+import { loginWithTelegram } from '@/entitites/auth/login.api'
+import { isTMA, retrieveRawInitData } from '@telegram-apps/sdk-react'
 
 const MenuPage: FC = () => {
+  const initDataRaw = isTMA() ? retrieveRawInitData() : ''
+
+  useEffect(() => {
+    if (initDataRaw) {
+      loginWithTelegram(initDataRaw)
+    }
+  }, [])
   return (
-    <Page>
+    <Page back={false}>
       <div className='flex flex-col flex-1 pt-4'>
         {/* <h1 className='text-xl font-semibold text-center mb-8'>Здравствуйте, Сергей</h1>
         Grid */}
@@ -206,9 +215,9 @@ const MenuPage: FC = () => {
           {/* End Card */}
 
           {/* Card */}
-          <a
+          <Link
+            to={'/incoming'}
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            href='canvas.html'
           >
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-yellow-50 text-white rounded-2xl dark:bg-yellow-800/30'>
@@ -236,7 +245,7 @@ const MenuPage: FC = () => {
                 Создать приход
               </p>
             </div>
-          </a>
+          </Link>
           {/* End Card */}
         </div>
         {/* End Grid */}

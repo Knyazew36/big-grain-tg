@@ -6,10 +6,12 @@ import { productGetAll } from '@/entitites/product/api/product.api'
 import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
 import ProductsCardChange from '../products/card/ProductsCardChange'
+import { shiftCreate } from '@/entitites/shift/api/shift.api'
 const ReportPage = () => {
   const [data, setData] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const [consumptions, setConsumptions] = useState<{ [productId: number]: number }>({})
 
   const getData = async () => {
     try {
@@ -36,7 +38,37 @@ const ReportPage = () => {
     return data.filter(item => item.name.toLowerCase().includes(term))
   }, [data, searchTerm])
 
-  const onSubmit = async () => {}
+  const handleConsumptionChange = (productId: number, value: number) => {
+    const product = data.find(p => p.id === productId)
+    if (!product) return
+    const validatedValue = Math.max(0, Math.min(value, product.quantity))
+    setConsumptions(prev => ({ ...prev, [productId]: validatedValue }))
+  }
+
+  const handleCancel = () => {
+    const reset: { [productId: number]: number } = {}
+    data.forEach(product => {
+      reset[product.id] = 0
+    })
+    setConsumptions(reset)
+  }
+
+  const onSubmit = async () => {
+    const payload = {
+      consumptions: Object.entries(consumptions)
+        .filter(([_, consumed]) => consumed > 0)
+        .map(([productId, consumed]) => ({
+          productId: Number(productId),
+          consumed: Number(consumed)
+        }))
+    }
+    console.log('Отправка данных:', payload)
+
+    await shiftCreate(payload.consumptions)
+    await getData()
+    handleCancel()
+    // TODO: здесь вызвать API для отправки payload
+  }
 
   if (isLoading) {
     return <Spinner />
@@ -58,10 +90,12 @@ const ReportPage = () => {
           {filteredData.length > 0 ? (
             filteredData.map(card => (
               <ProductsCardChange
-                value={1}
-                onChange={value => console.log(value)}
+                value={consumptions[card.id] || 0}
+                onChange={value => handleConsumptionChange(card.id, value)}
                 key={card.id}
                 data={card}
+                min={0}
+                max={card.quantity}
               />
             ))
           ) : (
@@ -71,7 +105,7 @@ const ReportPage = () => {
 
         <ButtonAction
           onSuccessClick={onSubmit}
-          onCancelClick={() => {}}
+          onCancelClick={handleCancel}
         />
       </div>
     </Page>

@@ -9,9 +9,11 @@ export interface IProductsCard {
   onChange: (value: number) => void
   data: Product
   withDelete?: boolean
+  min?: number
+  max?: number
 }
 
-const ProductsCardChange: FC<IProductsCard> = ({ data, withDelete, onChange, value }) => {
+const ProductsCardChange: FC<IProductsCard> = ({ data, withDelete, onChange, value, min, max }) => {
   return (
     <div
       className={clsx(
@@ -47,6 +49,8 @@ const ProductsCardChange: FC<IProductsCard> = ({ data, withDelete, onChange, val
           <InputNumber
             onChange={onChange}
             value={value}
+            min={min}
+            max={max}
           />
         </div>
       </div>

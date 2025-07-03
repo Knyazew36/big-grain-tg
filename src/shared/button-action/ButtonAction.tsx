@@ -21,15 +21,15 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick }) => {
   }
   return (
     <>
-      <div className='sticky left-0 right-0 bottom-0  p-6 z-50 w-full max-w-md mx-auto hs-removing:translate-y-5 hs-removing:opacity-0 transition duration-300'>
+      <div className='sticky left-0 right-0 bottom-0 w-max  p-6 z-50  max-w-md mx-auto hs-removing:translate-y-5 hs-removing:opacity-0 transition duration-300'>
         <div className='py-2 ps-5 pe-2 bg-stone-800 rounded-full shadow-md dark:bg-neutral-950'>
           <div className='flex justify-between items-center gap-x-3'>
-            <a
+            {/* <a
               className='text-red-400 decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-red-500'
               href='#'
             >
               Delete
-            </a>
+            </a> */}
 
             <div className='inline-flex items-center gap-x-2'>
               <a
