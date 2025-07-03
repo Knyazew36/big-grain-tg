@@ -5,6 +5,7 @@ import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 import ProductsCard from '../products/card/ProductsCard'
+import ProductsCardChange from '../products/card/ProductsCardChange'
 
 export const ProductsDeletePage = () => {
   const [data, setData] = useState<Product[]>([])
@@ -14,7 +15,7 @@ export const ProductsDeletePage = () => {
   const getData = async () => {
     try {
       setIsLoading(true)
-      const res = await productGetAll()
+      const res = await productGetAll({ onlyActive: false })
       if (res) {
         setData(res)
       }
@@ -60,7 +61,8 @@ export const ProductsDeletePage = () => {
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8'>
           {filteredData.length > 0 ? (
             filteredData.map(card => (
-              <ProductsCard
+              <ProductsCardChange
+                withSwitch
                 withDelete
                 key={card.id}
                 data={card}

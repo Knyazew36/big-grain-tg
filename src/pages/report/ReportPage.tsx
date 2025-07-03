@@ -17,7 +17,7 @@ const ReportPage = () => {
   const getData = async () => {
     try {
       setIsLoading(true)
-      const res = await productGetAll()
+      const res = await productGetAll({ onlyActive: true })
       if (res) {
         setData(res)
       }
@@ -94,6 +94,7 @@ const ReportPage = () => {
               <ProductsCardChange
                 value={consumptions[card.id] || 0}
                 onChange={value => handleConsumptionChange(card.id, value)}
+                withInputNumber
                 key={card.id}
                 data={card}
                 min={0}

@@ -18,7 +18,7 @@ export const ProductsPage = () => {
   const getData = async () => {
     try {
       setIsLoading(true)
-      const res = await productGetAll()
+      const res = await productGetAll({ onlyActive: true })
       if (res) {
         setData(res)
       }

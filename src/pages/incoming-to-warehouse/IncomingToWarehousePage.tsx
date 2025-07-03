@@ -6,8 +6,11 @@ import { productGetAll } from '@/entitites/product/api/product.api'
 import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
 import { receiptCreate } from '@/entitites/receipt/api/receipt.api'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
+import { useNavigate } from 'react-router-dom'
 
 const IncomingToWarehousePage = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
@@ -16,7 +19,7 @@ const IncomingToWarehousePage = () => {
   const getData = async () => {
     try {
       setIsLoading(true)
-      const res = await productGetAll()
+      const res = await productGetAll({ onlyActive: true })
       if (res) {
         setData(res)
       }
@@ -59,10 +62,14 @@ const IncomingToWarehousePage = () => {
         quantity: Number(quantity)
       }))
     for (const dto of payload) {
-      await receiptCreate(dto)
+      try {
+        await receiptCreate(dto)
+        hapticFeedback.notificationOccurred('success')
+        navigate(-1)
+      } catch (error) {
+        hapticFeedback.notificationOccurred('error')
+      }
     }
-    await getData()
-    handleCancel()
   }
 
   if (isLoading) {
@@ -87,6 +94,7 @@ const IncomingToWarehousePage = () => {
               <ProductsCardChange
                 value={arrivals[card.id] || 0}
                 onChange={value => handleArrivalChange(card.id, value)}
+                withInputNumber
                 key={card.id}
                 data={card}
                 min={0}

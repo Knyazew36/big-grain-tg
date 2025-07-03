@@ -8,7 +8,7 @@ const AlertProductLowStock = () => {
   const [lowStockProducts, setLowStockProducts] = useState<Product[]>([])
 
   const getLowStockProducts = async () => {
-    const allProducts = await productGetAll()
+    const allProducts = await productGetAll({ onlyActive: true })
     const lowStock = allProducts.filter(p => p.quantity < p.minThreshold)
     setLowStockProducts(lowStock)
   }

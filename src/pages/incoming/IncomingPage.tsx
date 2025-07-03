@@ -16,7 +16,7 @@ const IncomingPage = () => {
   const getData = async () => {
     try {
       setIsLoading(true)
-      const res = await productGetAll()
+      const res = await productGetAll({})
       if (res) {
         setData(res)
       }

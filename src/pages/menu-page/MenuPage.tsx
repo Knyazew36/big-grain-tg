@@ -263,7 +263,7 @@ const MenuPage: FC = () => {
           {/* End Card */}
 
           {/* Card */}
-          <Link
+          {/* <Link
             to={'/incoming'}
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             onClick={() => hapticFeedback.impactOccurred('rigid')}
@@ -294,7 +294,7 @@ const MenuPage: FC = () => {
                 Создать приход
               </p>
             </div>
-          </Link>
+          </Link> */}
           <Link
             to={'/incoming'}
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'

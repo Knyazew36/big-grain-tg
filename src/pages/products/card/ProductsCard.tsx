@@ -12,11 +12,10 @@ export interface IProductsCard {
   // ed: string
 
   data: Product
-  withDelete?: boolean
   variant?: 'default' | 'change'
 }
 
-const ProductsCard: FC<IProductsCard> = ({ data, withDelete, variant = 'default' }) => {
+const ProductsCard: FC<IProductsCard> = ({ data, variant = 'default' }) => {
   return (
     <div
       className={clsx(
@@ -24,17 +23,6 @@ const ProductsCard: FC<IProductsCard> = ({ data, withDelete, variant = 'default'
         data.quantity < data.minThreshold && '!border-red-500'
       )}
     >
-      {withDelete && (
-        <div>
-          <ProductDelete
-            productId={data.id}
-            onSuccess={() => {
-              window.location.reload()
-            }}
-          />
-        </div>
-      )}
-
       <div className='inline-flex justify-center items-center'>
         <span className={clsx('size-2 inline-block  rounded-full me-2', data.quantity < data.minThreshold ? 'bg-red-500' : 'bg-gray-500')} />
         <span className='text-xs font-semibold uppercase text-gray-600 dark:text-white'>{data.name}</span>

@@ -33,7 +33,7 @@ const SettingsPage = () => {
           </div>
           <div className='text-center mt-auto'>
             <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-              Удалить продукт
+              Редактировать товары
             </p>
           </div>
         </Link>

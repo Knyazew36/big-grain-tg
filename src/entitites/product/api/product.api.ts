@@ -9,6 +9,7 @@ interface CreateProductDto {
   minThreshold: number
   unit?: string
   category?: string
+  active?: boolean
 }
 
 type UpdateProductDto = Partial<CreateProductDto>
@@ -16,9 +17,10 @@ type UpdateProductDto = Partial<CreateProductDto>
 /**
  * Получить все товары
  */
-export const productGetAll = async (): Promise<Product[]> => {
+export const productGetAll = async ({ onlyActive }: { onlyActive?: boolean }): Promise<Product[]> => {
   try {
-    const response: AxiosResponse<BaseResponse<Product[]>> = await $api.get(`${apiDomain}/products`)
+    const params = onlyActive !== undefined ? { onlyActive } : undefined
+    const response: AxiosResponse<BaseResponse<Product[]>> = await $api.get(`${apiDomain}/products`, { params })
     return response.data.data
   } catch (error: any) {
     const message = error?.response?.data?.message || 'Ошибка загрузки товаров'
@@ -57,7 +59,7 @@ export const productCreate = async (dto: CreateProductDto): Promise<Product> => 
  */
 export const productUpdate = async ({ id, dto }: { id: number; dto: UpdateProductDto }): Promise<Product> => {
   try {
-    const response: AxiosResponse<BaseResponse<Product>> = await $api.patch(`${apiDomain}/products/${id}`, dto)
+    const response: AxiosResponse<BaseResponse<Product>> = await $api.post(`${apiDomain}/products/update/${id}`, dto)
     return response.data.data
   } catch (error: any) {
     const message = error?.response?.data?.message || 'Ошибка обновления товара'

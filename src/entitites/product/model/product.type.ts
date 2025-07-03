@@ -7,4 +7,5 @@ export interface Product {
   category: string | null
   createdAt: Date
   updatedAt: Date
+  active: boolean
 }

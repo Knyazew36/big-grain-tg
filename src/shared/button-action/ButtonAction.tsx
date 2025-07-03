@@ -4,8 +4,8 @@ import { Bounce, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 
 interface IProps {
-  onSuccessClick: () => void
-  onCancelClick: () => void
+  onSuccessClick?: () => void
+  onCancelClick?: () => void
 }
 const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick }) => {
   const navigate = useNavigate()

@@ -11,6 +11,7 @@ import SettingsPage from '@/pages/seittings/SettingsPage'
 import IncomingPage from '@/pages/incoming/IncomingPage'
 import IncomingToWarehousePage from '@/pages/incoming-to-warehouse/IncomingToWarehousePage'
 import { ProductsDeletePage } from '@/pages/products-delete/ProductsDeletePage'
+import CreateProductPage from '@/pages/create-product/CreateProductPage'
 
 interface Route {
   path: string
@@ -24,6 +25,7 @@ export const routes: Route[] = [
 
   { path: '/products', Component: ProductsPage, title: 'Init Data' },
   { path: '/products-delete', Component: ProductsDeletePage, title: 'Init Data' },
+  { path: '/create-product', Component: CreateProductPage, title: 'Init Data' },
   { path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/report', Component: ReportPage, title: 'Init Data' },
   { path: '/incoming-to-warehouse', Component: IncomingToWarehousePage, title: 'Incoming to warehouse' },
