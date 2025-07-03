@@ -15,9 +15,11 @@ export interface IProductsCard {
   withInputNumber?: boolean
   min?: number
   max?: number
+  isActive?: boolean
+  onChangeCallback?: () => void
 }
 
-const ProductsCardChange: FC<IProductsCard> = ({ data, withDelete, withInputNumber, onChange, value, min, max, withSwitch }) => {
+const ProductsCardChange: FC<IProductsCard> = ({ data, isActive, onChangeCallback, withDelete, withInputNumber, onChange, value, min, max, withSwitch }) => {
   const onSwitchChange = async () => {
     await productUpdate({
       id: data.id,
@@ -25,13 +27,15 @@ const ProductsCardChange: FC<IProductsCard> = ({ data, withDelete, withInputNumb
         active: !data.active
       }
     })
+    onChangeCallback?.()
   }
 
   return (
     <div
       className={clsx(
         'flex flex-col gap-y-3 lg:gap-y-5 p-4 md:p-5 bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800',
-        data.quantity < data.minThreshold && '!border-red-500'
+        data.quantity < data.minThreshold && '!border-red-500',
+        !isActive && 'opacity-50 '
       )}
     >
       <div className='flex justify-between items-center'>

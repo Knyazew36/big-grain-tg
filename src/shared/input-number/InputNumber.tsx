@@ -1,4 +1,5 @@
 // src/shared/input-number/InputNumber.tsx
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 import React from 'react'
 
 export interface InputNumberProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
@@ -19,12 +20,14 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
     const next = value - step
     if (min !== undefined && next < min) return
     onChange(next)
+    hapticFeedback.impactOccurred('light')
   }
 
   const handleIncrement = () => {
     const next = value + step
     if (max !== undefined && next > max) return
     onChange(next)
+    hapticFeedback.impactOccurred('light')
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

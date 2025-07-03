@@ -66,6 +66,8 @@ export const ProductsDeletePage = () => {
                 withDelete
                 key={card.id}
                 data={card}
+                isActive={card.active}
+                onChangeCallback={getData}
               />
             ))
           ) : (

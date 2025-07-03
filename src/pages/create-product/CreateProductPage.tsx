@@ -47,7 +47,7 @@ const CreateProductPage = () => {
         <div className='bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-800 dark:border-neutral-700'>
           {/* Header */}
           <div className='py-2.5 px-4 flex justify-between items-center border-b border-gray-200 dark:border-neutral-700'>
-            <h3 className='font-medium text-gray-800 dark:text-neutral-200'>Добавить продукт</h3>
+            <h3 className='font-medium text-gray-800 dark:text-neutral-200'>Создать продукт</h3>
           </div>
           {/* End Header */}
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -100,10 +100,10 @@ const CreateProductPage = () => {
           </form>
         </div>
         <ButtonAction
-          onSuccessClick={() => {
-            handleSubmit(onSubmit)
+          onSuccessClick={handleSubmit(onSubmit)}
+          onCancelClick={() => {
+            reset()
           }}
-          onCancelClick={() => navigate(-1)}
         />
         {/* End Add Card Form */}
       </>

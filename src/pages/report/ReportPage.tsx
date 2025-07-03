@@ -8,7 +8,9 @@ import Spinner from '@/shared/spinner/Spinner'
 import ProductsCardChange from '../products/card/ProductsCardChange'
 import { shiftCreate } from '@/entitites/shift/api/shift.api'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
+import { useNavigate } from 'react-router-dom'
 const ReportPage = () => {
+  const navigate = useNavigate()
   const [data, setData] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
@@ -68,8 +70,7 @@ const ReportPage = () => {
     await shiftCreate(payload.consumptions)
     await getData()
     hapticFeedback.notificationOccurred('success')
-    handleCancel()
-    // TODO: здесь вызвать API для отправки payload
+    navigate(-1)
   }
 
   if (isLoading) {

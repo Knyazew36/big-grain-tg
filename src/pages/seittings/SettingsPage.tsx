@@ -2,6 +2,7 @@ import { Page } from '@/components/Page'
 import React from 'react'
 import ProductCreate from '../products/create/ProductCreate'
 import { Link } from 'react-router-dom'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 
 const SettingsPage = () => {
   return (
@@ -9,6 +10,7 @@ const SettingsPage = () => {
       <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-2 lg:gap-4 mt-8'>
         <ProductCreate />
         <Link
+          onClick={() => hapticFeedback.impactOccurred('rigid')}
           to={'/products-delete'}
           className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700 '
         >
