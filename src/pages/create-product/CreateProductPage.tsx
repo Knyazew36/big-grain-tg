@@ -3,15 +3,17 @@ import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import InputNumber from '@/shared/input-number/InputNumber'
 import { useNavigate } from 'react-router-dom'
-import { hapticFeedback } from '@telegram-apps/sdk-react'
+import { hapticFeedback, showPopupError } from '@telegram-apps/sdk-react'
 import ButtonAction from '@/shared/button-action/ButtonAction'
 import { useCreateProduct } from '@/entitites/product/api/product.api'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
+import { Modal } from '@telegram-apps/telegram-ui'
 
 type FormValues = {
   name: string
   minThreshold: number
   unit: string
+  quantity: number
 }
 const CreateProductPage = () => {
   const navigate = useNavigate()
@@ -25,10 +27,10 @@ const CreateProductPage = () => {
   } = useForm<FormValues>({
     defaultValues: { name: '', minThreshold: 0 }
   })
-  const { mutate: createProduct } = useCreateProduct()
+  const { mutateAsync: createProduct } = useCreateProduct()
   const onSubmit = async (data: FormValues) => {
     try {
-      createProduct({
+      await createProduct({
         name: data.name,
         quantity: 0,
         minThreshold: data.minThreshold,
@@ -39,11 +41,10 @@ const CreateProductPage = () => {
         isOpen: true,
         description: 'Товар успешно создан'
       })
-
-      navigate(-1)
+      reset()
     } catch (e: any) {
       hapticFeedback.notificationOccurred('error')
-      alert(e.message || 'Ошибка при создании товара')
+      reset()
     }
   }
   return (
@@ -72,12 +73,11 @@ const CreateProductPage = () => {
               </label>
 
               <label>
-                <div className='block mb-2 text-sm font-medium text-gray-800 dark:text-white'>Минимальный остаток</div>
+                <div className='block mb-2 text-sm font-medium text-gray-800 dark:text-white'>Сейчас на складе</div>
                 <Controller
                   control={control}
-                  name='minThreshold'
+                  name='quantity'
                   rules={{
-                    required: 'Мин. остаток обязателен',
                     min: { value: 0, message: 'Не может быть меньше 0' }
                   }}
                   render={({ field }) => (
@@ -100,6 +100,23 @@ const CreateProductPage = () => {
                   placeholder='Товар'
                 />
                 {errors.unit && <p className='mt-1 text-xs text-red-500'>{errors.unit.message}</p>}
+              </label>
+              <label>
+                <div className='block mb-2 text-sm font-medium text-gray-800 dark:text-white'>Минимальный остаток</div>
+                <Controller
+                  control={control}
+                  name='minThreshold'
+                  rules={{
+                    required: 'Мин. остаток обязателен',
+                    min: { value: 0, message: 'Не может быть меньше 0' }
+                  }}
+                  render={({ field }) => (
+                    <div className='bg-white border border-gray-200 rounded-lg dark:bg-neutral-700 dark:border-neutral-700'>
+                      <InputNumber {...field} />
+                    </div>
+                  )}
+                />
+                {errors.minThreshold && <p className='mt-1 text-xs text-red-500'>{errors.minThreshold.message}</p>}
               </label>
             </div>
             {/* End Body */}

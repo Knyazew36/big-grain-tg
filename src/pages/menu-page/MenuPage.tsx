@@ -296,7 +296,7 @@ const MenuPage: FC = () => {
             </div>
           </Link> */}
           <Link
-            to={'/incoming'}
+            to={'/incoming-statistics'}
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             onClick={() => hapticFeedback.impactOccurred('rigid')}
           >

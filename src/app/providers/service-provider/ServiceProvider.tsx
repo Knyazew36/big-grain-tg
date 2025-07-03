@@ -32,7 +32,7 @@ const ServiceProvider = ({ children }: ServiceProviderProps) => {
     <>
       <QueryClientProvider client={queryClient}>
         {children}
-        {/* <Toaster /> */}
+        <Toaster />
         <BottomSheetSuccess
           isOpen={isOpen}
           onClose={close}

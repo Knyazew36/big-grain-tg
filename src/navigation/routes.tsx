@@ -12,6 +12,7 @@ import IncomingPage from '@/pages/incoming/IncomingPage'
 import IncomingToWarehousePage from '@/pages/incoming-to-warehouse/IncomingToWarehousePage'
 import { ProductsDeletePage } from '@/pages/products-delete/ProductsDeletePage'
 import CreateProductPage from '@/pages/create-product/CreateProductPage'
+import IncomingStatistics from '@/pages/incoming-statistics/IncomingStatistics'
 
 interface Route {
   path: string
@@ -30,6 +31,7 @@ export const routes: Route[] = [
   { path: '/report', Component: ReportPage, title: 'Init Data' },
   { path: '/incoming-to-warehouse', Component: IncomingToWarehousePage, title: 'Incoming to warehouse' },
   { path: '/incoming', Component: IncomingPage, title: 'Incoming' },
+  { path: '/incoming-statistics', Component: IncomingStatistics, title: 'Incoming Statistics' },
   { path: '/settings', Component: SettingsPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
   { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },
