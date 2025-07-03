@@ -23,5 +23,5 @@ export function Page({
     hideBackButton()
   }, [back])
 
-  return <div className='dark:bg-neutral-800 bg-white h-full p-2'>{children}</div>
+  return <div className=' h-full p-2'>{children}</div>
 }

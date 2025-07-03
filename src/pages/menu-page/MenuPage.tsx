@@ -5,7 +5,8 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
 import Confirmation from '@/widgets/confirmation/Confirmation'
 import { loginWithTelegram } from '@/entitites/auth/login.api'
-import { isTMA, retrieveRawInitData } from '@telegram-apps/sdk-react'
+import { hapticFeedback, isTMA, retrieveRawInitData } from '@telegram-apps/sdk-react'
+import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 
 const MenuPage: FC = () => {
   const initDataRaw = isTMA() ? retrieveRawInitData() : ''
@@ -21,26 +22,13 @@ const MenuPage: FC = () => {
         {/* <h1 className='text-xl font-semibold text-center mb-8'>Здравствуйте, Сергей</h1>
         Grid */}
 
-        {/* <Alert
-          variant='default'
-          className='mt-4 border-green-400'
-        >
-          <LucideMailWarning />
-          <AlertTitle>Поступление на склад</AlertTitle>
-          <AlertDescription>Поступление на склад 80 поддонов</AlertDescription>
-        </Alert> */}
-        <Confirmation />
-        <Alert
-          variant='destructive'
-          className='mt-4'
-        >
-          <LucideMailWarning />
-          <AlertTitle>Внимание!</AlertTitle>
-          <AlertDescription>На складе заканичвается чечевица</AlertDescription>
-        </Alert>
+        {/* <Confirmation /> */}
+
+        <AlertProductLowStock />
 
         <Link
-          className='p-4 group mt-4 flex flex-col bg-pink-50 rounded-xl focus:outline-hidden dark:bg-pink-800/20'
+          className='p-4 group mt-4 flex flex-col bg-pink-50 rounded-xl focus:outline-hidden dark:bg-pink-800/40'
+          onClick={() => hapticFeedback.impactOccurred('rigid')}
           to={'/report'}
         >
           <div className='mb-4 flex flex-col justify-center items-center h-full'>
@@ -138,6 +126,7 @@ const MenuPage: FC = () => {
           <Link
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             to={'/settings'}
+            onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-teal-50 text-white rounded-2xl dark:bg-teal-800/30'>
@@ -169,6 +158,7 @@ const MenuPage: FC = () => {
           <Link
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             to={'/products'}
+            onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-indigo-50 text-white rounded-2xl dark:bg-indigo-800/30'>
@@ -218,6 +208,7 @@ const MenuPage: FC = () => {
           <Link
             to={'/incoming'}
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+            onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-yellow-50 text-white rounded-2xl dark:bg-yellow-800/30'>

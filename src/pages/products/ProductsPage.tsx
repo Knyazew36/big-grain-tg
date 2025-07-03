@@ -8,6 +8,7 @@ import ProductCreate from './create/ProductCreate'
 import { productGetAll } from '@/entitites/product/api/product.api'
 import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
+import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 
 export const ProductsPage = () => {
   const [data, setData] = useState<Product[]>([])
@@ -47,7 +48,7 @@ export const ProductsPage = () => {
     <Page back>
       <div className='max-w-[85rem] py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
         {/* Поиск товара */}
-        <div className='max-w-sm space-y-3'>
+        <div className=' space-y-3'>
           <input
             type='text'
             value={searchTerm}
@@ -57,15 +58,7 @@ export const ProductsPage = () => {
           />
         </div>
 
-        {/* Уведомление о складах */}
-        <Alert
-          variant='destructive'
-          className='mt-4'
-        >
-          <LucideMailWarning />
-          <AlertTitle>Внимание!</AlertTitle>
-          <AlertDescription>На складе заканчивается чечевица</AlertDescription>
-        </Alert>
+        <AlertProductLowStock />
 
         {/* Сетка товаров */}
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8'>
