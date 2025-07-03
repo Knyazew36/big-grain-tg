@@ -7,7 +7,7 @@ import { ErrorResponse } from './type'
 import { toast } from 'sonner'
 // import { json } from 'stream/consumers'
 import React from 'react'
-import { isTMA, mockTelegramEnv, retrieveRawInitData } from '@telegram-apps/sdk'
+import { hapticFeedback, isTMA, mockTelegramEnv, retrieveRawInitData } from '@telegram-apps/sdk'
 
 // const initDataRaw = isTMA()
 //   ? retrieveRawInitData()
@@ -39,6 +39,8 @@ $api.interceptors.request.use(
     return config
   },
   error => {
+    hapticFeedback.notificationOccurred('error')
+
     throw error
   }
 )

@@ -9,6 +9,7 @@ import MenuPage from '@/pages/menu-page/MenuPage'
 import ReportPage from '@/pages/report/ReportPage'
 import SettingsPage from '@/pages/seittings/SettingsPage'
 import IncomingPage from '@/pages/incoming/IncomingPage'
+import IncomingToWarehousePage from '@/pages/incoming-to-warehouse/IncomingToWarehousePage'
 
 interface Route {
   path: string
@@ -23,6 +24,7 @@ export const routes: Route[] = [
   { path: '/products', Component: ProductsPage, title: 'Init Data' },
   { path: '/init-data', Component: InitDataPage, title: 'Init Data' },
   { path: '/report', Component: ReportPage, title: 'Init Data' },
+  { path: '/incoming-to-warehouse', Component: IncomingToWarehousePage, title: 'Incoming to warehouse' },
   { path: '/incoming', Component: IncomingPage, title: 'Incoming' },
   { path: '/settings', Component: SettingsPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },

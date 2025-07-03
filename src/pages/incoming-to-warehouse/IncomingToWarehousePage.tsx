@@ -1,18 +1,17 @@
 import { Page } from '@/components/Page'
 import ButtonAction from '@/shared/button-action/ButtonAction'
 import React, { useEffect, useMemo, useState } from 'react'
-import ProductsCard, { IProductsCard } from '../products/card/ProductsCard'
+import ProductsCardChange from '../products/card/ProductsCardChange'
 import { productGetAll } from '@/entitites/product/api/product.api'
 import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
-import ProductsCardChange from '../products/card/ProductsCardChange'
-import { shiftCreate } from '@/entitites/shift/api/shift.api'
-import { hapticFeedback } from '@telegram-apps/sdk-react'
-const ReportPage = () => {
+import { receiptCreate } from '@/entitites/receipt/api/receipt.api'
+
+const IncomingToWarehousePage = () => {
   const [data, setData] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const [consumptions, setConsumptions] = useState<{ [productId: number]: number }>({})
+  const [arrivals, setArrivals] = useState<{ [productId: number]: number }>({})
 
   const getData = async () => {
     try {
@@ -39,11 +38,9 @@ const ReportPage = () => {
     return data.filter(item => item.name.toLowerCase().includes(term))
   }, [data, searchTerm])
 
-  const handleConsumptionChange = (productId: number, value: number) => {
-    const product = data.find(p => p.id === productId)
-    if (!product) return
-    const validatedValue = Math.max(0, Math.min(value, product.quantity))
-    setConsumptions(prev => ({ ...prev, [productId]: validatedValue }))
+  const handleArrivalChange = (productId: number, value: number) => {
+    const validatedValue = Math.max(0, value)
+    setArrivals(prev => ({ ...prev, [productId]: validatedValue }))
   }
 
   const handleCancel = () => {
@@ -51,25 +48,21 @@ const ReportPage = () => {
     data.forEach(product => {
       reset[product.id] = 0
     })
-    setConsumptions(reset)
+    setArrivals(reset)
   }
 
   const onSubmit = async () => {
-    const payload = {
-      consumptions: Object.entries(consumptions)
-        .filter(([_, consumed]) => consumed > 0)
-        .map(([productId, consumed]) => ({
-          productId: Number(productId),
-          consumed: Number(consumed)
-        }))
+    const payload = Object.entries(arrivals)
+      .filter(([_, quantity]) => quantity > 0)
+      .map(([productId, quantity]) => ({
+        productId: Number(productId),
+        quantity: Number(quantity)
+      }))
+    for (const dto of payload) {
+      await receiptCreate(dto)
     }
-    console.log('Отправка данных:', payload)
-
-    await shiftCreate(payload.consumptions)
     await getData()
-    hapticFeedback.notificationOccurred('success')
     handleCancel()
-    // TODO: здесь вызвать API для отправки payload
   }
 
   if (isLoading) {
@@ -92,12 +85,12 @@ const ReportPage = () => {
           {filteredData.length > 0 ? (
             filteredData.map(card => (
               <ProductsCardChange
-                value={consumptions[card.id] || 0}
-                onChange={value => handleConsumptionChange(card.id, value)}
+                value={arrivals[card.id] || 0}
+                onChange={value => handleArrivalChange(card.id, value)}
                 key={card.id}
                 data={card}
                 min={0}
-                max={card.quantity}
+                max={undefined}
               />
             ))
           ) : (
@@ -114,4 +107,4 @@ const ReportPage = () => {
   )
 }
 
-export default ReportPage
+export default IncomingToWarehousePage
