@@ -1,45 +1,8 @@
 import React, { useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
-import { productCreate } from '@/entitites/product/api/product.api'
 import { Link } from 'react-router-dom'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 
-type FormValues = {
-  name: string
-  minThreshold: number
-}
-
-interface ProductCreateProps {
-  onSuccess?: () => void
-}
-
-const ProductCreate: React.FC<ProductCreateProps> = ({ onSuccess }) => {
-  const [open, setOpen] = useState(false)
-  const {
-    register,
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting }
-  } = useForm<FormValues>({
-    defaultValues: { name: '', minThreshold: 0 }
-  })
-
-  const onSubmit = async (data: FormValues) => {
-    try {
-      await productCreate({
-        name: data.name,
-        quantity: 0,
-        minThreshold: data.minThreshold
-      })
-      reset()
-      setOpen(false)
-      onSuccess?.()
-    } catch (e: any) {
-      alert(e.message || 'Ошибка при создании товара')
-    }
-  }
-
+const ProductCreate: React.FC = () => {
   return (
     <Link
       to={'/create-product'}

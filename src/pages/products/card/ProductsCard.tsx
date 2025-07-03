@@ -2,7 +2,6 @@ import { Product } from '@/entitites/product/model/product.type'
 import InputNumber from '@/shared/input-number/InputNumber'
 import clsx from 'clsx'
 import { FC } from 'react'
-import ProductDelete from '../delete/ProductDelete'
 
 export interface IProductsCard {
   // title: string

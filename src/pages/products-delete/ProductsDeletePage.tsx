@@ -1,35 +1,15 @@
 import { Page } from '@/components/Page'
-import React, { useEffect, useState, useMemo } from 'react'
-import { productGetAll } from '@/entitites/product/api/product.api'
-import { Product } from '@/entitites/product/model/product.type'
+import React, { useMemo, useState } from 'react'
+import { useProducts, useUpdateProduct, useDeleteProduct } from '@/entitites/product/api/product.api'
 import Spinner from '@/shared/spinner/Spinner'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
-import ProductsCard from '../products/card/ProductsCard'
 import ProductsCardChange from '../products/card/ProductsCardChange'
 
 export const ProductsDeletePage = () => {
-  const [data, setData] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
+  const { data = [], isLoading } = useProducts(false)
 
-  const getData = async () => {
-    try {
-      setIsLoading(true)
-      const res = await productGetAll({ onlyActive: false })
-      if (res) {
-        setData(res)
-      }
-    } catch (error: any) {
-      const message = error?.response?.data?.message || 'Ошибка загрузки данных'
-      console.error(message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
+  const { mutate: updateProduct } = useUpdateProduct()
 
   const filteredData = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()
@@ -67,7 +47,7 @@ export const ProductsDeletePage = () => {
                 key={card.id}
                 data={card}
                 isActive={card.active}
-                onChangeCallback={getData}
+                onChangeActive={active => updateProduct({ id: card.id, dto: { active } })}
               />
             ))
           ) : (

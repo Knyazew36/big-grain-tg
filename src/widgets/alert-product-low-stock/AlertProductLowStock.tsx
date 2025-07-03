@@ -1,23 +1,12 @@
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
-import { productGetAll } from '@/entitites/product/api/product.api'
-import { Product } from '@/entitites/product/model/product.type'
+import { useProducts } from '@/entitites/product/api/product.api'
 import { LucideMailWarning } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
 
 const AlertProductLowStock = () => {
-  const [lowStockProducts, setLowStockProducts] = useState<Product[]>([])
+  const { data = [], isLoading } = useProducts(true)
 
-  const getLowStockProducts = async () => {
-    const allProducts = await productGetAll({ onlyActive: true })
-    const lowStock = allProducts.filter(p => p.quantity < p.minThreshold)
-    setLowStockProducts(lowStock)
-  }
-
-  useEffect(() => {
-    getLowStockProducts()
-  }, [])
-
-  if (lowStockProducts.length === 0) return null
+  const lowStockProducts = data.filter(p => p.quantity < p.minThreshold)
+  if (lowStockProducts.length === 0 || isLoading) return null
 
   return (
     <Alert

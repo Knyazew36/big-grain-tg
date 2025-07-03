@@ -2,35 +2,15 @@ import { Page } from '@/components/Page'
 import ButtonAction from '@/shared/button-action/ButtonAction'
 import React, { useEffect, useMemo, useState } from 'react'
 import ProductsCardChange from '../products/card/ProductsCardChange'
-import { productGetAll } from '@/entitites/product/api/product.api'
-import { Product } from '@/entitites/product/model/product.type'
+
 import Spinner from '@/shared/spinner/Spinner'
 import { receiptCreate } from '@/entitites/receipt/api/receipt.api'
+import { useProducts } from '@/entitites/product/api/product.api'
 
 const IncomingPage = () => {
-  const [data, setData] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const { data = [], isLoading, refetch } = useProducts(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [arrivals, setArrivals] = useState<{ [productId: number]: number }>({})
-
-  const getData = async () => {
-    try {
-      setIsLoading(true)
-      const res = await productGetAll({})
-      if (res) {
-        setData(res)
-      }
-    } catch (error: any) {
-      const message = error?.response?.data?.message || 'Ошибка загрузки данных'
-      console.error(message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
 
   const filteredData = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()
@@ -61,8 +41,9 @@ const IncomingPage = () => {
     for (const dto of payload) {
       await receiptCreate(dto)
     }
-    await getData()
+
     handleCancel()
+    refetch()
   }
 
   if (isLoading) {

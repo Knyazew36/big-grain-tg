@@ -2,38 +2,19 @@ import { Page } from '@/components/Page'
 import ButtonAction from '@/shared/button-action/ButtonAction'
 import React, { useEffect, useMemo, useState } from 'react'
 import ProductsCardChange from '../products/card/ProductsCardChange'
-import { productGetAll } from '@/entitites/product/api/product.api'
-import { Product } from '@/entitites/product/model/product.type'
+
 import Spinner from '@/shared/spinner/Spinner'
 import { receiptCreate } from '@/entitites/receipt/api/receipt.api'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import { useNavigate } from 'react-router-dom'
+import { useProducts } from '@/entitites/product/api/product.api'
 
 const IncomingToWarehousePage = () => {
   const navigate = useNavigate()
-  const [data, setData] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const { data = [], isLoading } = useProducts(true)
+
   const [searchTerm, setSearchTerm] = useState('')
   const [arrivals, setArrivals] = useState<{ [productId: number]: number }>({})
-
-  const getData = async () => {
-    try {
-      setIsLoading(true)
-      const res = await productGetAll({ onlyActive: true })
-      if (res) {
-        setData(res)
-      }
-    } catch (error: any) {
-      const message = error?.response?.data?.message || 'Ошибка загрузки данных'
-      console.error(message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
 
   const filteredData = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()

@@ -2,38 +2,22 @@ import { Page } from '@/components/Page'
 import ButtonAction from '@/shared/button-action/ButtonAction'
 import React, { useEffect, useMemo, useState } from 'react'
 import ProductsCard, { IProductsCard } from '../products/card/ProductsCard'
-import { productGetAll } from '@/entitites/product/api/product.api'
+
 import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
 import ProductsCardChange from '../products/card/ProductsCardChange'
 import { shiftCreate } from '@/entitites/shift/api/shift.api'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import { useNavigate } from 'react-router-dom'
+import { useProducts } from '@/entitites/product/api/product.api'
+import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 const ReportPage = () => {
   const navigate = useNavigate()
-  const [data, setData] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const { data = [], isLoading, refetch } = useProducts(true)
+  const { open } = useBottomSheetStore()
+
   const [searchTerm, setSearchTerm] = useState('')
   const [consumptions, setConsumptions] = useState<{ [productId: number]: number }>({})
-
-  const getData = async () => {
-    try {
-      setIsLoading(true)
-      const res = await productGetAll({ onlyActive: true })
-      if (res) {
-        setData(res)
-      }
-    } catch (error: any) {
-      const message = error?.response?.data?.message || 'Ошибка загрузки данных'
-      console.error(message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
 
   const filteredData = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()
@@ -68,9 +52,13 @@ const ReportPage = () => {
     console.log('Отправка данных:', payload)
 
     await shiftCreate(payload.consumptions)
-    await getData()
-    hapticFeedback.notificationOccurred('success')
-    navigate(-1)
+    open({
+      isOpen: true,
+      description: 'Отчет успешно отправлен',
+      onClose: () => {
+        navigate(-1)
+      }
+    })
   }
 
   if (isLoading) {

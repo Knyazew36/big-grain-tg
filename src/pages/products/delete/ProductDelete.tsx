@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Dialog, DialogTrigger, DialogContent, DialogFooter } from '@/components/ui/dialog'
 import { DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { DialogClose } from '@/components/ui/dialog'
-import { productDelete } from '@/entitites/product/api/product.api'
+import { useDeleteProduct } from '@/entitites/product/api/product.api'
 
 interface ProductDeleteProps {
   /** ID удаляемого товара */
@@ -14,18 +14,12 @@ interface ProductDeleteProps {
 const ProductDelete: React.FC<ProductDeleteProps> = ({ productId, onSuccess }) => {
   const [open, setOpen] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+  const { mutate: deleteProduct } = useDeleteProduct()
 
   const handleDelete = async () => {
-    setIsDeleting(true)
-    try {
-      await productDelete({ id: productId })
-      onSuccess?.()
-      setOpen(false)
-    } catch (e: any) {
-      // alert(e.message || 'Ошибка при удалении товара')
-    } finally {
-      setIsDeleting(false)
-    }
+    deleteProduct(productId)
+    onSuccess?.()
+    setOpen(false)
   }
 
   return (

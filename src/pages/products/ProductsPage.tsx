@@ -5,34 +5,16 @@ import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
 import ProductCreate from './create/ProductCreate'
-import { productGetAll } from '@/entitites/product/api/product.api'
+
 import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
+import { useProducts } from '@/entitites/product/api/product.api'
 
 export const ProductsPage = () => {
-  const [data, setData] = useState<Product[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const { data = [], isLoading, refetch } = useProducts(true)
+
   const [searchTerm, setSearchTerm] = useState('')
-
-  const getData = async () => {
-    try {
-      setIsLoading(true)
-      const res = await productGetAll({ onlyActive: true })
-      if (res) {
-        setData(res)
-      }
-    } catch (error: any) {
-      const message = error?.response?.data?.message || 'Ошибка загрузки данных'
-      console.error(message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    getData()
-  }, [])
 
   const filteredData = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()

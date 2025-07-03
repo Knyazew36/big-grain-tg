@@ -1,11 +1,12 @@
 import { Page } from '@/components/Page'
 import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
-import { productCreate } from '@/entitites/product/api/product.api'
 import InputNumber from '@/shared/input-number/InputNumber'
 import { useNavigate } from 'react-router-dom'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import ButtonAction from '@/shared/button-action/ButtonAction'
+import { useCreateProduct } from '@/entitites/product/api/product.api'
+import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 
 type FormValues = {
   name: string
@@ -14,6 +15,7 @@ type FormValues = {
 }
 const CreateProductPage = () => {
   const navigate = useNavigate()
+  const { open } = useBottomSheetStore()
   const {
     register,
     control,
@@ -23,17 +25,21 @@ const CreateProductPage = () => {
   } = useForm<FormValues>({
     defaultValues: { name: '', minThreshold: 0 }
   })
-
+  const { mutate: createProduct } = useCreateProduct()
   const onSubmit = async (data: FormValues) => {
     try {
-      await productCreate({
+      createProduct({
         name: data.name,
         quantity: 0,
         minThreshold: data.minThreshold,
         unit: data.unit
       })
-      hapticFeedback.notificationOccurred('success')
-      reset()
+
+      open({
+        isOpen: true,
+        description: 'Товар успешно создан'
+      })
+
       navigate(-1)
     } catch (e: any) {
       hapticFeedback.notificationOccurred('error')

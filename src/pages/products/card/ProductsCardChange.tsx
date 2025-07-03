@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { FC } from 'react'
 import ProductDelete from '../delete/ProductDelete'
 import { Switch } from '@telegram-apps/telegram-ui'
-import { productUpdate } from '@/entitites/product/api/product.api'
+import { useUpdateProduct } from '@/entitites/product/api/product.api'
 
 export interface IProductsCard {
   value?: number
@@ -17,19 +17,27 @@ export interface IProductsCard {
   max?: number
   isActive?: boolean
   onChangeCallback?: () => void
+  onChangeActive?: (active: boolean) => void
 }
 
-const ProductsCardChange: FC<IProductsCard> = ({ data, isActive, onChangeCallback, withDelete, withInputNumber, onChange, value, min, max, withSwitch }) => {
-  const onSwitchChange = async () => {
-    await productUpdate({
-      id: data.id,
-      dto: {
-        active: !data.active
-      }
-    })
-    onChangeCallback?.()
-  }
+const ProductsCardChange: FC<IProductsCard> = ({
+  data,
+  isActive = true,
+  onChangeCallback,
+  withDelete,
+  withInputNumber,
+  onChange,
+  value,
+  min,
+  max,
+  withSwitch,
+  onChangeActive
+}) => {
+  const { mutate: updateProduct, isPending } = useUpdateProduct()
 
+  const onSwitchChange = () => {
+    updateProduct({ id: data.id, dto: { active: !data.active } })
+  }
   return (
     <div
       className={clsx(
@@ -41,18 +49,14 @@ const ProductsCardChange: FC<IProductsCard> = ({ data, isActive, onChangeCallbac
       <div className='flex justify-between items-center'>
         {withDelete && (
           <div>
-            <ProductDelete
-              productId={data.id}
-              onSuccess={() => {
-                window.location.reload()
-              }}
-            />
+            <ProductDelete productId={data.id} />
           </div>
         )}
 
         {withSwitch && (
           <label className='relative inline-block w-11 h-6 cursor-pointer'>
             <input
+              disabled={isPending}
               type='checkbox'
               className='peer sr-only'
               defaultChecked={data.active}
