@@ -1,16 +1,12 @@
 import { Page } from '@/components/Page'
 import React, { useEffect, useState, useMemo } from 'react'
-import ProductsCard from './card/ProductsCard'
-import { Button } from '@/components/ui/button'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { LucideMailWarning } from 'lucide-react'
-import ProductCreate from './create/ProductCreate'
 import { productGetAll } from '@/entitites/product/api/product.api'
 import { Product } from '@/entitites/product/model/product.type'
 import Spinner from '@/shared/spinner/Spinner'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
+import ProductsCard from '../products/card/ProductsCard'
 
-export const ProductsPage = () => {
+export const ProductsDeletePage = () => {
   const [data, setData] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
@@ -65,6 +61,7 @@ export const ProductsPage = () => {
           {filteredData.length > 0 ? (
             filteredData.map(card => (
               <ProductsCard
+                withDelete
                 key={card.id}
                 data={card}
               />
@@ -72,11 +69,6 @@ export const ProductsPage = () => {
           ) : (
             <p className='col-span-full text-center text-muted-foreground'>Товары не найдены</p>
           )}
-        </div>
-
-        {/* Кнопка создания нового товара */}
-        <div className='mt-8'>
-          <ProductCreate />
         </div>
       </div>
     </Page>

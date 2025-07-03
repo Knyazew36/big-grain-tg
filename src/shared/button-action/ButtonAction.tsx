@@ -1,12 +1,14 @@
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import React, { FC } from 'react'
 import { Bounce, toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 interface IProps {
   onSuccessClick: () => void
   onCancelClick: () => void
 }
 const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick }) => {
+  const navigate = useNavigate()
   return (
     <>
       <div className='sticky left-0 right-0 bottom-0 w-max  p-6 z-50  max-w-md mx-auto hs-removing:translate-y-5 hs-removing:opacity-0 transition duration-300'>
@@ -41,6 +43,10 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick }) => {
 
               {/* Close Button */}
               <button
+                onClick={() => {
+                  navigate(-1)
+                  hapticFeedback.impactOccurred('light')
+                }}
                 type='button'
                 className='size-8 inline-flex justify-center items-center gap-x-2 rounded-full text-stone-400 hover:bg-stone-700 focus:outline-hidden focus:bg-stone-700 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
                 aria-label='Close'

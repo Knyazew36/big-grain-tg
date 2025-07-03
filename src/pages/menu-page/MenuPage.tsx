@@ -295,6 +295,38 @@ const MenuPage: FC = () => {
               </p>
             </div>
           </Link>
+          <Link
+            to={'/incoming'}
+            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+            onClick={() => hapticFeedback.impactOccurred('rigid')}
+          >
+            <div className='mb-4 flex flex-col justify-center items-center h-full'>
+              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-yellow-50 text-white rounded-2xl dark:bg-yellow-800/30'>
+                <svg
+                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-yellow-600 dark:text-yellow-500'
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='24'
+                  height='24'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path d='M16 3h5v5' />
+                  <path d='M8 3H3v5' />
+                  <path d='M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3' />
+                  <path d='m15 9 6-6' />
+                </svg>
+              </span>
+            </div>
+            <div className='text-center mt-auto'>
+              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
+                Отчет
+              </p>
+            </div>
+          </Link>
           {/* End Card */}
         </div>
         {/* End Grid */}

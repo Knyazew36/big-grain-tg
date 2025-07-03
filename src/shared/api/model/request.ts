@@ -9,11 +9,7 @@ import { toast } from 'sonner'
 import React from 'react'
 import { hapticFeedback, isTMA, mockTelegramEnv, retrieveRawInitData } from '@telegram-apps/sdk'
 
-// const initDataRaw = isTMA()
-//   ? retrieveRawInitData()
-//   : 'user=%7B%22id%22%3A239676985%2C%22first_name%22%3A%22%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%22%2C%22last_name%22%3A%22%D0%9A%D0%BD%D1%8F%D0%B7%D0%B5%D0%B2%22%2C%22username%22%3A%22Knyaz_sv%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FdVwpqY8rwKcDgyKCeVKKd95SfUDZ89Fhpw-zbGDB6Rg.svg%22%7D&chat_instance=-6326362476291559594&chat_type=sender&auth_date=1751560308&signature=sI7coxje5lCXJWFcdamZ8aXOVo4FTlIQxcF6FVMtqNCu7NSQSAPsqimCDSsSH5r2WJiAAAGeZjaG30P4qMAjDA&hash=f5ecbd1c9cd4bb81b69fde7928b1655902f96fc18f03ae8ff48064a78cb33703'
-const initDataRaw =
-  'user=%7B%22id%22%3A239676985%2C%22first_name%22%3A%22%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%22%2C%22last_name%22%3A%22%D0%9A%D0%BD%D1%8F%D0%B7%D0%B5%D0%B2%22%2C%22username%22%3A%22Knyaz_sv%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FdVwpqY8rwKcDgyKCeVKKd95SfUDZ89Fhpw-zbGDB6Rg.svg%22%7D&chat_instance=-6326362476291559594&chat_type=sender&auth_date=1751560308&signature=sI7coxje5lCXJWFcdamZ8aXOVo4FTlIQxcF6FVMtqNCu7NSQSAPsqimCDSsSH5r2WJiAAAGeZjaG30P4qMAjDA&hash=f5ecbd1c9cd4bb81b69fde7928b1655902f96fc18f03ae8ff48064a78cb33703'
+const initDataRaw = isTMA() ? retrieveRawInitData() : ''
 
 const isProduction = false
 
