@@ -25,7 +25,7 @@ const CreateProductPage = () => {
     reset,
     formState: { errors, isSubmitting }
   } = useForm<FormValues>({
-    defaultValues: { name: '', minThreshold: 0 }
+    defaultValues: { name: '', minThreshold: 0, quantity: 0, unit: 'ед' }
   })
   const { mutateAsync: createProduct } = useCreateProduct()
   const onSubmit = async (data: FormValues) => {
@@ -33,8 +33,8 @@ const CreateProductPage = () => {
       await createProduct({
         name: data.name,
         quantity: data.quantity || 0,
-        minThreshold: data.minThreshold,
-        unit: data.unit
+        minThreshold: data.minThreshold || 0,
+        unit: data.unit || 'ед'
       })
 
       open({

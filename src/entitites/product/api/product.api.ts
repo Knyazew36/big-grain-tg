@@ -23,7 +23,9 @@ export const useProducts = (onlyActive?: boolean) => {
       const params = onlyActive !== undefined ? { onlyActive } : undefined
       const res = await $api.get(`${apiDomain}/products`, { params })
       return res.data.data
-    }
+    },
+    retry: 3,
+    retryDelay: 5000
   })
 }
 

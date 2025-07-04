@@ -13,6 +13,7 @@ import IncomingToWarehousePage from '@/pages/incoming-to-warehouse/IncomingToWar
 import { ProductsDeletePage } from '@/pages/products-delete/ProductsDeletePage'
 import CreateProductPage from '@/pages/create-product/CreateProductPage'
 import IncomingStatistics from '@/pages/incoming-statistics/IncomingStatistics'
+import AuthPage from '@/pages/auth/AuthPage'
 
 interface Route {
   path: string
@@ -23,7 +24,7 @@ interface Route {
 
 export const routes: Route[] = [
   { path: '/', Component: MenuPage },
-
+  { path: '/auth', Component: AuthPage, title: 'Auth' },
   { path: '/products', Component: ProductsPage, title: 'Init Data' },
   { path: '/products-delete', Component: ProductsDeletePage, title: 'Init Data' },
   { path: '/create-product', Component: CreateProductPage, title: 'Init Data' },
