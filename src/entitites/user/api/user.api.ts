@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { IUser, Role } from '../model/user.type'
 import { apiDomain } from '@/shared/api/model/constants'
 import $api from '@/shared/api/model/request'
+import { useAuthStore } from '@/entitites/auth/model/auth.store'
 
 interface GetUserDto {
   role?: Role
@@ -32,11 +33,17 @@ export const useUsersEmployees = () => {
   })
 }
 export const useUserRole = (id: string) => {
+  const { setRole } = useAuthStore()
+
   return useQuery<Role>({
     queryKey: ['user-role', id],
     queryFn: async () => {
       const res = await $api.get(`${apiDomain}/user/${id}/role`)
-      return res.data.data
+      const role = res.data.user?.role
+      if (role) {
+        setRole(role)
+      }
+      return role
     },
     enabled: !!id
   })

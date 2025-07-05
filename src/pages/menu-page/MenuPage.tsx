@@ -10,13 +10,18 @@ import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProduct
 import Blocked from '@/shared/blocked/ui/Blocked'
 import clsx from 'clsx'
 import { useUserRole } from '@/entitites/user/api/user.api'
+import { useAuthStore } from '@/entitites/auth/model/auth.store'
+import Loader from '@/shared/loader/ui/Loader'
+import { Role } from '@/entitites/user/model/user.type'
 
 const MenuPage: FC = () => {
   const user = initDataUser()
+  const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
 
-  const { data: role } = useUserRole(user?.id?.toString() ?? '')
-  console.info('role', role)
-  console.info('user', user)
+  if (isLoading) {
+    return <Loader />
+  }
+
   return (
     <Page back={false}>
       <div className='flex flex-col flex-1 pt-4'>
@@ -328,11 +333,11 @@ const MenuPage: FC = () => {
             to={'/staff'}
             className={clsx(
               'p-4 group relative overflow-hidden flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700',
-              true && 'opacity-70 !pointer-events-none cursor-not-allowed'
+              role !== Role.ADMIN && 'opacity-70 !pointer-events-none cursor-not-allowed'
             )}
             onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
-            <Blocked title='Администратор' />
+            {role !== Role.ADMIN && <Blocked title='Администратор' />}
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-blue-50 text-white rounded-2xl dark:bg-blue-800/30'>
                 <svg
