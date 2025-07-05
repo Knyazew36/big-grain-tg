@@ -2,11 +2,11 @@ import { AxiosResponse } from 'axios'
 import { $api } from '@/shared/api' // ваш axios instance
 import { apiDomain } from '@/shared/api/model/constants' // ваш базовый url
 import { BaseResponse } from '@/shared/api'
-import { User } from '@/entitites/user/model/user.type'
+import { IUser } from '@/entitites/user/model/user.type'
 import { RequestAccessResponse } from './model/auth.type'
 
 // login через Telegram initData
-export const loginWithTelegram = async (initData: string): Promise<any> => {
+export const loginWithTelegram = async (initData: string): Promise<IUser> => {
   try {
     const response: AxiosResponse<BaseResponse<any>> = await $api.post(`${apiDomain}/auth/login`, { initData })
     return response.data.data

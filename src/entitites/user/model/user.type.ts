@@ -1,13 +1,14 @@
+import { User } from '@telegram-apps/sdk-react'
+
 export enum Role {
   ADMIN = 'ADMIN',
   OPERATOR = 'OPERATOR'
 }
-export interface User {
+export interface IUser {
   id: number
-  username: string | null
   telegramId: string
-  firstName: string | null
-  lastName: string | null
+
   role: Role
+  data: User
   createdAt: Date
 }

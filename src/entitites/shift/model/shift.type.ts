@@ -1,4 +1,4 @@
-import { User } from '@/entitites/user/model/user.type'
+import { IUser } from '@/entitites/user/model/user.type'
 
 export interface ShiftReport {
   id: number
@@ -6,7 +6,7 @@ export interface ShiftReport {
   consumptions: Consumption[]
   createdAt: string
   updatedAt: string
-  User: User
+  User: IUser
 }
 
 export interface Consumption {

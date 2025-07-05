@@ -13,6 +13,7 @@ import { useProducts } from '@/entitites/product/api/product.api'
 import clsx from 'clsx'
 import ProductsTable from './table/ProductsTable'
 import Empty from '@/shared/empty/ui/Empty'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 
 export const ProductsPage = () => {
   const { data = [], isLoading, refetch } = useProducts(true)
@@ -63,7 +64,10 @@ export const ProductsPage = () => {
                 data-hs-tab='#example-tab-preview'
                 aria-controls='example-tab-preview'
                 role='tab'
-                onClick={() => handleViewChange('tile')}
+                onClick={() => {
+                  handleViewChange('tile')
+                  hapticFeedback.selectionChanged()
+                }}
               >
                 Плитка
               </button>
@@ -78,7 +82,10 @@ export const ProductsPage = () => {
                 data-hs-tab='#example-tab-html'
                 aria-controls='example-tab-html'
                 role='tab'
-                onClick={() => handleViewChange('table')}
+                onClick={() => {
+                  handleViewChange('table')
+                  hapticFeedback.selectionChanged()
+                }}
               >
                 Таблица
               </button>
