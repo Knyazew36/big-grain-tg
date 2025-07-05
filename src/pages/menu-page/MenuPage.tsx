@@ -5,17 +5,17 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
 import Confirmation from '@/widgets/confirmation/Confirmation'
 import { loginWithTelegram } from '@/entitites/auth/login.api'
-import { hapticFeedback, isTMA, retrieveRawInitData } from '@telegram-apps/sdk-react'
+import { hapticFeedback, isTMA, retrieveLaunchParams, retrieveRawInitData } from '@telegram-apps/sdk-react'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
+import Blocked from '@/shared/blocked/ui/Blocked'
+import clsx from 'clsx'
+import { useUserRole } from '@/entitites/user/api/user.api'
 
 const MenuPage: FC = () => {
-  // const initDataRaw = isTMA() ? retrieveRawInitData() : ''
+  const { initDataRaw, initData } = retrieveLaunchParams()
 
-  // useEffect(() => {
-  //   if (initDataRaw) {
-  //     loginWithTelegram(initDataRaw)
-  //   }
-  // }, [])
+  console.log('initData', initData)
+  // const { data: role } = useUserRole(initData?.user?.id)
   return (
     <Page back={false}>
       <div className='flex flex-col flex-1 pt-4'>
@@ -291,7 +291,9 @@ const MenuPage: FC = () => {
           </Link> */}
           <Link
             to={'/incoming-statistics'}
-            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+            className={clsx(
+              'p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+            )}
             onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
@@ -323,9 +325,13 @@ const MenuPage: FC = () => {
           </Link>
           <Link
             to={'/staff'}
-            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+            className={clsx(
+              'p-4 group relative overflow-hidden flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700',
+              true && 'opacity-70 !pointer-events-none cursor-not-allowed'
+            )}
             onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
+            <Blocked title='Администратор' />
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-blue-50 text-white rounded-2xl dark:bg-blue-800/30'>
                 <svg

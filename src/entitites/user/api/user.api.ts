@@ -31,3 +31,12 @@ export const useUsersEmployees = () => {
     retryDelay: 5000
   })
 }
+export const useUserRole = (id: string) => {
+  return useQuery<Role>({
+    queryKey: ['user-role', id],
+    queryFn: async () => {
+      const res = await $api.get(`${apiDomain}/user/${id}/role`)
+      return res.data.data
+    }
+  })
+}

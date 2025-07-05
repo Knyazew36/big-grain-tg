@@ -45,7 +45,7 @@ const ProductsCardChange: FC<IProductsCard> = ({
     <div
       className={clsx(
         'flex flex-col gap-y-3 relative overflow-hidden lg:gap-y-5 p-4 md:p-5 bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800',
-        data.quantity < data.minThreshold && '!border-red-500',
+        data.quantity < data.minThreshold && isActive && '!border-red-500',
         !isActive && 'opacity-50 '
       )}
     >

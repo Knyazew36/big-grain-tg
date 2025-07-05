@@ -1,0 +1,43 @@
+import React from 'react'
+
+interface IBlocked {
+  title?: string
+}
+
+const Blocked = ({ title }: IBlocked) => {
+  return (
+    <div className='absolute inset-0  justify-center items-center flex flex-col bg-black/80   z-50 '>
+      <svg
+        className='text-orange-600'
+        xmlns='http://www.w3.org/2000/svg'
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        stroke-width='2'
+        stroke-linecap='round'
+        stroke-linejoin='round'
+        // class='lucide lucide-user-lock-icon lucide-user-lock'
+      >
+        <circle
+          cx='10'
+          cy='7'
+          r='4'
+        />
+        <path d='M10.3 15H7a4 4 0 0 0-4 4v2' />
+        <path d='M15 15.5V14a2 2 0 0 1 4 0v1.5' />
+        <rect
+          width='8'
+          height='5'
+          x='13'
+          y='16'
+          rx='.899'
+        />
+      </svg>
+      {title && <p className='text-orange-600 text-sm'>{title}</p>}
+    </div>
+  )
+}
+
+export default Blocked
