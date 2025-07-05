@@ -5,6 +5,7 @@ import { Bounce, ToastContainer, toast } from 'react-toastify'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import BottomSheetSuccess from '@/shared/bottom-sheet/bottom-sheet-success/ui/BottomSheetSuccess'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
+import { setMiniAppBackgroundColor, setMiniAppHeaderColor } from '@telegram-apps/sdk-react'
 interface ServiceProviderProps {
   children: React.ReactNode
 }
@@ -27,6 +28,25 @@ const ServiceProvider = ({ children }: ServiceProviderProps) => {
 
     initPreline()
   }, [location.pathname])
+
+  const themeParams = {
+    accent_text_color: '#6ab2f2',
+    bg_color: '#010101',
+    button_color: '#5288c1',
+    button_text_color: '#ffffff',
+    destructive_text_color: '#ec3942',
+    header_bg_color: '#010101',
+    hint_color: '#708499',
+    link_color: '#6ab3f3',
+    secondary_bg_color: '#010101',
+    section_bg_color: '#010101',
+    section_header_text_color: '#6ab3f3',
+    subtitle_text_color: '#708499',
+    text_color: '#f5f5f5'
+  }
+
+  setMiniAppHeaderColor(themeParams.header_bg_color)
+  setMiniAppBackgroundColor(themeParams.bg_color)
 
   return (
     <>
