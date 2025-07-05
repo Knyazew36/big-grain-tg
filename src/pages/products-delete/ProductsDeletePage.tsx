@@ -1,12 +1,10 @@
 import { Page } from '@/components/Page'
 import React, { useMemo, useState } from 'react'
 import { useProducts, useUpdateProduct, useDeleteProduct } from '@/entitites/product/api/product.api'
-import Spinner from '@/shared/spinner/Spinner'
-import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 import ProductsCardChange from '../products/card/ProductsCardChange'
-import Breadcrumbs from '@/shared/ui/breadcrumbs/ui/Breadcrumbs'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 import InputDefault from '@/shared/ui/input-default/ui/InputDefault'
+import Loader from '@/shared/loader/ui/Loader'
 
 export const ProductsDeletePage = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -21,7 +19,7 @@ export const ProductsDeletePage = () => {
   }, [data, searchTerm])
 
   if (isLoading) {
-    return <Spinner />
+    return <Loader />
   }
 
   return (
@@ -33,8 +31,6 @@ export const ProductsDeletePage = () => {
           value={searchTerm}
           onChange={setSearchTerm}
         />
-
-        <AlertProductLowStock />
 
         {/* Сетка товаров */}
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8'>

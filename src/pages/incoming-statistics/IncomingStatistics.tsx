@@ -1,13 +1,13 @@
 import { Page } from '@/components/Page'
 import React, { Fragment } from 'react'
 import { useStatistics } from '@/entitites/receipt/api/receipt.api'
-import Spinner from '@/shared/spinner/Spinner'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
+import Loader from '@/shared/loader/ui/Loader'
 
 const IncomingStatistics = () => {
   const { data, isLoading } = useStatistics()
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <Loader />
   return (
     <Page back>
       <PageHeader title='Расход и поступление' />

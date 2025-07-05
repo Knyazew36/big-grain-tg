@@ -29,6 +29,7 @@
     "eruda": "^3.4.1",
     "events": "^3.3.0",
     "lucide-react": "^0.525.0",
+    "motion": "^12.23.0",
     "next-themes": "^0.4.6",
     "preline": "^3.1.0",
     "react": "^18.2.0",

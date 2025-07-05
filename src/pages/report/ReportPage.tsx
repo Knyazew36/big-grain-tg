@@ -1,10 +1,7 @@
 import { Page } from '@/components/Page'
 import ButtonAction from '@/shared/button-action/ButtonAction'
 import React, { useEffect, useMemo, useState } from 'react'
-import ProductsCard, { IProductsCard } from '../products/card/ProductsCard'
 
-import { Product } from '@/entitites/product/model/product.type'
-import Spinner from '@/shared/spinner/Spinner'
 import ProductsCardChange from '../products/card/ProductsCardChange'
 import { shiftCreate } from '@/entitites/shift/api/shift.api'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
@@ -12,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { useProducts } from '@/entitites/product/api/product.api'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
+import Loader from '@/shared/loader/ui/Loader'
 const ReportPage = () => {
   const navigate = useNavigate()
   const { data = [], isLoading } = useProducts(true)
@@ -61,7 +59,7 @@ const ReportPage = () => {
   }
 
   if (isLoading) {
-    return <Spinner />
+    return <Loader />
   }
 
   return (

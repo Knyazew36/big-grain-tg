@@ -2,12 +2,9 @@ import { Page } from '@/components/Page'
 import React, { useEffect, useState, useMemo } from 'react'
 import ProductsCard from './card/ProductsCard'
 import { Button } from '@/components/ui/button'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { LucideMailWarning } from 'lucide-react'
+
 import ProductCreate from './create/ProductCreate'
 
-import { Product } from '@/entitites/product/model/product.type'
-import Spinner from '@/shared/spinner/Spinner'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 import { useProducts } from '@/entitites/product/api/product.api'
 import clsx from 'clsx'
@@ -16,6 +13,7 @@ import Empty from '@/shared/empty/ui/Empty'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 import InputDefault from '@/shared/ui/input-default/ui/InputDefault'
+import Loader from '@/shared/loader/ui/Loader'
 
 export const ProductsPage = () => {
   const { data = [], isLoading, refetch } = useProducts(true)
@@ -34,7 +32,7 @@ export const ProductsPage = () => {
   }, [data, searchTerm])
 
   if (isLoading) {
-    return <Spinner />
+    return <Loader />
   }
 
   return (

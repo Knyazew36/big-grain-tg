@@ -3,10 +3,10 @@ import ButtonAction from '@/shared/button-action/ButtonAction'
 import React, { useEffect, useMemo, useState } from 'react'
 import ProductsCardChange from '../products/card/ProductsCardChange'
 
-import Spinner from '@/shared/spinner/Spinner'
 import { receiptCreate } from '@/entitites/receipt/api/receipt.api'
 import { useProducts } from '@/entitites/product/api/product.api'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
+import Loader from '@/shared/loader/ui/Loader'
 
 const IncomingPage = () => {
   const { data = [], isLoading, refetch } = useProducts(true)
@@ -51,7 +51,7 @@ const IncomingPage = () => {
   }
 
   if (isLoading) {
-    return <Spinner />
+    return <Loader />
   }
 
   return (

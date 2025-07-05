@@ -1,13 +1,16 @@
 import React from 'react'
 import { PulseLoader } from 'react-spinners'
-const Spinner = () => {
+
+interface IProps {
+  color?: string
+  size?: number
+}
+const Spinner = ({ color = '#ffffff', size = 10 }: IProps) => {
   return (
-    <div className='fixed inset-0 flex justify-center items-center bg-black'>
-      <PulseLoader
-        color='#ffffff'
-        size={10}
-      />
-    </div>
+    <PulseLoader
+      color={color}
+      size={size}
+    />
   )
 }
 

@@ -4,10 +4,10 @@ import UserCard from '@/entitites/user/ui/user-card/UserCard'
 import UserTable from '@/entitites/user/ui/user-table/UserTable'
 import Empty from '@/shared/empty/ui/Empty'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
-import Spinner from '@/shared/spinner/Spinner'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
+import Loader from '@/shared/loader/ui/Loader'
 
 const StaffPage = () => {
   const { data: employees, isLoading } = useUsersEmployees()
@@ -28,7 +28,7 @@ const StaffPage = () => {
     )
   }, [employees, searchTerm])
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <Loader />
 
   return (
     <Page back>
