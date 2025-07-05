@@ -9,7 +9,7 @@
 @plugin "@tailwindcss/forms";
 
 body {
-  background: var(--tg-theme-secondary-bg-color, dark);
+  /* background: var(--tg-theme-secondary-bg-color, dark); */
   padding: 0;
   margin: 0;
 }
