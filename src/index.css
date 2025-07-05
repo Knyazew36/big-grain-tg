@@ -88,7 +88,7 @@ body {
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
+  --background: #171717;
   --foreground: oklch(0.985 0 0);
   --card: #171717;
   --card-foreground: oklch(0.985 0 0);
