@@ -32,8 +32,7 @@ const UserCard = ({ data }: { data: IUser }) => {
           )}
         </div>
         <div className='ms-auto'>
-          {/* More Dropdown */}
-          <div className='hs-dropdown [--placement:bottom-right] relative inline-flex'>
+          {/* <div className='hs-dropdown [--placement:bottom-right] relative inline-flex'>
             <button
               id='hs-pro-dupc1'
               type='button'
@@ -71,7 +70,6 @@ const UserCard = ({ data }: { data: IUser }) => {
                 />
               </svg>
             </button>
-            {/* Dropdown */}
             <div
               className='hs-dropdown-menu hs-dropdown-open:opacity-100 w-40 transition-[opacity,margin] duration opacity-0 hidden z-10 bg-white rounded-xl shadow-xl dark:bg-neutral-900'
               role='menu'
@@ -155,9 +153,7 @@ const UserCard = ({ data }: { data: IUser }) => {
                 </button>
               </div>
             </div>
-            {/* End Dropdown */}
-          </div>
-          {/* End More Dropdown */}
+          </div> */}
         </div>
       </div>
       {/* End Header */}

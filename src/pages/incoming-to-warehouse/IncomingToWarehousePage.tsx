@@ -9,6 +9,7 @@ import { hapticFeedback } from '@telegram-apps/sdk-react'
 import { useNavigate } from 'react-router-dom'
 import { useProducts } from '@/entitites/product/api/product.api'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
+import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 
 const IncomingToWarehousePage = () => {
   const navigate = useNavigate()
@@ -49,7 +50,7 @@ const IncomingToWarehousePage = () => {
       await receiptCreate({ receipts: payload })
       open({
         isOpen: true,
-        description: 'Приход успешно создан',
+        description: 'Поступление успешно создано',
         onClose: () => {
           navigate(-1)
         }
@@ -67,6 +68,8 @@ const IncomingToWarehousePage = () => {
 
   return (
     <Page back>
+      <PageHeader title='Создать поступление' />
+
       <div className='flex flex-col flex-1'>
         <div className=' space-y-3'>
           <input
@@ -82,7 +85,7 @@ const IncomingToWarehousePage = () => {
             filteredData.map(card => (
               <ProductsCardChange
                 value={arrivals[card.id] || 0}
-                onChange={value => handleArrivalChange(card.id, value)}
+                onChange={value => handleArrivalChange(card.id, value || 0)}
                 withInputNumber
                 key={card.id}
                 data={card}
@@ -95,10 +98,14 @@ const IncomingToWarehousePage = () => {
           )}
         </div>
 
-        <ButtonAction
-          onSuccessClick={onSubmit}
-          onCancelClick={handleCancel}
-        />
+        {filteredData.length > 0 && (
+          <ButtonAction
+            onSuccessClick={onSubmit}
+            onCancelClick={handleCancel}
+            disabledSuccess={Object.values(arrivals).every(value => value === 0)}
+            disabledCancel={Object.values(arrivals).every(value => value === 0)}
+          />
+        )}
       </div>
     </Page>
   )

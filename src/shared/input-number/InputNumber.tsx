@@ -4,9 +4,9 @@ import React from 'react'
 
 export interface InputNumberProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> {
   /** Значение поля */
-  value: number
+  value?: number
   /** Коллбек изменения значения */
-  onChange: (value: number) => void
+  onChange: (value: number | undefined) => void
   /** Шаг инкремента/декремента */
   step?: number
   /** Минимальное значение */
@@ -17,22 +17,26 @@ export interface InputNumberProps extends Omit<React.InputHTMLAttributes<HTMLInp
 
 const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, min, max, disabled, ...inputProps }) => {
   const handleDecrement = () => {
-    const next = value - step
+    const currentValue = value ?? 0
+    const next = currentValue - step
     if (min !== undefined && next < min) return
     onChange(next)
     hapticFeedback.impactOccurred('light')
   }
 
   const handleIncrement = () => {
-    const next = value + step
+    const currentValue = value ?? 0
+    const next = currentValue + step
     if (max !== undefined && next > max) return
     onChange(next)
     hapticFeedback.impactOccurred('light')
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const v = e.target.value === '' ? NaN : Number(e.target.value)
-    if (isNaN(v)) {
+    const v = e.target.value === '' ? undefined : Number(e.target.value)
+    if (v === undefined) {
+      onChange(undefined)
+    } else if (isNaN(v)) {
       onChange(0)
     } else {
       if (min !== undefined && v < min) {
@@ -55,7 +59,7 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
             aria-roledescription='Number field'
             className='w-full p-0 bg-transparent border-0 text-gray-800 focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none dark:text-white'
             style={{ MozAppearance: 'textfield' }}
-            value={value}
+            value={value === 0 ? '' : value ?? ''}
             onChange={handleInputChange}
             disabled={disabled}
           />
@@ -64,7 +68,7 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
           <button
             type='button'
             onClick={handleDecrement}
-            disabled={disabled || (min !== undefined && value <= min)}
+            disabled={disabled || (min !== undefined && (value ?? 0) <= min)}
             className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-medium last:rounded-e-lg bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
             aria-label='Decrease'
           >
@@ -86,7 +90,7 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
           <button
             type='button'
             onClick={handleIncrement}
-            disabled={disabled || (max !== undefined && value >= max)}
+            disabled={disabled || (max !== undefined && (value ?? 0) >= max)}
             className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-medium last:rounded-e-lg bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
             aria-label='Increase'
           >

@@ -6,6 +6,7 @@ import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProduct
 import ProductsCardChange from '../products/card/ProductsCardChange'
 import Breadcrumbs from '@/shared/ui/breadcrumbs/ui/Breadcrumbs'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
+import InputDefault from '@/shared/ui/input-default/ui/InputDefault'
 
 export const ProductsDeletePage = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -28,15 +29,10 @@ export const ProductsDeletePage = () => {
       <div className='max-w-[85rem] py-10 pt-5 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
         <PageHeader title='Редактирование товаров' />
         {/* Поиск товара */}
-        <div className=' space-y-3'>
-          <input
-            type='text'
-            value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
-            className='py-2.5 sm:py-3 px-4 block w-full border-gray-200 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600'
-            placeholder='Поиск товара...'
-          />
-        </div>
+        <InputDefault
+          value={searchTerm}
+          onChange={setSearchTerm}
+        />
 
         <AlertProductLowStock />
 

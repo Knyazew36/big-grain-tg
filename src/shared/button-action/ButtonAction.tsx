@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom'
 interface IProps {
   onSuccessClick?: () => void
   onCancelClick?: () => void
+  disabledSuccess?: boolean
+  disabledCancel?: boolean
 }
-const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick }) => {
+const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick, disabledSuccess, disabledCancel }) => {
   const navigate = useNavigate()
   return (
     <>
@@ -24,7 +26,8 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick }) => {
             <div className='inline-flex items-center gap-x-2'>
               {onCancelClick && (
                 <button
-                  className='text-stone-300 decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-neutral-400'
+                  disabled={disabledCancel}
+                  className='text-stone-300 disabled:opacity-50 disabled:pointer-events-none decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-neutral-400'
                   onClick={() => {
                     onCancelClick()
                     hapticFeedback.impactOccurred('light')
@@ -35,8 +38,9 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick }) => {
               )}
               <div className='w-px h-4 bg-stone-700 dark:bg-neutral-700'></div>
               <button
+                disabled={disabledSuccess}
                 onClick={onSuccessClick}
-                className='text-green-400 decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-green-500'
+                className='text-green-400 disabled:opacity-50 disabled:pointer-events-none decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-green-500'
               >
                 Сохранить
               </button>

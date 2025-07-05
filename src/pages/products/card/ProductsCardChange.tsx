@@ -8,7 +8,7 @@ import Switch from '@/shared/ui/switch/ui/Switch'
 
 export interface IProductsCard {
   value?: number
-  onChange?: (value: number) => void
+  onChange?: (value: number | undefined) => void
   data: Product
   withDelete?: boolean
   withSwitch?: boolean
@@ -79,7 +79,7 @@ const ProductsCardChange: FC<IProductsCard> = ({
           {withInputNumber && (
             <InputNumber
               onChange={onChange!}
-              value={value!}
+              value={value}
               min={min}
               max={max}
             />

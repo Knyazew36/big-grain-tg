@@ -11,6 +11,7 @@ import { hapticFeedback } from '@telegram-apps/sdk-react'
 import { useNavigate } from 'react-router-dom'
 import { useProducts } from '@/entitites/product/api/product.api'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
+import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 const ReportPage = () => {
   const navigate = useNavigate()
   const { data = [], isLoading } = useProducts(true)
@@ -65,6 +66,8 @@ const ReportPage = () => {
 
   return (
     <Page back>
+      <PageHeader title='Создать расход' />
+
       <div className='flex flex-col flex-1'>
         <div className=' space-y-3'>
           <input
@@ -80,7 +83,7 @@ const ReportPage = () => {
             filteredData.map(card => (
               <ProductsCardChange
                 value={consumptions[card.id] || 0}
-                onChange={value => handleConsumptionChange(card.id, value)}
+                onChange={value => handleConsumptionChange(card.id, value || 0)}
                 withInputNumber
                 key={card.id}
                 data={card}
@@ -93,10 +96,14 @@ const ReportPage = () => {
           )}
         </div>
 
-        <ButtonAction
-          onSuccessClick={onSubmit}
-          onCancelClick={handleCancel}
-        />
+        {filteredData.length > 0 && (
+          <ButtonAction
+            onSuccessClick={onSubmit}
+            onCancelClick={handleCancel}
+            disabledSuccess={Object.values(consumptions).every(value => value === 0)}
+            disabledCancel={Object.values(consumptions).every(value => value === 0)}
+          />
+        )}
       </div>
     </Page>
   )

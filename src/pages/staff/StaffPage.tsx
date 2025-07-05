@@ -3,6 +3,7 @@ import { useUsersEmployees } from '@/entitites/user/api/user.api'
 import UserCard from '@/entitites/user/ui/user-card/UserCard'
 import UserTable from '@/entitites/user/ui/user-table/UserTable'
 import Empty from '@/shared/empty/ui/Empty'
+import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 import Spinner from '@/shared/spinner/Spinner'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import clsx from 'clsx'
@@ -31,6 +32,7 @@ const StaffPage = () => {
 
   return (
     <Page back>
+      <PageHeader title='Сотрудники' />
       <div className=' space-y-3 mb-8'>
         <input
           type='text'

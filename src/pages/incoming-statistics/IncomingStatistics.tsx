@@ -2,6 +2,7 @@ import { Page } from '@/components/Page'
 import React, { Fragment } from 'react'
 import { useStatistics } from '@/entitites/receipt/api/receipt.api'
 import Spinner from '@/shared/spinner/Spinner'
+import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 
 const IncomingStatistics = () => {
   const { data, isLoading } = useStatistics()
@@ -9,6 +10,7 @@ const IncomingStatistics = () => {
   if (isLoading) return <Spinner />
   return (
     <Page back>
+      <PageHeader title='Расход и поступление' />
       <div className='flex flex-col gap-2'>
         {data?.data.map(item => (
           <div
