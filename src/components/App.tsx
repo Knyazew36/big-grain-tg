@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { retrieveLaunchParams, useSignal, isMiniAppDark } from '@telegram-apps/sdk-react'
+import { retrieveLaunchParams, useSignal, isMiniAppDark, setMiniAppHeaderColor, setMiniAppBackgroundColor } from '@telegram-apps/sdk-react'
 import { AppRoot } from '@telegram-apps/telegram-ui'
 
 import { routes } from '@/navigation/routes.tsx'
@@ -25,6 +25,9 @@ export function App() {
     subtitle_text_color: '#708499',
     text_color: '#f5f5f5'
   }
+
+  setMiniAppHeaderColor(themeParams.header_bg_color)
+  setMiniAppBackgroundColor(themeParams.bg_color)
 
   return (
     <AppRoot
