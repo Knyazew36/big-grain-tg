@@ -37,6 +37,7 @@ export const useUserRole = (id: string) => {
     queryFn: async () => {
       const res = await $api.get(`${apiDomain}/user/${id}/role`)
       return res.data.data
-    }
+    },
+    enabled: !!id
   })
 }

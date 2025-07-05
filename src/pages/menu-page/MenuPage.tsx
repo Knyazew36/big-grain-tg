@@ -5,18 +5,18 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
 import Confirmation from '@/widgets/confirmation/Confirmation'
 import { loginWithTelegram } from '@/entitites/auth/login.api'
-import { hapticFeedback, isTMA, retrieveLaunchParams, retrieveRawInitData, useRawInitData } from '@telegram-apps/sdk-react'
+import { hapticFeedback, initDataUser, isTMA, retrieveLaunchParams, retrieveRawInitData, useRawInitData } from '@telegram-apps/sdk-react'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 import Blocked from '@/shared/blocked/ui/Blocked'
 import clsx from 'clsx'
 import { useUserRole } from '@/entitites/user/api/user.api'
 
 const MenuPage: FC = () => {
-  const { initDataRaw, initData } = retrieveLaunchParams()
-  const user = useRawInitData()
-  console.log('user', user)
-  console.log('initData', initData)
-  // const { data: role } = useUserRole(initData?.user?.id)
+  const user = initDataUser()
+
+  const { data: role } = useUserRole(user?.id?.toString() ?? '')
+  console.info('role', role)
+  console.info('user', user)
   return (
     <Page back={false}>
       <div className='flex flex-col flex-1 pt-4'>
