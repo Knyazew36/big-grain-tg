@@ -14,6 +14,7 @@ const ReportPage = () => {
   const navigate = useNavigate()
   const { data = [], isLoading } = useProducts(true)
   const { open } = useBottomSheetStore()
+  const [buttonLoading, setButtonLoading] = useState(false)
 
   const [searchTerm, setSearchTerm] = useState('')
   const [consumptions, setConsumptions] = useState<{ [productId: number]: number }>({})
@@ -49,13 +50,17 @@ const ReportPage = () => {
         }))
     }
     try {
+      setButtonLoading(true)
       await shiftCreate(payload.consumptions)
       open({
         isOpen: true,
         description: 'Отчет успешно отправлен'
       })
       navigate(-1)
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setButtonLoading(false)
+    }
   }
 
   if (isLoading) {
@@ -97,6 +102,7 @@ const ReportPage = () => {
 
         {filteredData.length > 0 && (
           <ButtonAction
+            isLoading={buttonLoading}
             onSuccessClick={onSubmit}
             onCancelClick={handleCancel}
             disabledSuccess={Object.values(consumptions).every(value => value === 0)}

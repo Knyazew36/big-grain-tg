@@ -25,7 +25,10 @@ export const ProductsDeletePage = () => {
   return (
     <Page back>
       <div className='max-w-[85rem] py-10 pt-5 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
-        <PageHeader title='Редактирование товаров' />
+        <PageHeader
+          title='Редактирование товаров'
+          isLoading={isLoading}
+        />
         {/* Поиск товара */}
         <InputDefault
           value={searchTerm}

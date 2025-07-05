@@ -12,6 +12,7 @@ const IncomingPage = () => {
   const { data = [], isLoading, refetch } = useProducts(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [arrivals, setArrivals] = useState<{ [productId: number]: number }>({})
+  const [buttonLoading, setButtonLoading] = useState(false)
 
   const filteredData = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()
@@ -40,10 +41,13 @@ const IncomingPage = () => {
         quantity: Number(quantity)
       }))
     try {
+      setButtonLoading(true)
       await receiptCreate({ receipts: payload })
       hapticFeedback.notificationOccurred('success')
     } catch (error) {
       hapticFeedback.notificationOccurred('error')
+    } finally {
+      setButtonLoading(false)
     }
 
     handleCancel()
@@ -87,6 +91,7 @@ const IncomingPage = () => {
         <ButtonAction
           onSuccessClick={onSubmit}
           onCancelClick={handleCancel}
+          isLoading={buttonLoading}
         />
       </div>
     </Page>

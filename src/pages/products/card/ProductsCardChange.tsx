@@ -1,10 +1,11 @@
 import { Product } from '@/entitites/product/model/product.type'
 import InputNumber from '@/shared/input-number/InputNumber'
 import clsx from 'clsx'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import ProductDelete from '../delete/ProductDelete'
 import { useUpdateProduct } from '@/entitites/product/api/product.api'
 import Switch from '@/shared/ui/switch/ui/Switch'
+import LoaderSection from '@/shared/loader/ui/LoaderSection'
 
 export interface IProductsCard {
   value?: number
@@ -37,18 +38,18 @@ const ProductsCardChange: FC<IProductsCard> = ({
   inputNumberLabel
 }) => {
   const { mutate: updateProduct, isPending } = useUpdateProduct()
-
   const onSwitchChange = () => {
     updateProduct({ id: data.id, dto: { active: !data.active } })
   }
   return (
     <div
       className={clsx(
-        'flex flex-col gap-y-3 lg:gap-y-5 p-4 md:p-5 bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800',
+        'flex flex-col gap-y-3 relative overflow-hidden lg:gap-y-5 p-4 md:p-5 bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800',
         data.quantity < data.minThreshold && '!border-red-500',
         !isActive && 'opacity-50 '
       )}
     >
+      {isPending && <LoaderSection />}
       <div className='flex justify-between items-center'>
         {withDelete && (
           <div>

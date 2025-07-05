@@ -1,5 +1,5 @@
 import { Page } from '@/components/Page'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import InputNumber from '@/shared/input-number/InputNumber'
 import { useNavigate } from 'react-router-dom'
@@ -31,8 +31,10 @@ const CreateProductPage = () => {
     defaultValues: { name: '', minThreshold: 0, quantity: 0, unit: 'ед' }
   })
   const { mutateAsync: createProduct } = useCreateProduct()
+  const [buttonLoading, setButtonLoading] = useState(false)
   const onSubmit = async (data: FormValues) => {
     try {
+      setButtonLoading(true)
       await createProduct({
         name: data.name,
         quantity: data.quantity || 0,
@@ -48,6 +50,8 @@ const CreateProductPage = () => {
     } catch (e: any) {
       hapticFeedback.notificationOccurred('error')
       reset()
+    } finally {
+      setButtonLoading(false)
     }
   }
   return (
@@ -131,6 +135,7 @@ const CreateProductPage = () => {
         onCancelClick={() => {
           reset()
         }}
+        isLoading={buttonLoading}
       />
     </Page>
   )

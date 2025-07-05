@@ -5,7 +5,7 @@ interface IProps {
   color?: string
   size?: number
 }
-const Spinner = ({ color = '#ffffff', size = 10 }: IProps) => {
+const Spinner = ({ color = '#ffffff', size = 9 }: IProps) => {
   return (
     <PulseLoader
       color={color}
