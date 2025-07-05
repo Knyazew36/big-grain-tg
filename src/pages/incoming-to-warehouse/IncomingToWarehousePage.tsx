@@ -8,10 +8,12 @@ import { receiptCreate } from '@/entitites/receipt/api/receipt.api'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import { useNavigate } from 'react-router-dom'
 import { useProducts } from '@/entitites/product/api/product.api'
+import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 
 const IncomingToWarehousePage = () => {
   const navigate = useNavigate()
   const { data = [], isLoading } = useProducts(true)
+  const { open } = useBottomSheetStore()
 
   const [searchTerm, setSearchTerm] = useState('')
   const [arrivals, setArrivals] = useState<{ [productId: number]: number }>({})
@@ -42,14 +44,20 @@ const IncomingToWarehousePage = () => {
         productId: Number(productId),
         quantity: Number(quantity)
       }))
-    for (const dto of payload) {
-      try {
-        await receiptCreate(dto)
-        hapticFeedback.notificationOccurred('success')
-        navigate(-1)
-      } catch (error) {
-        hapticFeedback.notificationOccurred('error')
-      }
+
+    try {
+      await receiptCreate({ receipts: payload })
+      open({
+        isOpen: true,
+        description: 'Приход успешно создан',
+        onClose: () => {
+          navigate(-1)
+        }
+      })
+      setArrivals({})
+      // navigate(-1)
+    } catch (error) {
+      hapticFeedback.notificationOccurred('error')
     }
   }
 

@@ -7,9 +7,13 @@ import { ErrorResponse } from './type'
 import { toast } from 'sonner'
 // import { json } from 'stream/consumers'
 import React from 'react'
-import { hapticFeedback, isTMA, mockTelegramEnv, retrieveRawInitData } from '@telegram-apps/sdk'
+import { hapticFeedback, initData, isTMA, mockTelegramEnv, retrieveRawInitData } from '@telegram-apps/sdk'
 
-const initDataRaw = isTMA() ? retrieveRawInitData() : ''
+const initDataRaw = import.meta.env.DEV
+  ? 'user=%7B%22id%22%3A239676985%2C%22first_name%22%3A%22%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%22%2C%22last_name%22%3A%22%D0%9A%D0%BD%D1%8F%D0%B7%D0%B5%D0%B2%22%2C%22username%22%3A%22Knyaz_sv%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FdVwpqY8rwKcDgyKCeVKKd95SfUDZ89Fhpw-zbGDB6Rg.svg%22%7D&chat_instance=-6326362476291559594&chat_type=sender&auth_date=1751696900&signature=XYw7yrvIWtCERSUw6Di3GinV2SriQvpckgK6mM2lqLSR1nzyF18GmroO2mOFbPOBu_OmcXHqIpAgII97ghQDBA&hash=15d85ba9bfe75f3f140cdda2e7e66f07445c44c002a0a4f996b292b91a8f9003'
+  : isTMA()
+  ? retrieveRawInitData()
+  : ''
 
 const isProduction = false
 

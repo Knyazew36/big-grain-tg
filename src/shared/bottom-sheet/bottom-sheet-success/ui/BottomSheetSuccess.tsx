@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
 import { IBottomSheetSuccessProps } from '../model/bottomSheetSuccess.type'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 
 const BottomSheetSuccess = ({ isOpen, onClose, description, title = 'Успех!' }: IBottomSheetSuccessProps) => {
+  useEffect(() => {
+    if (isOpen) {
+      hapticFeedback.notificationOccurred('success')
+    }
+  }, [isOpen])
   return (
     <Drawer
       open={isOpen}

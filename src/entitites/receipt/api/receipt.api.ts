@@ -8,8 +8,10 @@ import { useState } from 'react'
 import { Product } from '@/entitites/product/model/product.type'
 
 export interface CreateReceiptDto {
-  productId: number
-  quantity: number
+  receipts: {
+    productId: number
+    quantity: number
+  }[]
 }
 
 export const receiptCreate = async (dto: CreateReceiptDto): Promise<Receipt> => {

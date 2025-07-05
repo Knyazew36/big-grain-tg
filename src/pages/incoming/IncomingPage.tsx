@@ -6,6 +6,7 @@ import ProductsCardChange from '../products/card/ProductsCardChange'
 import Spinner from '@/shared/spinner/Spinner'
 import { receiptCreate } from '@/entitites/receipt/api/receipt.api'
 import { useProducts } from '@/entitites/product/api/product.api'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 
 const IncomingPage = () => {
   const { data = [], isLoading, refetch } = useProducts(true)
@@ -38,8 +39,11 @@ const IncomingPage = () => {
         productId: Number(productId),
         quantity: Number(quantity)
       }))
-    for (const dto of payload) {
-      await receiptCreate(dto)
+    try {
+      await receiptCreate({ receipts: payload })
+      hapticFeedback.notificationOccurred('success')
+    } catch (error) {
+      hapticFeedback.notificationOccurred('error')
     }
 
     handleCancel()
