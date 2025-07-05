@@ -16,11 +16,12 @@ import { Role } from '@/entitites/user/model/user.type'
 
 const MenuPage: FC = () => {
   const user = initDataUser()
-  const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
+  // const = use
+  // // const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
 
-  if (isLoading) {
-    return <Loader />
-  }
+  // if (isLoading) {
+  //   return <Loader />
+  // }
 
   return (
     <Page back={false}>
