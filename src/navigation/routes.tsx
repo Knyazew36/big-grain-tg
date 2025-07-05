@@ -14,6 +14,7 @@ import { ProductsDeletePage } from '@/pages/products-delete/ProductsDeletePage'
 import CreateProductPage from '@/pages/create-product/CreateProductPage'
 import IncomingStatistics from '@/pages/incoming-statistics/IncomingStatistics'
 import AuthPage from '@/pages/auth/AuthPage'
+import StaffPage from '@/pages/staff/StaffPage'
 
 interface Route {
   path: string
@@ -25,6 +26,7 @@ interface Route {
 export const routes: Route[] = [
   { path: '/', Component: MenuPage },
   { path: '/auth', Component: AuthPage, title: 'Auth' },
+  { path: '/staff', Component: StaffPage, title: 'Staff' },
   { path: '/products', Component: ProductsPage, title: 'Init Data' },
   { path: '/products-delete', Component: ProductsDeletePage, title: 'Init Data' },
   { path: '/create-product', Component: CreateProductPage, title: 'Init Data' },

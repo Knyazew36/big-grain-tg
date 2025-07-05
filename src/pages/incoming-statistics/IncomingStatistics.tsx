@@ -9,10 +9,6 @@ const IncomingStatistics = () => {
   if (isLoading) return <Spinner />
   return (
     <Page back>
-      {/* <div className='flex bg-amber-200'>
-        {data?.periodStart} {data?.periodEnd}
-      </div> */}
-
       <div className='flex flex-col gap-2'>
         {data?.data.map(item => (
           <div

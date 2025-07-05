@@ -11,4 +11,6 @@ export interface IUser {
   role: Role
   data: User
   createdAt: Date
+  updatedAt: Date
+  isActive: boolean
 }
