@@ -85,7 +85,7 @@ const ProductDelete: React.FC<ProductDeleteProps> = ({ productId, onSuccess }) =
 
               <div className='grow'>
                 <DialogHeader>
-                  <DialogTitle>Удалить продукт?</DialogTitle>
+                  <DialogTitle>Удалить товар?</DialogTitle>
                   <DialogDescription>Вы действительно хотите удалить этот товар? Действие нельзя будет отменить.</DialogDescription>
                 </DialogHeader>
               </div>
@@ -110,7 +110,7 @@ const ProductDelete: React.FC<ProductDeleteProps> = ({ productId, onSuccess }) =
                 isDeleting ? 'bg-red-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-600'
               }`}
             >
-              {isDeleting ? 'Удаление…' : 'Удалить продукт'}
+              {isDeleting ? 'Удаление…' : 'Удалить товар'}
             </button>
           </DialogFooter>
         </div>

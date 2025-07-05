@@ -3,10 +3,13 @@ import React from 'react'
 import ProductCreate from '../products/create/ProductCreate'
 import { Link } from 'react-router-dom'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
+import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 
 const SettingsPage = () => {
   return (
     <Page>
+      <PageHeader title='Настройки склада' />
+
       <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-2 lg:gap-4 mt-8'>
         <ProductCreate />
         <Link
@@ -17,19 +20,27 @@ const SettingsPage = () => {
           <div className='mb-4 flex flex-col justify-center items-center h-full'>
             <span className='flex justify-center items-center size-12 xl:size-16 mx-auto border-2 border-dotted border-gray-300 text-gray-400 rounded-2xl dark:border-neutral-700 dark:text-neutral-500'>
               <svg
-                className='shrink-0 size-5'
                 xmlns='http://www.w3.org/2000/svg'
                 width='24'
                 height='24'
                 viewBox='0 0 24 24'
                 fill='none'
                 stroke='currentColor'
-                strokeWidth='2'
-                strokeLinecap='round'
-                strokeLinejoin='round'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                className='shrink-0 size-5'
               >
-                <path d='M5 12h14' />
-                <path d='M12 5v14' />
+                <rect
+                  width='18'
+                  height='18'
+                  x='3'
+                  y='3'
+                  rx='2'
+                />
+                <path d='M9 8h7' />
+                <path d='M8 12h6' />
+                <path d='M11 16h5' />
               </svg>
             </span>
           </div>

@@ -14,6 +14,7 @@ import clsx from 'clsx'
 import ProductsTable from './table/ProductsTable'
 import Empty from '@/shared/empty/ui/Empty'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
+import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 
 export const ProductsPage = () => {
   const { data = [], isLoading, refetch } = useProducts(true)
@@ -37,7 +38,9 @@ export const ProductsPage = () => {
 
   return (
     <Page back>
-      <div className='max-w-[85rem] py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
+      <PageHeader title='Товары' />
+
+      <div className='max-w-[85rem] py-10 pt-0 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
         {/* Поиск товара */}
         <div className=' space-y-3'>
           <input

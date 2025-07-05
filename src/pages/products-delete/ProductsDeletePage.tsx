@@ -4,6 +4,8 @@ import { useProducts, useUpdateProduct, useDeleteProduct } from '@/entitites/pro
 import Spinner from '@/shared/spinner/Spinner'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 import ProductsCardChange from '../products/card/ProductsCardChange'
+import Breadcrumbs from '@/shared/ui/breadcrumbs/ui/Breadcrumbs'
+import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 
 export const ProductsDeletePage = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -23,7 +25,8 @@ export const ProductsDeletePage = () => {
 
   return (
     <Page back>
-      <div className='max-w-[85rem] py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
+      <div className='max-w-[85rem] py-10 pt-5 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
+        <PageHeader title='Редактирование товаров' />
         {/* Поиск товара */}
         <div className=' space-y-3'>
           <input

@@ -189,26 +189,35 @@ const MenuPage: FC = () => {
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-teal-50 text-white rounded-2xl dark:bg-teal-800/30'>
                 <svg
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-teal-600 dark:text-teal-500'
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
                   height='24'
                   viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-teal-600 dark:text-teal-500'
                 >
-                  <path d='M2 3h20' />
-                  <path d='M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3' />
-                  <path d='m7 21 5-5 5 5' />
+                  <path d='M14 17H5' />
+                  <path d='M19 7h-9' />
+                  <circle
+                    cx='17'
+                    cy='17'
+                    r='3'
+                  />
+                  <circle
+                    cx='7'
+                    cy='7'
+                    r='3'
+                  />
                 </svg>
               </span>
             </div>
             <div className='text-center mt-auto'>
               <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Настройки
+                Настройки склада
               </p>
             </div>
           </Link>
@@ -221,36 +230,21 @@ const MenuPage: FC = () => {
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-indigo-50 text-white rounded-2xl dark:bg-indigo-800/30'>
                 <svg
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-indigo-600 dark:text-indigo-500'
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
                   height='24'
                   viewBox='0 0 24 24'
                   fill='none'
                   stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-indigo-600 dark:text-indigo-500'
                 >
-                  <path d='M9 5v4' />
-                  <rect
-                    width='4'
-                    height='6'
-                    x='7'
-                    y='9'
-                    rx='1'
-                  />
-                  <path d='M9 15v2' />
-                  <path d='M17 3v2' />
-                  <rect
-                    width='4'
-                    height='8'
-                    x='15'
-                    y='5'
-                    rx='1'
-                  />
-                  <path d='M17 13v3' />
-                  <path d='M3 3v18h18' />
+                  <path d='M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11' />
+                  <path d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z' />
+                  <path d='M6 13h12' />
+                  <path d='M6 17h12' />
                 </svg>
               </span>
             </div>
