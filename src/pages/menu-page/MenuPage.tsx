@@ -5,7 +5,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
 import Confirmation from '@/widgets/confirmation/Confirmation'
 import { loginWithTelegram } from '@/entitites/auth/login.api'
-import { hapticFeedback, isTMA, retrieveLaunchParams, retrieveRawInitData } from '@telegram-apps/sdk-react'
+import { hapticFeedback, isTMA, retrieveLaunchParams, retrieveRawInitData, useRawInitData } from '@telegram-apps/sdk-react'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 import Blocked from '@/shared/blocked/ui/Blocked'
 import clsx from 'clsx'
@@ -13,7 +13,8 @@ import { useUserRole } from '@/entitites/user/api/user.api'
 
 const MenuPage: FC = () => {
   const { initDataRaw, initData } = retrieveLaunchParams()
-
+  const user = useRawInitData()
+  console.log('user', user)
   console.log('initData', initData)
   // const { data: role } = useUserRole(initData?.user?.id)
   return (
