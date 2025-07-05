@@ -84,6 +84,7 @@ const IncomingToWarehousePage = () => {
           {filteredData.length > 0 ? (
             filteredData.map(card => (
               <ProductsCardChange
+                inputNumberLabel={`Поступило ${card.unit ? card.unit : ''}:`}
                 value={arrivals[card.id] || 0}
                 onChange={value => handleArrivalChange(card.id, value || 0)}
                 withInputNumber

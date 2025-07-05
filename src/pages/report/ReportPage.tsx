@@ -82,6 +82,7 @@ const ReportPage = () => {
           {filteredData.length > 0 ? (
             filteredData.map(card => (
               <ProductsCardChange
+                inputNumberLabel={`Израсходовано ${card.unit ? card.unit : ''}:`}
                 value={consumptions[card.id] || 0}
                 onChange={value => handleConsumptionChange(card.id, value || 0)}
                 withInputNumber

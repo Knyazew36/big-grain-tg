@@ -11,7 +11,7 @@ const AlertProductLowStock = () => {
   return (
     <Alert
       variant='destructive'
-      className='mt-4 border-red-400'
+      className='mt-4 border-red-400 bg-transparent'
     >
       <LucideMailWarning />
       <AlertTitle>Внимание! На складе заканчивается:</AlertTitle>

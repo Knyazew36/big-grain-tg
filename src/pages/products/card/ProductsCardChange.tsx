@@ -18,6 +18,8 @@ export interface IProductsCard {
   isActive?: boolean
   onChangeCallback?: () => void
   onChangeActive?: (active: boolean) => void
+
+  inputNumberLabel?: string
 }
 
 const ProductsCardChange: FC<IProductsCard> = ({
@@ -31,7 +33,8 @@ const ProductsCardChange: FC<IProductsCard> = ({
   min,
   max,
   withSwitch,
-  onChangeActive
+  onChangeActive,
+  inputNumberLabel
 }) => {
   const { mutate: updateProduct, isPending } = useUpdateProduct()
 
@@ -74,7 +77,7 @@ const ProductsCardChange: FC<IProductsCard> = ({
           data.unit ? data.unit : ''
         }`}</h3>
         <div className='flex flex-col gap-2 mt-4'>
-          <span className='block text-sm text-gray-500 dark:text-neutral-500'>Израсходовано</span>
+          <span className='block text-sm text-gray-500 dark:text-neutral-500'>{inputNumberLabel}</span>
 
           {withInputNumber && (
             <InputNumber
