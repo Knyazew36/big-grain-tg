@@ -12,9 +12,18 @@ export type IMenuButton = {
 
   isBlocked?: boolean
   isDevelop?: boolean
+  withNotification?: boolean
 }
 
-const MenuButton = ({ to, title, icon, color = 'blue', isBlocked = false, isDevelop = false }: IMenuButton) => {
+const MenuButton = ({
+  to,
+  title,
+  icon,
+  color = 'blue',
+  isBlocked = false,
+  isDevelop = false,
+  withNotification = false
+}: IMenuButton) => {
   return (
     <Link
       to={to}
@@ -32,7 +41,21 @@ const MenuButton = ({ to, title, icon, color = 'blue', isBlocked = false, isDeve
         />
       )}
 
-      <span className={clsx('flex justify-center items-center size-12 xl:size-16 mx-auto text-white rounded-2xl', getColorClasses(color))}>{icon}</span>
+      <span
+        className={clsx(
+          'flex justify-center relative items-center size-12 xl:size-16 mx-auto text-white rounded-2xl',
+          getColorClasses(color)
+        )}
+      >
+        {icon}
+
+        {withNotification && (
+          <span className='flex absolute top-0 end-0 size-3 -mt-1.5 -me-1.5'>
+            <span className='animate-ping absolute inline-flex size-full rounded-full bg-red-400 opacity-75 dark:bg-red-600'></span>
+            <span className='relative inline-flex rounded-full size-3 bg-red-500'></span>
+          </span>
+        )}
+      </span>
 
       <div className='text-center mt-1'>
         <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>

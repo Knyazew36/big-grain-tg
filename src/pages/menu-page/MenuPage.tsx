@@ -8,9 +8,11 @@ import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProduct
 import { useAuthStore } from '@/entitites/auth/model/auth.store'
 
 import MenuButton, { IMenuButton } from './menu-button/MenuButton'
+import { useAccessRequests } from '@/entitites/auth/auth.api'
 
 const MenuPage: FC = () => {
   const { isAdmin, isOwner, isIT, isOperator, role } = useAuthStore()
+  const { data: accessRequests } = useAccessRequests(role)
 
   console.info(isAdmin, isOwner, isIT, isOperator, role)
 
@@ -104,6 +106,7 @@ const MenuPage: FC = () => {
       title: 'Сотрудники',
       color: 'blue',
       isBlocked: isOperator,
+      withNotification: accessRequests && accessRequests?.length > 0,
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
