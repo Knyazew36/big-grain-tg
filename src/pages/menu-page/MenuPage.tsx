@@ -131,7 +131,7 @@ const MenuPage: FC = () => {
     {
       to: '',
       title: 'Уведомления',
-      color: 'red',
+      color: 'cyan',
       isDevelop: true,
       icon: (
         <svg
