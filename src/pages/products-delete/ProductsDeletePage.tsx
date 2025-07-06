@@ -5,6 +5,8 @@ import ProductsCardChange from '../products/card/ProductsCardChange'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 import InputDefault from '@/shared/ui/input-default/ui/InputDefault'
 import Loader from '@/shared/loader/ui/Loader'
+import ProductCreate from '../products/create/ProductCreate'
+import Empty from '@/shared/empty/ui/Empty'
 
 export const ProductsDeletePage = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -53,8 +55,11 @@ export const ProductsDeletePage = () => {
               />
             ))
           ) : (
-            <p className='col-span-full text-center text-muted-foreground'>Товары не найдены</p>
+            <Empty title='Товары не найдены' />
           )}
+        </div>
+        <div className='mt-8'>
+          <ProductCreate />
         </div>
       </div>
     </Page>
