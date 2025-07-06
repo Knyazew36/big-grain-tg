@@ -39,7 +39,7 @@ const Blocked = ({ title, variant = 'block' }: IBlocked) => {
           />
         </svg>
       )}
-      {variant === 'process' && (
+      {/* {variant === 'process' && (
         <svg
           xmlns='http://www.w3.org/2000/svg'
           className='text-yellow-600 '
@@ -61,7 +61,7 @@ const Blocked = ({ title, variant = 'block' }: IBlocked) => {
           <path d='M2 12h4' />
           <path d='m4.9 4.9 2.9 2.9' />
         </svg>
-      )}
+      )} */}
       {title && <p className={clsx('text-orange-600  text-sm', variant === 'process' && 'text-yellow-600')}>{title}</p>}
     </div>
   )

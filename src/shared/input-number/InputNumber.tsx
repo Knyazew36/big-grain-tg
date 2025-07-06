@@ -50,7 +50,7 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
   }
 
   return (
-    <div className='bg-white border border-gray-200 rounded-lg dark:bg-neutral-700 dark:border-neutral-700'>
+    <div className='bg-white w-full border border-gray-200 rounded-lg dark:bg-neutral-700 dark:border-neutral-700'>
       <div className='w-full flex justify-between items-center gap-x-1'>
         <div className='grow py-2 px-3'>
           <input

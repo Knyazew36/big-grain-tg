@@ -53,14 +53,11 @@ const IncomingToWarehousePage = () => {
       await receiptCreate({ receipts: payload })
       open({
         isOpen: true,
-        description: 'Поступление успешно создано',
-        onClose: () => {
-          navigate(-1)
-        }
+        description: 'Поступление успешно создано'
       })
       refetch()
       setArrivals({})
-      // navigate(-1)
+      navigate(-1)
     } catch (error) {
       hapticFeedback.notificationOccurred('error')
     } finally {

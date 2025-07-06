@@ -123,7 +123,7 @@ const ProductsCardChange: FC<IProductsCard> = ({
         {withInputNumber && (
           <div className='flex flex-col gap-2 mt-4'>
             <span className='block text-sm text-gray-500 dark:text-neutral-500'>{inputNumberLabel}</span>
-            <div className='flex items-center gap-x-2'>
+            <div className='flex items-center gap-x-2 w-full'>
               {withInputNumber && (
                 <InputNumber
                   onChange={handleInputChange}
