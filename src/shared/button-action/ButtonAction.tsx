@@ -17,7 +17,12 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick, disabledSucce
   return (
     <>
       <div className='sticky left-0 right-0 bottom-0 w-max  p-6 z-50  max-w-md mx-auto hs-removing:translate-y-5 hs-removing:opacity-0 transition duration-300'>
-        <div className={clsx('py-2 ps-5 pe-2 bg-stone-800 rounded-full shadow-md dark:bg-neutral-950', isLoading && '!ps-4 !pe-4')}>
+        <div
+          className={clsx(
+            'py-2 ps-5 pe-2 bg-stone-800 rounded-full shadow-md dark:bg-neutral-950',
+            isLoading && '!ps-4 !pe-4'
+          )}
+        >
           {!isLoading && (
             <div className='flex justify-between items-center gap-x-3'>
               {/* <a
@@ -37,7 +42,7 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick, disabledSucce
                       hapticFeedback.impactOccurred('light')
                     }}
                   >
-                    Отмена
+                    Очистить
                   </button>
                 )}
                 <div className='w-px h-4 bg-stone-700 dark:bg-neutral-700'></div>
