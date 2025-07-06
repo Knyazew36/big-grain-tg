@@ -6,7 +6,8 @@ import {
   isMiniAppDark,
   setMiniAppHeaderColor,
   setMiniAppBackgroundColor,
-  themeParamsSecondaryBackgroundColor
+  themeParamsSecondaryBackgroundColor,
+  requestFullscreen
 } from '@telegram-apps/sdk-react'
 import { AppRoot } from '@telegram-apps/telegram-ui'
 
@@ -17,8 +18,7 @@ export function App() {
   const lp = useMemo(() => retrieveLaunchParams(), [])
   const isDark = useSignal(isMiniAppDark)
 
-  // useSignal(themeParams.state)
-
+  requestFullscreen()
   return (
     <AppRoot
       appearance={isDark ? 'dark' : 'light'}

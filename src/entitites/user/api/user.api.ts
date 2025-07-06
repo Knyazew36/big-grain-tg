@@ -32,7 +32,7 @@ export const useUpdateUser = () => {
       return res.data.data as IUser
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] })
+      queryClient.invalidateQueries({ queryKey: ['user', 'employees'] })
       hapticFeedback.notificationOccurred('success')
     },
     onError: () => {
@@ -48,7 +48,7 @@ export const useUserDelete = () => {
       await $api.post(`${apiDomain}/user/remove/${id}`)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user'] })
+      queryClient.invalidateQueries({ queryKey: ['user', 'employees'] })
       hapticFeedback.notificationOccurred('success')
     },
     onError: () => {
