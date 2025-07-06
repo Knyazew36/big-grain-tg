@@ -30,13 +30,12 @@ const MenuButton = ({ to, title, icon, color = 'blue', isBlocked = false, isDeve
           title='В разработке'
         />
       )}
-      {/* {!isAdmin && <Blocked />} */}
-      <div className='mb-4 flex flex-col justify-center items-center h-full'>
-        <span className={`flex justify-center items-center size-12 xl:size-16 mx-auto bg-${color}-500 text-white rounded-2xl dark:bg-${color}-800/30`}>
-          <div className={`shrink-0 size-5 xl:w-6 xl:h-6 text-${color}-600 dark:text-${color}-500`}>{icon}</div>
-        </span>
-      </div>
-      <div className='text-center mt-auto'>
+
+      <span className={`flex justify-center items-center size-12 xl:size-16 mx-auto bg-${color}-50 text-white rounded-2xl dark:bg-${color}-800/30`}>
+        {icon}
+      </span>
+
+      <div className='text-center mt-1'>
         <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
           {title}
         </p>

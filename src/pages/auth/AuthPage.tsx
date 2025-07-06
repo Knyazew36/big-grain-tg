@@ -15,6 +15,8 @@ const AuthPage = () => {
 
   const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
 
+  console.log('auth page', role)
+
   const handleRequestAccess = async () => {
     hapticFeedback.impactOccurred('rigid')
     if (user?.id) {
