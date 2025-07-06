@@ -1,6 +1,7 @@
 import { Page } from '@/components/Page'
 import { requestAccess } from '@/entitites/auth/auth.api'
 import { useUserRole } from '@/entitites/user/api/user.api'
+import { Role } from '@/entitites/user/model/user.type'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 import Loader from '@/shared/loader/ui/Loader'
 import Spinner from '@/shared/spinner/Spinner'
@@ -38,7 +39,7 @@ const AuthPage = () => {
 
   if (isLoading) return <Loader />
 
-  if (role) return <Navigate to='/menu' />
+  if (role !== Role.BLOCKED && role !== Role.GUEST) return <Navigate to='/menu' />
 
   return (
     <>
