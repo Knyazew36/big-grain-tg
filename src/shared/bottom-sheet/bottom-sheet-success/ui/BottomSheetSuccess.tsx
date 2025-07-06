@@ -25,7 +25,7 @@ const BottomSheetSuccess = ({ isOpen, onClose, description, title = 'Успех!
       activeSnapPoint={1}
     >
       <DrawerContent className='bg-white dark:bg-neutral-900'>
-        <div className='flex flex-col px-4 pb-4 pt-8'>
+        <div className='flex flex-col px-4 pb-8 pt-5'>
           {/* Icon */}
           <div className='mb-5 sm:mb-7 text-center'>
             <span className='shrink-0 size-14 md:size-16 mx-auto flex justify-center items-center border-2 border-green-500 text-green-500 rounded-full'>
