@@ -1,8 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import { IUser, Role } from '../model/user.type'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { IUser, Role, UpdateUserDto } from '../model/user.type'
 import { apiDomain } from '@/shared/api/model/constants'
 import $api from '@/shared/api/model/request'
 import { useAuthStore } from '@/entitites/auth/model/auth.store'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
+import { Product } from '@/entitites/product/model/product.type'
 
 interface GetUserDto {
   role?: Role
@@ -21,6 +23,21 @@ export const useUsers = (dto: GetUserDto) => {
     retryDelay: 5000
   })
 }
+
+export const useUpdateUser = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async ({ id, dto }: { id: number; dto: UpdateUserDto }) => {
+      const res = await $api.post(`${apiDomain}/user/update/${id}`, dto)
+      return res.data.data as IUser
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['products'] })
+      hapticFeedback.notificationOccurred('success')
+    }
+  })
+}
+
 export const useUsersEmployees = () => {
   return useQuery<IUser[]>({
     queryKey: ['employees'],

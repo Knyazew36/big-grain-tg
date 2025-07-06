@@ -1,10 +1,28 @@
 import React from 'react'
-import { IUser } from '../../model/user.type'
+import { IUser, Role } from '../../model/user.type'
 import { getFullName } from '@/shared/utils/getFullName'
+import Select from '@/shared/ui/select/ui/Select'
+import { Controller, useForm } from 'react-hook-form'
+import { useUpdateUser } from '../../api/user.api'
+import LoaderSection from '@/shared/loader/ui/LoaderSection'
 
 const UserCard = ({ data }: { data: IUser }) => {
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      role: data.role
+    },
+    mode: 'onChange'
+  })
+  const { mutate: updateUser, isPending } = useUpdateUser()
+
+  const onSubmit = (data: any) => {
+    updateUser({ id: data.id, dto: { role: data.role } })
+  }
   return (
-    <div className='flex flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700 '>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='flex  flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700 '
+    >
       {/* Header */}
       <div className='p-3 md:pt-5 md:px-5 grid grid-cols-3 gap-x-2'>
         <div>
@@ -222,45 +240,33 @@ const UserCard = ({ data }: { data: IUser }) => {
         {/* End List */}
       </div>
 
-      {/* Footer */}
-      {/* <div className='py-3 px-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-1 sm:gap-y-0 gap-x-2 text-center sm:text-start border-t border-gray-200 dark:border-neutral-700'>
+      <div className='py-3 overflow-hidden relative px-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-1 sm:gap-y-0 gap-x-2 text-center sm:text-start border-t border-gray-200 dark:border-neutral-700'>
+        {isPending && <LoaderSection />}
         <div>
-          <p className='text-sm text-gray-500 dark:text-neutral-500'>57 connections</p>
+          <p className='text-sm text-gray-500 dark:text-neutral-500'>Сменить роль</p>
         </div>
         <div>
-          <label
-            htmlFor='hs-pro-dupccn1'
-            className='relative py-2 px-3 flex items-center justify-center sm:justify-start border border-gray-200 cursor-pointer font-medium text-xs rounded-lg peer-checked:bg-gray-100 hover:border-gray-300 focus:outline-none focus:border-gray-300 dark:border-neutral-700 dark:peer-checked:bg-neutral-800 dark:hover:border-neutral-600 dark:focus:border-neutral-600'
-          >
-            <input
-              type='checkbox'
-              id='hs-pro-dupccn1'
-              className='peer hidden'
-              defaultChecked
-            />
-            <span className='relative z-10 text-gray-800 dark:text-neutral-200 peer-checked:hidden'>Connect</span>
-            <span className='relative z-10 hidden peer-checked:flex items-center gap-x-1.5 text-gray-800 dark:text-neutral-200'>
-              <svg
-                className='shrink-0 size-3.5'
-                xmlns='http://www.w3.org/2000/svg'
-                width={24}
-                height={24}
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth={2}
-                strokeLinecap='round'
-                strokeLinejoin='round'
-              >
-                <path d='M20 6 9 17l-5-5' />
-              </svg>
-              Connected
-            </span>
-          </label>
+          <Controller
+            control={control}
+            name='role'
+            render={({ field }) => (
+              <Select
+                options={[
+                  { value: Role.ADMIN, label: 'Админ' },
+                  { value: Role.OPERATOR, label: 'Оператор' }
+                  // { value: Role.GUEST, label: 'Гость' }
+                ]}
+                value={field.value}
+                onChange={value => {
+                  field.onChange(value)
+                  updateUser({ id: data.id, dto: { role: value as Role } })
+                }}
+              />
+            )}
+          />
         </div>
-      </div> */}
-      {/* End Footer */}
-    </div>
+      </div>
+    </form>
   )
 }
 

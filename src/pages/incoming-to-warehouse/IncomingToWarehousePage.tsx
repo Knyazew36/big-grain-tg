@@ -13,8 +13,10 @@ import Loader from '@/shared/loader/ui/Loader'
 
 const IncomingToWarehousePage = () => {
   const navigate = useNavigate()
-  const { data = [], isLoading } = useProducts(true)
+  const { data = [], isLoading, refetch } = useProducts(true)
   const { open } = useBottomSheetStore()
+
+  const [isButtonLoading, setIsButtonLoading] = useState(false)
 
   const [searchTerm, setSearchTerm] = useState('')
   const [arrivals, setArrivals] = useState<{ [productId: number]: number }>({})
@@ -47,6 +49,7 @@ const IncomingToWarehousePage = () => {
       }))
 
     try {
+      setIsButtonLoading(true)
       await receiptCreate({ receipts: payload })
       open({
         isOpen: true,
@@ -55,10 +58,13 @@ const IncomingToWarehousePage = () => {
           navigate(-1)
         }
       })
+      refetch()
       setArrivals({})
       // navigate(-1)
     } catch (error) {
       hapticFeedback.notificationOccurred('error')
+    } finally {
+      setIsButtonLoading(false)
     }
   }
 
@@ -105,6 +111,7 @@ const IncomingToWarehousePage = () => {
             onCancelClick={handleCancel}
             disabledSuccess={Object.values(arrivals).every(value => value === 0)}
             disabledCancel={Object.values(arrivals).every(value => value === 0)}
+            isLoading={isButtonLoading}
           />
         )}
       </div>

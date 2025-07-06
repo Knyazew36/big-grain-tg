@@ -12,7 +12,7 @@ import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 import Loader from '@/shared/loader/ui/Loader'
 const ReportPage = () => {
   const navigate = useNavigate()
-  const { data = [], isLoading } = useProducts(true)
+  const { data = [], isLoading, refetch } = useProducts(true)
   const { open } = useBottomSheetStore()
   const [buttonLoading, setButtonLoading] = useState(false)
 

@@ -15,3 +15,8 @@ export interface IUser {
   updatedAt: Date
   isActive: boolean
 }
+
+export interface UpdateUserDto {
+  role?: Role
+  data?: Partial<User>
+}
