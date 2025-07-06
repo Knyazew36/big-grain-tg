@@ -56,9 +56,9 @@ export const accessRequests = async (): Promise<{ user: IUser; processedBy: Acce
 
 export const useAccessRequests = (role: Role) => {
   return useQuery<AccessRequest[]>({
-    queryKey: ['access-requests'],
+    queryKey: ['pending-access-requests'],
     queryFn: async () => {
-      const res = await $api.post(`${apiDomain}/auth/access-requests`)
+      const res = await $api.post(`${apiDomain}/auth/pending-access-requests`)
       return res.data.data
     },
     retry: 3,
@@ -90,7 +90,7 @@ export const useApproveAccessRequest = () => {
     },
     onSuccess: () => {
       // Инвалидируем кеш заявок, чтобы обновить список
-      queryClient.invalidateQueries({ queryKey: ['access-requests'] })
+      queryClient.invalidateQueries({ queryKey: ['pending-access-requests'] })
       hapticFeedback.notificationOccurred('success')
     },
     onError: error => {
@@ -123,7 +123,7 @@ export const useDeclineAccessRequest = () => {
     },
     onSuccess: () => {
       // Инвалидируем кеш заявок, чтобы обновить список
-      queryClient.invalidateQueries({ queryKey: ['access-requests'] })
+      queryClient.invalidateQueries({ queryKey: ['pending-access-requests'] })
       hapticFeedback.notificationOccurred('success')
     },
     onError: error => {

@@ -241,7 +241,7 @@ const UserCard = ({ data }: { data: IUser }) => {
         {/* End List */}
       </div>
 
-      {!isOwner && (
+      {data.role !== Role.OWNER && (
         <div className='py-3 overflow-hidden relative px-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-1 sm:gap-y-0 gap-x-2 text-center sm:text-start border-t border-gray-200 dark:border-neutral-700'>
           {isPending && <LoaderSection />}
           <div>

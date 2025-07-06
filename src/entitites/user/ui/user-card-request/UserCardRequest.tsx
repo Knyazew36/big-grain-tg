@@ -4,7 +4,7 @@ import { AccessRequest } from '@/entitites/auth/model/auth.type'
 import { getFullName } from '@/shared/utils/getFullName'
 
 import LoaderSection from '@/shared/loader/ui/LoaderSection'
-import { useApproveAccessRequest, useDeclineAccessRequest } from '@/entitites/auth/auth.api'
+import { useAccessRequests, useApproveAccessRequest, useDeclineAccessRequest } from '@/entitites/auth/auth.api'
 
 const UserCardRequest = ({ data, adminTelegramId }: { data: AccessRequest; adminTelegramId: string }) => {
   const { mutate: approveAccessRequest, isPending: isApprovePending } = useApproveAccessRequest()

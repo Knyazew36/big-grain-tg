@@ -11,7 +11,6 @@ const UserRequestPage = () => {
   const { role } = useAuthStore()
   const { data: accessRequests } = useAccessRequests(role)
   const user = initDataUser()
-  console.log('accessRequests', accessRequests)
   return (
     <Page back>
       <PageHeader title='Запросы на доступ' />
@@ -23,9 +22,6 @@ const UserRequestPage = () => {
               adminTelegramId={user?.id?.toString() ?? ''}
               data={item}
               key={item.id}
-              // key={item.user.id}
-              // user={item.user}
-              // processedBy={item.processedBy}
             />
           ))}
 
