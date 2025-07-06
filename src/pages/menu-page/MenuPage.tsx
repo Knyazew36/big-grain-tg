@@ -142,8 +142,9 @@ const MenuPage: FC = () => {
     {
       to: '',
       title: 'Уведомления',
-      color: 'cyan',
+      color: 'neutral',
       isDevelop: true,
+      iconClassName: 'border-2 border-dotted border-neutral-700',
       icon: (
         <svg
           className='shrink-0 size-5'

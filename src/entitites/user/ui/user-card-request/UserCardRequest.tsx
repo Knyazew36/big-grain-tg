@@ -19,16 +19,16 @@ const UserCardRequest = ({
   const { mutate: declineAccessRequest, isPending: isDeclinePending } = useDeclineAccessRequest()
 
   const handleAccept = () => {
-    approveAccessRequest({ requestId: user.id, adminTelegramId })
+    approveAccessRequest({ requestId: processedBy.id, adminTelegramId })
   }
 
   const handleReject = () => {
-    declineAccessRequest({ requestId: user.id, adminTelegramId })
+    declineAccessRequest({ requestId: processedBy.id, adminTelegramId })
   }
 
   return (
     <div className='p-4 flex flex-col  border border-gray-200 rounded-xl overflow-hidden  dark:border-neutral-700 relative'>
-      {isApprovePending || (isDeclinePending && <LoaderSection />)}
+      {(isApprovePending || isDeclinePending) && <LoaderSection />}
       <div className='relative sm:flex sm:justify-between sm:gap-x-4'>
         <div>
           {/* Media */}

@@ -10,8 +10,8 @@ const ProductCreate: React.FC = () => {
       to={'/create-product'}
       title='Создать товар'
       color='neutral'
-      iconClassName='border-2 border-dotted border-neutral-700'
       isBlocked={!isIT && !isOwner && !isAdmin}
+      iconClassName='border-2 border-dotted border-neutral-700'
       icon={
         <svg
           className='shrink-0 size-5'
