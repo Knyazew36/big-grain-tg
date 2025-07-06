@@ -1,5 +1,14 @@
 import React, { useEffect } from 'react'
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from '@/components/ui/drawer'
 import { IBottomSheetSuccessProps } from '../model/bottomSheetSuccess.type'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 
@@ -15,7 +24,7 @@ const BottomSheetSuccess = ({ isOpen, onClose, description, title = 'Успех!
       onOpenChange={onClose}
       activeSnapPoint={1}
     >
-      <DrawerContent>
+      <DrawerContent className='bg-white dark:bg-neutral-900'>
         <div className='flex flex-col px-4 pb-4 pt-8'>
           {/* Icon */}
           <div className='mb-5 sm:mb-7 text-center'>
@@ -39,7 +48,9 @@ const BottomSheetSuccess = ({ isOpen, onClose, description, title = 'Успех!
           {/* End Icon */}
           {/* Heading */}
           <div className='mb-5 sm:mb-8 text-center'>
-            <h1 className='mb-1 md:mb-3 font-semibold text-xl md:text-2xl text-gray-800 dark:text-neutral-200'>{title}</h1>
+            <h1 className='mb-1 md:mb-3 font-semibold text-xl md:text-2xl text-gray-800 dark:text-neutral-200'>
+              {title}
+            </h1>
             {description && <p className='text-sm text-gray-500 dark:text-neutral-500'>{description}</p>}
           </div>
           {/* End Heading */}

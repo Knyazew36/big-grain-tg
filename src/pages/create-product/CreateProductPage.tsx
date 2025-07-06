@@ -44,7 +44,7 @@ const CreateProductPage = () => {
 
       open({
         isOpen: true,
-        description: 'Товар успешно создан'
+        description: 'Товар успешно создан. Вы можете добавить еще один товар или вернуться на главную страницу.'
       })
       reset()
     } catch (e: any) {

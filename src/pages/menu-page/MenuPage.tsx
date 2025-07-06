@@ -14,8 +14,9 @@ import { UserPlus } from 'lucide-react'
 
 const MenuPage: FC = () => {
   const { isAdmin, isOwner, isIT, isOperator, role } = useAuthStore()
-  const { data: accessRequests } = useAccessRequests(role)
+  const { data: accessRequests, isLoading } = useAccessRequests(role)
   const navigate = useNavigate()
+
   useEffect(() => {
     if (!isAdmin && !isOwner && !isIT && !isOperator) {
       navigate('/')
@@ -164,6 +165,7 @@ const MenuPage: FC = () => {
     {
       to: '/user-request',
       title: 'Запросы на доступ',
+      isLoading: isLoading,
       color: 'fuchsia',
       withNotification: accessRequests && accessRequests?.length > 0,
       icon: (

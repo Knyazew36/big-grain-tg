@@ -3,6 +3,7 @@ import { hapticFeedback } from '@telegram-apps/sdk-react'
 import { Link } from 'react-router-dom'
 import Blocked from '@/shared/blocked/ui/Blocked'
 import { TailwindColor, getColorClasses } from '@/shared/utils/colors'
+import LoaderSection from '@/shared/loader/ui/LoaderSection'
 
 export type IMenuButton = {
   to: string
@@ -13,6 +14,7 @@ export type IMenuButton = {
   isBlocked?: boolean
   isDevelop?: boolean
   withNotification?: boolean
+  isLoading?: boolean
 }
 
 const MenuButton = ({
@@ -22,17 +24,19 @@ const MenuButton = ({
   color = 'blue',
   isBlocked = false,
   isDevelop = false,
-  withNotification = false
+  withNotification = false,
+  isLoading = false
 }: IMenuButton) => {
   return (
     <Link
       to={to}
       className={clsx(
         'p-4 group relative overflow-hidden flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700',
-        (isBlocked || isDevelop) && 'opacity-70 !pointer-events-none cursor-not-allowed'
+        (isBlocked || isDevelop || isLoading) && 'opacity-70 !pointer-events-none cursor-not-allowed'
       )}
       onClick={() => hapticFeedback.impactOccurred('rigid')}
     >
+      {isLoading && <LoaderSection />}
       {isBlocked && <Blocked />}
       {isDevelop && (
         <Blocked
