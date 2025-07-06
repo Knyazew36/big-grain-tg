@@ -99,14 +99,14 @@ function logErrorDetails(error: AxiosError) {
 function handleResponseError(error: AxiosError<ErrorResponse>) {
   if (error.response?.status === 403) {
     console.info('403')
-    const errorData: ErrorEventEmitter = { action: 'navigation', href: '/auth' }
+    const errorData: ErrorEventEmitter = { action: 'navigation', href: '/' }
     eventEmitter.emit('request-error', errorData)
   }
 
-  if (error.response?.status === 401) {
-    const errorData: ErrorEventEmitter = { action: 'logout' }
-    eventEmitter.emit('request-error', errorData)
-  }
+  // if (error.response?.status === 401) {
+  //   const errorData: ErrorEventEmitter = { action: 'logout' }
+  //   eventEmitter.emit('request-error', errorData)
+  // }
 }
 
 export default $api
