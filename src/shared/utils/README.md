@@ -156,4 +156,77 @@ console.log(result)
 - Поддерживаются только русские и английские буквы
 - Максимальная длина каждого компонента - 50 символов
 - Минимальная длина каждого компонента - 2 символа
-- Не поддерживаются цифры и специальные символы (кроме дефиса и апострофа) 
+- Не поддерживаются цифры и специальные символы (кроме дефиса и апострофа)
+
+# Shared Utils
+
+## Colors
+
+Файл `colors.ts` содержит утилиты для работы с цветами Tailwind CSS, которые решают проблему с динамическими классами в production сборке.
+
+### Проблема
+
+При использовании динамических классов Tailwind CSS (например, `bg-${color}-50`) в production сборке эти классы могут не попасть в финальный CSS файл, так как Tailwind не может определить, какие именно классы используются.
+
+### Решение
+
+Вместо динамических классов используйте статические классы через объект `colorClasses`:
+
+```tsx
+// ❌ Плохо - динамические классы
+<span className={`bg-${color}-50 dark:bg-${color}-800/30`}>
+  {icon}
+</span>
+
+// ✅ Хорошо - статические классы
+<span className={clsx(
+  'flex justify-center items-center size-12 xl:size-16 mx-auto text-white rounded-2xl',
+  getColorClasses(color)
+)}>
+  {icon}
+</span>
+```
+
+### Доступные цвета
+
+Поддерживаются все основные цвета Tailwind CSS:
+- `teal`, `indigo`, `yellow`, `blue`, `cyan`, `green`, `pink`
+- `red`, `orange`, `purple`, `gray`, `slate`, `zinc`, `neutral`
+- `stone`, `emerald`, `lime`, `amber`, `sky`, `violet`, `fuchsia`, `rose`
+
+### API
+
+```tsx
+import { TailwindColor, getColorClasses, getTextColorClasses } from '@/shared/utils/colors'
+
+// Тип для цветов
+type TailwindColor = 'teal' | 'indigo' | 'yellow' | /* ... */
+
+// Получить классы для фона
+getColorClasses('blue') // 'bg-blue-50 dark:bg-blue-800/30'
+
+// Получить классы для текста
+getTextColorClasses('blue') // 'text-blue-600 dark:text-blue-500'
+```
+
+### Использование в компонентах
+
+```tsx
+import { TailwindColor, getColorClasses } from '@/shared/utils/colors'
+
+interface ButtonProps {
+  color?: TailwindColor
+  children: React.ReactNode
+}
+
+const Button = ({ color = 'blue', children }: ButtonProps) => {
+  return (
+    <button className={clsx(
+      'px-4 py-2 rounded-lg',
+      getColorClasses(color)
+    )}>
+      {children}
+    </button>
+  )
+}
+``` 

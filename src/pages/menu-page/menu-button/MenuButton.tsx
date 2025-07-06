@@ -2,12 +2,13 @@ import clsx from 'clsx'
 import { hapticFeedback } from '@telegram-apps/sdk-react'
 import { Link } from 'react-router-dom'
 import Blocked from '@/shared/blocked/ui/Blocked'
+import { TailwindColor, getColorClasses } from '@/shared/utils/colors'
 
 export type IMenuButton = {
   to: string
   title: string
   icon: React.ReactNode
-  color?: string
+  color?: TailwindColor
 
   isBlocked?: boolean
   isDevelop?: boolean
@@ -31,9 +32,7 @@ const MenuButton = ({ to, title, icon, color = 'blue', isBlocked = false, isDeve
         />
       )}
 
-      <span className={`flex justify-center items-center size-12 xl:size-16 mx-auto bg-${color}-50 text-white rounded-2xl dark:bg-${color}-800/30`}>
-        {icon}
-      </span>
+      <span className={clsx('flex justify-center items-center size-12 xl:size-16 mx-auto text-white rounded-2xl', getColorClasses(color))}>{icon}</span>
 
       <div className='text-center mt-1'>
         <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>

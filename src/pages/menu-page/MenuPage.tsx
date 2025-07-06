@@ -29,9 +29,9 @@ const MenuPage: FC = () => {
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
           className='shrink-0 size-5 xl:w-6 xl:h-6 text-teal-600 dark:text-teal-500'
         >
           <path d='M14 17H5' />
@@ -61,9 +61,9 @@ const MenuPage: FC = () => {
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
           className='shrink-0 size-5 xl:w-6 xl:h-6 text-indigo-600 dark:text-indigo-500'
         >
           <path d='M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11' />
@@ -87,9 +87,9 @@ const MenuPage: FC = () => {
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
           className='shrink-0 size-5 xl:w-6 xl:h-6 text-yellow-600 dark:text-yellow-500'
         >
           <path d='M3 3v16a2 2 0 0 0 2 2h16' />
@@ -112,9 +112,9 @@ const MenuPage: FC = () => {
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
           className='shrink-0 size-5 xl:w-6 xl:h-6 text-blue-600 dark:text-blue-500'
         >
           <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
