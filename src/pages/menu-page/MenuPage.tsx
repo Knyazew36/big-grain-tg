@@ -168,7 +168,8 @@ const MenuPage: FC = () => {
       title: 'Запросы на доступ',
       isLoading: isLoading,
       color: 'fuchsia',
-      withNotification: accessRequests && accessRequests?.length > 0,
+      isBlocked: isOperator,
+      withNotification: !isOperator && accessRequests && accessRequests?.length > 0,
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
