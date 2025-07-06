@@ -10,14 +10,16 @@ import { useAuthStore } from '@/entitites/auth/model/auth.store'
 import MenuButton, { IMenuButton } from './menu-button/MenuButton'
 
 const MenuPage: FC = () => {
-  const { isAdmin, isOwner, isIT } = useAuthStore()
+  const { isAdmin, isOwner, isIT, isOperator, role } = useAuthStore()
+
+  console.info(isAdmin, isOwner, isIT, isOperator, role)
 
   const menuButtons: IMenuButton[] = [
     {
       to: '/settings',
       title: 'Настройки склада',
       color: 'teal',
-      isBlocked: !isAdmin || !isOwner,
+      isBlocked: isOperator,
 
       icon: (
         <svg
@@ -75,7 +77,7 @@ const MenuPage: FC = () => {
       to: '/incoming-statistics',
       title: 'Отчет',
       color: 'yellow',
-      isBlocked: !isAdmin || !isOwner,
+      isBlocked: isOperator,
 
       icon: (
         <svg
@@ -101,7 +103,7 @@ const MenuPage: FC = () => {
       to: '/staff',
       title: 'Сотрудники',
       color: 'blue',
-      isBlocked: !isAdmin || !isOwner,
+      isBlocked: isOperator,
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'

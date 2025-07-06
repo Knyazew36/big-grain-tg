@@ -34,7 +34,7 @@ export function App() {
           ))}
           <Route
             path='*'
-            element={<Navigate to='/' />}
+            element={<Navigate to='/auth' />}
           />
         </Routes>
       </AppProvider>
