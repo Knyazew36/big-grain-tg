@@ -16,7 +16,7 @@ export interface IUser {
   data: User
   createdAt: Date
   updatedAt: Date
-  isActive: boolean
+  active: boolean
 }
 
 export interface UpdateUserDto {

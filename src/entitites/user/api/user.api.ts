@@ -34,6 +34,25 @@ export const useUpdateUser = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['user'] })
       hapticFeedback.notificationOccurred('success')
+    },
+    onError: () => {
+      hapticFeedback.notificationOccurred('error')
+    }
+  })
+}
+
+export const useUserDelete = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await $api.post(`${apiDomain}/user/remove/${id}`)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['user'] })
+      hapticFeedback.notificationOccurred('success')
+    },
+    onError: () => {
+      hapticFeedback.notificationOccurred('error')
     }
   })
 }

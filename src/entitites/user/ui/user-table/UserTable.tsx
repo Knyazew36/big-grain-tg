@@ -25,10 +25,14 @@ const UserTable = ({ data }: { data: IUser[] }) => {
                     scope='col'
                     className='min-w-48'
                   >
-                    <div className='px-4 py-3 text-start flex items-center gap-x-1 text-sm font-medium text-gray-800 dark:text-neutral-200'>ФИО</div>
+                    <div className='px-4 py-3 text-start flex items-center gap-x-1 text-sm font-medium text-gray-800 dark:text-neutral-200'>
+                      ФИО
+                    </div>
                   </th>
                   <th scope='col'>
-                    <div className='px-4 py-3 text-start flex items-center gap-x-1 text-sm font-medium text-gray-800 dark:text-neutral-200'>Роль</div>
+                    <div className='px-4 py-3 text-start flex items-center gap-x-1 text-sm font-medium text-gray-800 dark:text-neutral-200'>
+                      Роль
+                    </div>
                   </th>
                   <th
                     scope='col'
@@ -39,7 +43,9 @@ const UserTable = ({ data }: { data: IUser[] }) => {
                     </div>
                   </th>
                   <th scope='col'>
-                    <div className='px-4 py-3 text-start flex items-center gap-x-1 text-sm font-medium text-gray-800 dark:text-neutral-200'>Статус</div>
+                    <div className='px-4 py-3 text-start flex items-center gap-x-1 text-sm font-medium text-gray-800 dark:text-neutral-200'>
+                      Статус
+                    </div>
                   </th>
                 </tr>
               </thead>
@@ -65,7 +71,9 @@ const UserTable = ({ data }: { data: IUser[] }) => {
                           </span>
                         )}
                         <div className='grow'>
-                          <span className='text-sm font-medium text-gray-800 dark:text-neutral-200'>{user.data.username}</span>
+                          <span className='text-sm font-medium text-gray-800 dark:text-neutral-200'>
+                            {user.data.username}
+                          </span>
                         </div>
                       </div>
                     </td>
@@ -95,7 +103,7 @@ const UserTable = ({ data }: { data: IUser[] }) => {
                       </span>
                     </td>
                     <td className='size-px whitespace-nowrap px-4 py-3'>
-                      {user.isActive ? (
+                      {user.active ? (
                         <span className='inline-flex items-center gap-x-1.5 py-1.5 px-2.5 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500'>
                           <span className='size-1.5 inline-block bg-gray-800 rounded-full dark:bg-neutral-200' />
                           Активен

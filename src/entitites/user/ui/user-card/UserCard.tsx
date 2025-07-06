@@ -5,7 +5,7 @@ import Select from '@/shared/ui/select/ui/Select'
 import { Controller, useForm } from 'react-hook-form'
 import { useUpdateUser } from '../../api/user.api'
 import LoaderSection from '@/shared/loader/ui/LoaderSection'
-import { useAuthStore } from '@/entitites/auth/model/auth.store'
+import UserDelete from '../delete/UserDelete'
 
 const UserCard = ({ data }: { data: IUser }) => {
   const { control, handleSubmit } = useForm({
@@ -15,15 +15,20 @@ const UserCard = ({ data }: { data: IUser }) => {
     mode: 'onChange'
   })
   const { mutate: updateUser, isPending } = useUpdateUser()
-  const { isOwner } = useAuthStore()
+
   const onSubmit = (data: any) => {
     updateUser({ id: data.id, dto: { role: data.role } })
   }
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex  flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700 '
+      className='flex relative  flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700 '
     >
+      {data.role !== Role.OWNER && (
+        <div className='absolute top-2 left-2'>
+          <UserDelete userId={data.id} />
+        </div>
+      )}
       {/* Header */}
       <div className='p-3 md:pt-5 md:px-5 grid grid-cols-3 gap-x-2'>
         <div>
@@ -256,8 +261,8 @@ const UserCard = ({ data }: { data: IUser }) => {
                   disabled={data.role === Role.OWNER}
                   options={[
                     { value: Role.ADMIN, label: 'Админ' },
-                    { value: Role.OPERATOR, label: 'Оператор' },
-                    { value: Role.OWNER, label: 'Владелец' }
+                    { value: Role.OPERATOR, label: 'Оператор' }
+                    // { value: Role.OWNER, label: 'Владелец' }
                     // { value: Role.GUEST, label: 'Гость' }
                   ]}
                   value={field.value}
