@@ -1,32 +1,159 @@
 import { Page } from '@/components/Page'
 import React, { FC, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { LucideMailWarning } from 'lucide-react'
-import Confirmation from '@/widgets/confirmation/Confirmation'
-import { loginWithTelegram } from '@/entitites/auth/auth.api'
-import { hapticFeedback, initDataUser, isTMA, retrieveLaunchParams, retrieveRawInitData, useRawInitData } from '@telegram-apps/sdk-react'
+
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
-import Blocked from '@/shared/blocked/ui/Blocked'
-import clsx from 'clsx'
-import { useUserRole } from '@/entitites/user/api/user.api'
+
 import { useAuthStore } from '@/entitites/auth/model/auth.store'
-import Loader from '@/shared/loader/ui/Loader'
-import { Role } from '@/entitites/user/model/user.type'
+
+import MenuButton, { IMenuButton } from './menu-button/MenuButton'
 
 const MenuPage: FC = () => {
-  const user = initDataUser()
+  const { isAdmin, isOwner, isIT } = useAuthStore()
 
-  const { isAdmin, isOperator, isOwner, isIT } = useAuthStore()
+  const menuButtons: IMenuButton[] = [
+    {
+      to: '/settings',
+      title: 'Настройки склада',
+      color: 'teal',
+      isBlocked: !isAdmin || !isOwner,
+
+      icon: (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          className='shrink-0 size-5 xl:w-6 xl:h-6 text-teal-600 dark:text-teal-500'
+        >
+          <path d='M14 17H5' />
+          <path d='M19 7h-9' />
+          <circle
+            cx='17'
+            cy='17'
+            r='3'
+          />
+          <circle
+            cx='7'
+            cy='7'
+            r='3'
+          />
+        </svg>
+      )
+    },
+    {
+      to: '/products',
+      title: 'Остаток на складе',
+      color: 'indigo',
+      icon: (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          className='shrink-0 size-5 xl:w-6 xl:h-6 text-indigo-600 dark:text-indigo-500'
+        >
+          <path d='M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11' />
+          <path d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z' />
+          <path d='M6 13h12' />
+          <path d='M6 17h12' />
+        </svg>
+      )
+    },
+    {
+      to: '/incoming-statistics',
+      title: 'Отчет',
+      color: 'yellow',
+      isBlocked: !isAdmin || !isOwner,
+
+      icon: (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          className='shrink-0 size-5 xl:w-6 xl:h-6 text-yellow-600 dark:text-yellow-500'
+        >
+          <path d='M3 3v16a2 2 0 0 0 2 2h16' />
+          <path d='M7 16h8' />
+          <path d='M7 11h12' />
+          <path d='M7 6h3' />
+        </svg>
+      )
+    },
+    {
+      to: '/staff',
+      title: 'Сотрудники',
+      color: 'blue',
+      isBlocked: !isAdmin || !isOwner,
+      icon: (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          stroke-linecap='round'
+          stroke-linejoin='round'
+          className='shrink-0 size-5 xl:w-6 xl:h-6 text-blue-600 dark:text-blue-500'
+        >
+          <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
+          <path d='M16 3.128a4 4 0 0 1 0 7.744' />
+          <path d='M22 21v-2a4 4 0 0 0-3-3.87' />
+          <circle
+            cx='9'
+            cy='7'
+            r='4'
+          />
+        </svg>
+      )
+    },
+    {
+      to: '',
+      title: 'Уведомления',
+      color: 'red',
+      isDevelop: true,
+      icon: (
+        <svg
+          className='shrink-0 size-5'
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+        >
+          <path d='M5 12h14' />
+          <path d='M12 5v14' />
+        </svg>
+      )
+    }
+  ]
 
   return (
     <Page back={false}>
       <div className='flex flex-col flex-1 pt-4'>
-        {/* <h1 className='text-xl font-semibold text-center mb-8'>Здравствуйте, Сергей</h1>
-        Grid */}
-
-        {/* <Confirmation /> */}
-
         <AlertProductLowStock />
 
         <Link
@@ -146,193 +273,14 @@ const MenuPage: FC = () => {
           </div>
         </Link>
 
-        {/* <div className='flex justify-between  gap-x-5 items-center border-b border-gray-200 dark:border-neutral-700 pb-2  mt-8'>
-          <h3 className='block font-bold text-md sm:text-xl text-gray-800 dark:text-neutral-200'>Настройки склада</h3>
-        </div> */}
-
         <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-2 lg:gap-4 mt-8'>
-          <Link
-            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            to={'/settings'}
-            onClick={() => hapticFeedback.impactOccurred('rigid')}
-          >
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-teal-50 text-white rounded-2xl dark:bg-teal-800/30'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-teal-600 dark:text-teal-500'
-                >
-                  <path d='M14 17H5' />
-                  <path d='M19 7h-9' />
-                  <circle
-                    cx='17'
-                    cy='17'
-                    r='3'
-                  />
-                  <circle
-                    cx='7'
-                    cy='7'
-                    r='3'
-                  />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Настройки склада
-              </p>
-            </div>
-          </Link>
+          {menuButtons.map(button => (
+            <MenuButton
+              key={button.to}
+              {...button}
+            />
+          ))}
 
-          <Link
-            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            to={'/products'}
-            onClick={() => hapticFeedback.impactOccurred('rigid')}
-          >
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-indigo-50 text-white rounded-2xl dark:bg-indigo-800/30'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-indigo-600 dark:text-indigo-500'
-                >
-                  <path d='M18 21V10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v11' />
-                  <path d='M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 1.132-1.803l7.95-3.974a2 2 0 0 1 1.837 0l7.948 3.974A2 2 0 0 1 22 8z' />
-                  <path d='M6 13h12' />
-                  <path d='M6 17h12' />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Остаток на складе
-              </p>
-            </div>
-          </Link>
-          {/* End Card */}
-
-          {/* Card */}
-          {/* <Link
-            to={'/incoming'}
-            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            onClick={() => hapticFeedback.impactOccurred('rigid')}
-          >
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-yellow-50 text-white rounded-2xl dark:bg-yellow-800/30'>
-                <svg
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-yellow-600 dark:text-yellow-500'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path d='M16 3h5v5' />
-                  <path d='M8 3H3v5' />
-                  <path d='M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3' />
-                  <path d='m15 9 6-6' />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Создать приход
-              </p>
-            </div>
-          </Link> */}
-          <Link
-            to={'/incoming-statistics'}
-            className={clsx(
-              'p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            )}
-            onClick={() => hapticFeedback.impactOccurred('rigid')}
-          >
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-yellow-50 text-white rounded-2xl dark:bg-yellow-800/30'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-yellow-600 dark:text-yellow-500'
-                >
-                  <path d='M3 3v16a2 2 0 0 0 2 2h16' />
-                  <path d='M7 16h8' />
-                  <path d='M7 11h12' />
-                  <path d='M7 6h3' />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Отчет
-              </p>
-            </div>
-          </Link>
-          <Link
-            to={'/staff'}
-            className={clsx(
-              'p-4 group relative overflow-hidden flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-              // !isAdmin && 'opacity-70 !pointer-events-none cursor-not-allowed'
-            )}
-            onClick={() => hapticFeedback.impactOccurred('rigid')}
-          >
-            {/* {!isAdmin && <Blocked />} */}
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-blue-50 text-white rounded-2xl dark:bg-blue-800/30'>
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  stroke-width='2'
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-blue-600 dark:text-blue-500'
-                >
-                  <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
-                  <path d='M16 3.128a4 4 0 0 1 0 7.744' />
-                  <path d='M22 21v-2a4 4 0 0 0-3-3.87' />
-                  <circle
-                    cx='9'
-                    cy='7'
-                    r='4'
-                  />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Сотрудники
-              </p>
-            </div>
-          </Link>
           {isIT && (
             <Link
               to={'/auth'}
@@ -367,39 +315,6 @@ const MenuPage: FC = () => {
               </div>
             </Link>
           )}
-          <div
-            className='p-4 pointer-events-none group flex flex-col bg-white overflow-hidden border relative border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            // onClick={() => hapticFeedback.impactOccurred('rigid')}
-          >
-            <Blocked
-              variant='process'
-              title='В разработке'
-            />
-            <div className='mb-4 flex pointer-events-none flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto border-2 border-dotted border-gray-300 text-gray-400 rounded-2xl dark:border-neutral-700 dark:text-neutral-500'>
-                <svg
-                  className='shrink-0 size-5'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path d='M5 12h14' />
-                  <path d='M12 5v14' />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Уведомления
-              </p>
-            </div>
-          </div>
 
           {/* End Card */}
         </div>
