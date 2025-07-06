@@ -2,24 +2,33 @@ import React from 'react'
 import { IUser, Role } from '../../model/user.type'
 import { AccessRequest } from '@/entitites/auth/model/auth.type'
 import { getFullName } from '@/shared/utils/getFullName'
-import { useUpdateUser } from '../../api/user.api'
-import Loader from '@/shared/loader/ui/Loader'
-import LoaderSection from '@/shared/loader/ui/LoaderSection'
 
-const UserCardRequest = ({ user, processedBy }: { user: IUser; processedBy: AccessRequest }) => {
-  const { mutate: updateUser, isPending } = useUpdateUser()
+import LoaderSection from '@/shared/loader/ui/LoaderSection'
+import { useApproveAccessRequest, useDeclineAccessRequest } from '@/entitites/auth/auth.api'
+
+const UserCardRequest = ({
+  user,
+  processedBy,
+  adminTelegramId
+}: {
+  user: IUser
+  processedBy: AccessRequest
+  adminTelegramId: string
+}) => {
+  const { mutate: approveAccessRequest, isPending: isApprovePending } = useApproveAccessRequest()
+  const { mutate: declineAccessRequest, isPending: isDeclinePending } = useDeclineAccessRequest()
 
   const handleAccept = () => {
-    updateUser({ id: user.id, dto: { role: Role.OPERATOR } })
+    approveAccessRequest({ requestId: user.id, adminTelegramId })
   }
 
   const handleReject = () => {
-    updateUser({ id: user.id, dto: { role: user.role } })
+    declineAccessRequest({ requestId: user.id, adminTelegramId })
   }
 
   return (
     <div className='p-4 flex flex-col  border border-gray-200 rounded-xl overflow-hidden  dark:border-neutral-700 relative'>
-      {isPending && <LoaderSection />}
+      {isApprovePending || (isDeclinePending && <LoaderSection />)}
       <div className='relative sm:flex sm:justify-between sm:gap-x-4'>
         <div>
           {/* Media */}
@@ -88,6 +97,7 @@ const UserCardRequest = ({ user, processedBy }: { user: IUser; processedBy: Acce
             {/* Button Group */}
             <div className='mt-5 flex flex-wrap justify-end items-center gap-3'>
               <button
+                onClick={handleReject}
                 type='button'
                 className='py-2.5 px-3.5 w-32 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300'
               >

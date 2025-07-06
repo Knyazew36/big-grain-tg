@@ -4,7 +4,8 @@ import { apiDomain } from '@/shared/api/model/constants' // ваш базовы�
 import { BaseResponse } from '@/shared/api'
 import { IUser, Role } from '@/entitites/user/model/user.type'
 import { AccessRequest, RequestAccessResponse } from './model/auth.type'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { hapticFeedback } from '@telegram-apps/sdk-react'
 
 // login через Telegram initData
 export const loginWithTelegram = async (initData: string): Promise<IUser> => {
@@ -63,5 +64,71 @@ export const useAccessRequests = (role: Role) => {
     retry: 3,
     retryDelay: 5000,
     enabled: role === Role.IT || role === Role.ADMIN || role === Role.OWNER
+  })
+}
+
+// Хук для одобрения заявки на доступ
+export const useApproveAccessRequest = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async ({
+      requestId,
+      adminTelegramId,
+      adminNote
+    }: {
+      requestId: number
+      adminTelegramId: string
+      adminNote?: string
+    }) => {
+      const res = await $api.post(`${apiDomain}/auth/approve-access-request`, {
+        requestId,
+        adminTelegramId,
+        adminNote
+      })
+      return res.data
+    },
+    onSuccess: () => {
+      // Инвалидируем кеш заявок, чтобы обновить список
+      queryClient.invalidateQueries({ queryKey: ['access-requests'] })
+      hapticFeedback.notificationOccurred('success')
+    },
+    onError: error => {
+      console.error('Error approving access request:', error)
+      hapticFeedback.notificationOccurred('error')
+    }
+  })
+}
+
+// Хук для отклонения заявки на доступ
+export const useDeclineAccessRequest = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async ({
+      requestId,
+      adminTelegramId,
+      adminNote
+    }: {
+      requestId: number
+      adminTelegramId: string
+      adminNote?: string
+    }) => {
+      const res = await $api.post(`${apiDomain}/auth/decline-access-request`, {
+        requestId,
+        adminTelegramId,
+        adminNote
+      })
+      return res.data
+    },
+    onSuccess: () => {
+      // Инвалидируем кеш заявок, чтобы обновить список
+      queryClient.invalidateQueries({ queryKey: ['access-requests'] })
+      hapticFeedback.notificationOccurred('success')
+    },
+    onError: error => {
+      console.error('Error declining access request:', error)
+      hapticFeedback.notificationOccurred('error')
+    }
   })
 }
