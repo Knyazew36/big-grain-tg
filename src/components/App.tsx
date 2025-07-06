@@ -1,14 +1,6 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import {
-  retrieveLaunchParams,
-  useSignal,
-  isMiniAppDark,
-  setMiniAppHeaderColor,
-  setMiniAppBackgroundColor,
-  themeParamsSecondaryBackgroundColor,
-  requestFullscreen
-} from '@telegram-apps/sdk-react'
+import { retrieveLaunchParams, useSignal, isMiniAppDark } from '@telegram-apps/sdk-react'
 import { AppRoot } from '@telegram-apps/telegram-ui'
 
 import { routes } from '@/navigation/routes.tsx'
@@ -18,7 +10,6 @@ export function App() {
   const lp = useMemo(() => retrieveLaunchParams(), [])
   const isDark = useSignal(isMiniAppDark)
 
-  requestFullscreen()
   return (
     <AppRoot
       appearance={isDark ? 'dark' : 'light'}

@@ -7,6 +7,8 @@ import BottomSheetSuccess from '@/shared/bottom-sheet/bottom-sheet-success/ui/Bo
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 import { setMiniAppBackgroundColor, setMiniAppHeaderColor } from '@telegram-apps/sdk-react'
 import { useErrorHandler } from '@/features/error-handler'
+import { expandViewport } from '@telegram-apps/sdk'
+
 interface ServiceProviderProps {
   children: React.ReactNode
 }
@@ -14,10 +16,14 @@ async function loadPreline() {
   return import('preline/dist/index.js')
 }
 const queryClient = new QueryClient()
+
 const ServiceProvider = ({ children }: ServiceProviderProps) => {
   const location = useLocation()
   const { isOpen, title, description, close } = useBottomSheetStore()
 
+  if (expandViewport.isAvailable()) {
+    expandViewport()
+  }
   useEffect(() => {
     const initPreline = async () => {
       await loadPreline()
