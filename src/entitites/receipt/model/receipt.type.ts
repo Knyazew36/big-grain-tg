@@ -1,4 +1,5 @@
 import { Product } from '@/entitites/product/model/product.type'
+import { IUser } from '@/entitites/user/model/user.type'
 
 export interface CreateReceiptDto {
   productId: number
@@ -21,11 +22,7 @@ export interface StatisticsProduct {
 export interface StatisticsOperation {
   type: 'income' | 'outcome'
   date: string // ISO string
-  user: {
-    id: number
-    username: string
-    // другие поля пользователя
-  } | null
+  user: IUser | null
   products: StatisticsProduct[]
 }
 

@@ -16,6 +16,7 @@ import IncomingStatistics from '@/pages/incoming-statistics/IncomingStatistics'
 import AuthPage from '@/pages/auth/AuthPage'
 import StaffPage from '@/pages/staff/StaffPage'
 import UserRequestPage from '@/pages/user-request/UserRequestPage'
+import NotificationsSettingPage from '@/pages/notifications-setting/NotificationsSettingPage'
 
 interface Route {
   path: string
@@ -36,6 +37,7 @@ export const routes: Route[] = [
   { path: '/incoming-to-warehouse', Component: IncomingToWarehousePage, title: 'Incoming to warehouse' },
   { path: '/incoming', Component: IncomingPage, title: 'Incoming' },
   { path: '/incoming-statistics', Component: IncomingStatistics, title: 'Incoming Statistics' },
+  { path: '/notifications-setting', Component: NotificationsSettingPage, title: 'Notifications Setting' },
   { path: '/settings', Component: SettingsPage, title: 'Init Data' },
   { path: '/theme-params', Component: ThemeParamsPage, title: 'Theme Params' },
   { path: '/launch-params', Component: LaunchParamsPage, title: 'Launch Params' },
