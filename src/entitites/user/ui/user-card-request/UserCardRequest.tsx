@@ -86,28 +86,7 @@ const UserCardRequest = ({ user, processedBy }: { user: IUser; processedBy: Acce
           </div>
           <div>
             {/* Button Group */}
-            <div className='mt-5 flex flex-wrap justify-center items-center gap-3'>
-              <button
-                type='button'
-                onClick={handleAccept}
-                className='py-2.5 px-3.5 w-32 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300'
-              >
-                <svg
-                  className='shrink-0 size-4 text-teal-500'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width={24}
-                  height={24}
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth={2}
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path d='M20 6 9 17l-5-5' />
-                </svg>
-                Принять
-              </button>
+            <div className='mt-5 flex flex-wrap justify-end items-center gap-3'>
               <button
                 type='button'
                 className='py-2.5 px-3.5 w-32 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300'
@@ -128,6 +107,27 @@ const UserCardRequest = ({ user, processedBy }: { user: IUser; processedBy: Acce
                   <path d='m6 6 12 12' />
                 </svg>
                 Отклонить
+              </button>
+              <button
+                type='button'
+                onClick={handleAccept}
+                className='py-2.5 px-3.5 w-32 inline-flex justify-center items-center gap-x-1.5 text-sm rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300'
+              >
+                <svg
+                  className='shrink-0 size-4 text-teal-500'
+                  xmlns='http://www.w3.org/2000/svg'
+                  width={24}
+                  height={24}
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='currentColor'
+                  strokeWidth={2}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                >
+                  <path d='M20 6 9 17l-5-5' />
+                </svg>
+                Принять
               </button>
             </div>
           </div>

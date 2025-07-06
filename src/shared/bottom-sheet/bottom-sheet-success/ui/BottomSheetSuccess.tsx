@@ -55,7 +55,12 @@ const BottomSheetSuccess = ({ isOpen, onClose, description, title = 'Успех!
           </div>
           {/* End Heading */}
           <DrawerClose>
-            <button className='py-2.5  w-full sm:py-3 px-4  inline-flex justify-center items-center gap-x-2 font-medium sm:text-sm rounded-xl border border-transparent bg-green-600 text-white hover:bg-green-600 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-green-600'>
+            <button
+              onClick={() => {
+                hapticFeedback.impactOccurred('rigid')
+              }}
+              className='py-2.5  w-full sm:py-3 px-4  inline-flex justify-center items-center gap-x-2 font-medium sm:text-sm rounded-xl border border-transparent bg-green-600 text-white hover:bg-green-600 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-green-600'
+            >
               Назад
             </button>
           </DrawerClose>
