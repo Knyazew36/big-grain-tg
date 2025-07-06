@@ -1,6 +1,6 @@
 import { Page } from '@/components/Page'
 import React, { useMemo, useState } from 'react'
-import { useProducts, useUpdateProduct, useDeleteProduct } from '@/entitites/product/api/product.api'
+import { useProducts, useUpdateProduct } from '@/entitites/product/api/product.api'
 import ProductsCardChange from '../products/card/ProductsCardChange'
 import PageHeader from '@/shared/ui/page-header/ui/PageHeader'
 import InputDefault from '@/shared/ui/input-default/ui/InputDefault'
@@ -42,7 +42,11 @@ export const ProductsDeletePage = () => {
               <ProductsCardChange
                 withSwitch
                 withDelete
+                withInputNumber
+                withSaveButton={{}}
+                inputNumberLabel='Изменить минимальный остаток на складе'
                 key={card.id}
+                value={card.minThreshold}
                 data={card}
                 isActive={card.active}
                 onChangeActive={active => updateProduct({ id: card.id, dto: { active } })}

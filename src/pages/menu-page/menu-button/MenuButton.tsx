@@ -15,6 +15,8 @@ export type IMenuButton = {
   isDevelop?: boolean
   withNotification?: boolean
   isLoading?: boolean
+
+  iconClassName?: string
 }
 
 const MenuButton = ({
@@ -25,7 +27,8 @@ const MenuButton = ({
   isBlocked = false,
   isDevelop = false,
   withNotification = false,
-  isLoading = false
+  isLoading = false,
+  iconClassName
 }: IMenuButton) => {
   return (
     <Link
@@ -48,7 +51,8 @@ const MenuButton = ({
       <span
         className={clsx(
           'flex justify-center relative items-center size-12 xl:size-16 mx-auto text-white rounded-2xl',
-          getColorClasses(color)
+          getColorClasses(color),
+          iconClassName
         )}
       >
         {icon}
