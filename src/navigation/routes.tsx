@@ -15,6 +15,7 @@ import CreateProductPage from '@/pages/create-product/CreateProductPage'
 import IncomingStatistics from '@/pages/incoming-statistics/IncomingStatistics'
 import AuthPage from '@/pages/auth/AuthPage'
 import StaffPage from '@/pages/staff/StaffPage'
+import UserRequestPage from '@/pages/user-request/UserRequestPage'
 
 interface Route {
   path: string
@@ -60,5 +61,6 @@ export const routes: Route[] = [
         />
       </svg>
     )
-  }
+  },
+  { path: '/user-request', Component: UserRequestPage, title: 'User Request' }
 ]

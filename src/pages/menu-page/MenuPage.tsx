@@ -9,10 +9,18 @@ import { useAuthStore } from '@/entitites/auth/model/auth.store'
 
 import MenuButton, { IMenuButton } from './menu-button/MenuButton'
 import { useAccessRequests } from '@/entitites/auth/auth.api'
+import { useNavigate } from 'react-router-dom'
+import { UserPlus } from 'lucide-react'
 
 const MenuPage: FC = () => {
   const { isAdmin, isOwner, isIT, isOperator, role } = useAuthStore()
   const { data: accessRequests } = useAccessRequests(role)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!isAdmin && !isOwner && !isIT && !isOperator) {
+      navigate('/')
+    }
+  }, [role])
 
   console.info(isAdmin, isOwner, isIT, isOperator, role)
 
@@ -106,7 +114,6 @@ const MenuPage: FC = () => {
       title: 'Сотрудники',
       color: 'blue',
       isBlocked: isOperator,
-      withNotification: accessRequests && accessRequests?.length > 0,
       icon: (
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -151,6 +158,45 @@ const MenuPage: FC = () => {
         >
           <path d='M5 12h14' />
           <path d='M12 5v14' />
+        </svg>
+      )
+    },
+    {
+      to: '/user-request',
+      title: 'Запросы на доступ',
+      color: 'fuchsia',
+      withNotification: accessRequests && accessRequests?.length > 0,
+      icon: (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width={24}
+          height={24}
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          className='shrink-0 size-5 xl:w-6 xl:h-6 text-fuchsia-600 dark:text-fuchsia-500'
+        >
+          <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
+          <circle
+            cx={9}
+            cy={7}
+            r={4}
+          />
+          <line
+            x1={19}
+            x2={19}
+            y1={8}
+            y2={14}
+          />
+          <line
+            x1={22}
+            x2={16}
+            y1={11}
+            y2={11}
+          />
         </svg>
       )
     }

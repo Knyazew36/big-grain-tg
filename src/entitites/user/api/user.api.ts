@@ -32,7 +32,7 @@ export const useUpdateUser = () => {
       return res.data.data as IUser
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['products'] })
+      queryClient.invalidateQueries({ queryKey: ['user'] })
       hapticFeedback.notificationOccurred('success')
     }
   })

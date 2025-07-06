@@ -8,14 +8,9 @@ import { hapticFeedback } from '@telegram-apps/sdk-react'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
 import Loader from '@/shared/loader/ui/Loader'
-import { useAccessRequests } from '@/entitites/auth/auth.api'
-import { useAuthStore } from '@/entitites/auth/model/auth.store'
 
 const StaffPage = () => {
   const { data: employees, isLoading } = useUsersEmployees()
-  const { role } = useAuthStore()
-
-  const { data: accessRequests } = useAccessRequests(role)
 
   const [searchTerm, setSearchTerm] = useState('')
   const [view, setView] = useState<'tile' | 'table'>('tile')
@@ -48,8 +43,6 @@ const StaffPage = () => {
           placeholder='Поиск сотрудника...'
         />
       </div>
-
-      {accessRequests && accessRequests.map(item => <div key={item.user.id}>{item.user.data?.username}</div>)}
 
       {filteredData && filteredData.length > 0 && (
         <div className='flex bg-gray-100 rounded-lg p-0.5 dark:bg-neutral-800 w-max mt-8 ml-auto mb-4'>
