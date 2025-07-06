@@ -32,7 +32,7 @@ const MenuButton = ({ to, title, icon, color = 'blue', isBlocked = false, isDeve
       )}
       {/* {!isAdmin && <Blocked />} */}
       <div className='mb-4 flex flex-col justify-center items-center h-full'>
-        <span className={`flex justify-center items-center size-12 xl:size-16 mx-auto bg-${color}-50 text-white rounded-2xl dark:bg-${color}-800/30`}>
+        <span className={`flex justify-center items-center size-12 xl:size-16 mx-auto bg-${color}-500 text-white rounded-2xl dark:bg-${color}-800/30`}>
           <div className={`shrink-0 size-5 xl:w-6 xl:h-6 text-${color}-600 dark:text-${color}-500`}>{icon}</div>
         </span>
       </div>

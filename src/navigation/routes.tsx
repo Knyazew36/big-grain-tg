@@ -24,7 +24,6 @@ interface Route {
 }
 
 export const routes: Route[] = [
-  { path: '/auth', Component: AuthPage, title: 'Auth' },
   { path: '/', Component: AuthPage, title: 'Auth' },
   { path: '/menu', Component: MenuPage },
   { path: '/staff', Component: StaffPage, title: 'Staff' },
