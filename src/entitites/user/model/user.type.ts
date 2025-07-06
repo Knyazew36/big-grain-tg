@@ -1,9 +1,12 @@
 import { User } from '@telegram-apps/sdk-react'
 
 export enum Role {
+  IT = 'IT',
+  OWNER = 'OWNER',
   ADMIN = 'ADMIN',
   OPERATOR = 'OPERATOR',
-  GUEST = 'GUEST'
+  GUEST = 'GUEST',
+  BLOCKED = 'BLOCKED'
 }
 export interface IUser {
   id: number

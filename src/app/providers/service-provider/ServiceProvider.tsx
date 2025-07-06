@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import BottomSheetSuccess from '@/shared/bottom-sheet/bottom-sheet-success/ui/BottomSheetSuccess'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 import { setMiniAppBackgroundColor, setMiniAppHeaderColor } from '@telegram-apps/sdk-react'
+import { useErrorHandler } from '@/features/error-handler'
 interface ServiceProviderProps {
   children: React.ReactNode
 }
@@ -47,7 +48,7 @@ const ServiceProvider = ({ children }: ServiceProviderProps) => {
 
   setMiniAppHeaderColor(themeParams.header_bg_color)
   setMiniAppBackgroundColor(themeParams.bg_color)
-
+  useErrorHandler()
   return (
     <>
       <QueryClientProvider client={queryClient}>

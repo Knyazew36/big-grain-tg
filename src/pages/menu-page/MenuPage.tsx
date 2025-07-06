@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { LucideMailWarning } from 'lucide-react'
 import Confirmation from '@/widgets/confirmation/Confirmation'
-import { loginWithTelegram } from '@/entitites/auth/login.api'
+import { loginWithTelegram } from '@/entitites/auth/auth.api'
 import { hapticFeedback, initDataUser, isTMA, retrieveLaunchParams, retrieveRawInitData, useRawInitData } from '@telegram-apps/sdk-react'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 import Blocked from '@/shared/blocked/ui/Blocked'
@@ -16,11 +16,8 @@ import { Role } from '@/entitites/user/model/user.type'
 
 const MenuPage: FC = () => {
   const user = initDataUser()
-  const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
 
-  if (isLoading) {
-    return <Loader />
-  }
+  const { isAdmin, isOperator, isOwner, isIT } = useAuthStore()
 
   return (
     <Page back={false}>
@@ -148,45 +145,12 @@ const MenuPage: FC = () => {
             </p>
           </div>
         </Link>
+
+        {/* <div className='flex justify-between  gap-x-5 items-center border-b border-gray-200 dark:border-neutral-700 pb-2  mt-8'>
+          <h3 className='block font-bold text-md sm:text-xl text-gray-800 dark:text-neutral-200'>Настройки склада</h3>
+        </div> */}
+
         <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-2 lg:gap-4 mt-8'>
-          {/* Card */}
-
-          {/* End Card */}
-
-          {/* Card */}
-
-          {/* <a
-            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            href='canvas.html'
-          >
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto border-2 border-dotted border-gray-300 text-gray-400 rounded-2xl dark:border-neutral-700 dark:text-neutral-500'>
-                <svg
-                  className='shrink-0 size-5'
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='24'
-                  height='24'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                >
-                  <path d='M5 12h14' />
-                  <path d='M12 5v14' />
-                </svg>
-              </span>
-            </div>
-            <div className='text-center mt-auto'>
-              <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                Blank page
-              </p>
-            </div>
-          </a> */}
-          {/* End Card */}
-
-          {/* Card */}
           <Link
             className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
             to={'/settings'}
@@ -332,12 +296,12 @@ const MenuPage: FC = () => {
           <Link
             to={'/staff'}
             className={clsx(
-              'p-4 group relative overflow-hidden flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700',
-              role !== Role.ADMIN && 'opacity-70 !pointer-events-none cursor-not-allowed'
+              'p-4 group relative overflow-hidden flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+              // !isAdmin && 'opacity-70 !pointer-events-none cursor-not-allowed'
             )}
             onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
-            {role !== Role.ADMIN && <Blocked title='Администратор' />}
+            {/* {!isAdmin && <Blocked />} */}
             <div className='mb-4 flex flex-col justify-center items-center h-full'>
               <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-blue-50 text-white rounded-2xl dark:bg-blue-800/30'>
                 <svg
@@ -369,15 +333,52 @@ const MenuPage: FC = () => {
               </p>
             </div>
           </Link>
-          <Link
-            to={'/auth'}
-            className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
-            onClick={() => hapticFeedback.impactOccurred('rigid')}
+          {isIT && (
+            <Link
+              to={'/auth'}
+              className='p-4 group flex flex-col bg-white border border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+              onClick={() => hapticFeedback.impactOccurred('rigid')}
+            >
+              <div className='mb-4 flex flex-col justify-center items-center h-full'>
+                <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-yellow-50 text-white rounded-2xl dark:bg-yellow-800/30'>
+                  <svg
+                    className='shrink-0 size-5 xl:w-6 xl:h-6 text-yellow-600 dark:text-yellow-500'
+                    xmlns='http://www.w3.org/2000/svg'
+                    width='24'
+                    height='24'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  >
+                    <path d='M16 3h5v5' />
+                    <path d='M8 3H3v5' />
+                    <path d='M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3' />
+                    <path d='m15 9 6-6' />
+                  </svg>
+                </span>
+              </div>
+              <div className='text-center mt-auto'>
+                <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
+                  /auth
+                </p>
+              </div>
+            </Link>
+          )}
+          <div
+            className='p-4 pointer-events-none group flex flex-col bg-white overflow-hidden border relative border-gray-200 rounded-xl focus:outline-hidden dark:bg-neutral-900 dark:border-neutral-700'
+            // onClick={() => hapticFeedback.impactOccurred('rigid')}
           >
-            <div className='mb-4 flex flex-col justify-center items-center h-full'>
-              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto bg-yellow-50 text-white rounded-2xl dark:bg-yellow-800/30'>
+            <Blocked
+              variant='process'
+              title='В разработке'
+            />
+            <div className='mb-4 flex pointer-events-none flex-col justify-center items-center h-full'>
+              <span className='flex justify-center items-center size-12 xl:size-16 mx-auto border-2 border-dotted border-gray-300 text-gray-400 rounded-2xl dark:border-neutral-700 dark:text-neutral-500'>
                 <svg
-                  className='shrink-0 size-5 xl:w-6 xl:h-6 text-yellow-600 dark:text-yellow-500'
+                  className='shrink-0 size-5'
                   xmlns='http://www.w3.org/2000/svg'
                   width='24'
                   height='24'
@@ -388,19 +389,17 @@ const MenuPage: FC = () => {
                   strokeLinecap='round'
                   strokeLinejoin='round'
                 >
-                  <path d='M16 3h5v5' />
-                  <path d='M8 3H3v5' />
-                  <path d='M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3' />
-                  <path d='m15 9 6-6' />
+                  <path d='M5 12h14' />
+                  <path d='M12 5v14' />
                 </svg>
               </span>
             </div>
             <div className='text-center mt-auto'>
               <p className='truncate text-xs xl:text-sm font-medium text-gray-800 group-hover:text-pink-600 group-focus:text-pink-600 dark:text-neutral-200 dark:group-hover:text-neutral-400 dark:group-focus:text-neutral-400'>
-                /auth
+                Уведомления
               </p>
             </div>
-          </Link>
+          </div>
 
           {/* End Card */}
         </div>

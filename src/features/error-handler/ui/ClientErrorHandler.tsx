@@ -1,10 +1,10 @@
-'use client'
+// 'use client'
 
-import { useErrorHandler } from '@/features/error-handler'
-import { useEffect } from 'react'
+// import { useErrorHandler } from '@/features/error-handler'
+// import { useEffect } from 'react'
 
-export default function ClientErrorHandler() {
-	useErrorHandler()
+// export default function ClientErrorHandler() {
+// 	useErrorHandler()
 
-	return null
-}
+// 	return null
+// }

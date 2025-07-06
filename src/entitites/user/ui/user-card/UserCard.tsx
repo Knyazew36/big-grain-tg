@@ -5,6 +5,7 @@ import Select from '@/shared/ui/select/ui/Select'
 import { Controller, useForm } from 'react-hook-form'
 import { useUpdateUser } from '../../api/user.api'
 import LoaderSection from '@/shared/loader/ui/LoaderSection'
+import { useAuthStore } from '@/entitites/auth/model/auth.store'
 
 const UserCard = ({ data }: { data: IUser }) => {
   const { control, handleSubmit } = useForm({
@@ -14,7 +15,7 @@ const UserCard = ({ data }: { data: IUser }) => {
     mode: 'onChange'
   })
   const { mutate: updateUser, isPending } = useUpdateUser()
-
+  const { isOwner } = useAuthStore()
   const onSubmit = (data: any) => {
     updateUser({ id: data.id, dto: { role: data.role } })
   }
@@ -240,32 +241,36 @@ const UserCard = ({ data }: { data: IUser }) => {
         {/* End List */}
       </div>
 
-      <div className='py-3 overflow-hidden relative px-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-1 sm:gap-y-0 gap-x-2 text-center sm:text-start border-t border-gray-200 dark:border-neutral-700'>
-        {isPending && <LoaderSection />}
-        <div>
-          <p className='text-sm text-gray-500 dark:text-neutral-500'>Сменить роль</p>
+      {!isOwner && (
+        <div className='py-3 overflow-hidden relative px-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-1 sm:gap-y-0 gap-x-2 text-center sm:text-start border-t border-gray-200 dark:border-neutral-700'>
+          {isPending && <LoaderSection />}
+          <div>
+            <p className='text-sm text-gray-500 dark:text-neutral-500'>Сменить роль</p>
+          </div>
+          <div>
+            <Controller
+              control={control}
+              name='role'
+              render={({ field }) => (
+                <Select
+                  disabled={data.role === Role.OWNER}
+                  options={[
+                    { value: Role.ADMIN, label: 'Админ' },
+                    { value: Role.OPERATOR, label: 'Оператор' },
+                    { value: Role.OWNER, label: 'Владелец' }
+                    // { value: Role.GUEST, label: 'Гость' }
+                  ]}
+                  value={field.value}
+                  onChange={value => {
+                    field.onChange(value)
+                    updateUser({ id: data.id, dto: { role: value as Role } })
+                  }}
+                />
+              )}
+            />
+          </div>
         </div>
-        <div>
-          <Controller
-            control={control}
-            name='role'
-            render={({ field }) => (
-              <Select
-                options={[
-                  { value: Role.ADMIN, label: 'Админ' },
-                  { value: Role.OPERATOR, label: 'Оператор' }
-                  // { value: Role.GUEST, label: 'Гость' }
-                ]}
-                value={field.value}
-                onChange={value => {
-                  field.onChange(value)
-                  updateUser({ id: data.id, dto: { role: value as Role } })
-                }}
-              />
-            )}
-          />
-        </div>
-      </div>
+      )}
     </form>
   )
 }

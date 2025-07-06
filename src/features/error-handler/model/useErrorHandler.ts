@@ -9,9 +9,10 @@ import { useEffect } from 'react'
 import { eventEmitter } from './eventEmitter'
 import { ErrorEventEmitter } from './type'
 import { logout } from '@/features/logout/model/logout'
+import { useNavigate } from 'react-router-dom'
 
 export const useErrorHandler = () => {
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   // const logout = useLogout()
   // const { setModal, setModalPayment } = useAppStore()
 
@@ -38,7 +39,7 @@ export const useErrorHandler = () => {
     }
     if (error.action === 'navigation' && error.href) {
       // router.push(error.href)
-      // navigate(error.href)
+      navigate(error.href)
     }
     if (error.action === 'pay-modal') {
       // setModalPayment(true)
