@@ -1,3 +1,5 @@
+import { IUser } from '@/entitites/user/model/user.type'
+
 export interface RequestAccessResponse {
   status: string
   message?: string
@@ -19,4 +21,5 @@ export type AccessRequest = {
   adminNote: string | null
   processedAt: Date | null
   processedById: number | null
+  user?: IUser
 }

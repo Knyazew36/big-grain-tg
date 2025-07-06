@@ -55,7 +55,7 @@ export const accessRequests = async (): Promise<{ user: IUser; processedBy: Acce
 }
 
 export const useAccessRequests = (role: Role) => {
-  return useQuery<{ user: IUser; processedBy: AccessRequest }[]>({
+  return useQuery<AccessRequest[]>({
     queryKey: ['access-requests'],
     queryFn: async () => {
       const res = await $api.post(`${apiDomain}/auth/access-requests`)

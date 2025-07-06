@@ -6,24 +6,16 @@ import { getFullName } from '@/shared/utils/getFullName'
 import LoaderSection from '@/shared/loader/ui/LoaderSection'
 import { useApproveAccessRequest, useDeclineAccessRequest } from '@/entitites/auth/auth.api'
 
-const UserCardRequest = ({
-  user,
-  processedBy,
-  adminTelegramId
-}: {
-  user: IUser
-  processedBy: AccessRequest
-  adminTelegramId: string
-}) => {
+const UserCardRequest = ({ data, adminTelegramId }: { data: AccessRequest; adminTelegramId: string }) => {
   const { mutate: approveAccessRequest, isPending: isApprovePending } = useApproveAccessRequest()
   const { mutate: declineAccessRequest, isPending: isDeclinePending } = useDeclineAccessRequest()
 
   const handleAccept = () => {
-    approveAccessRequest({ requestId: processedBy.id, adminTelegramId })
+    approveAccessRequest({ requestId: data.id, adminTelegramId })
   }
 
   const handleReject = () => {
-    declineAccessRequest({ requestId: processedBy.id, adminTelegramId })
+    declineAccessRequest({ requestId: data.id, adminTelegramId })
   }
 
   return (
@@ -41,18 +33,18 @@ const UserCardRequest = ({
               />
               <span className='absolute bottom-0 end-0 block md:hidden size-3 rounded-full bg-teal-600 border-2 border-white dark:bg-teal-500 dark:border-neutral-700' />
             */}
-              {user.data?.photo_url ? (
+              {data?.user?.data?.photo_url ? (
                 <img
                   className='shrink-0 size-9.5 md:w-15.5 md:h-15.5 rounded-full'
-                  src={user.data?.photo_url}
+                  src={data?.user?.data?.photo_url}
                   alt='Avatar'
                 />
               ) : (
                 <span className='flex shrink-0 justify-center items-center size-9.5 bg-white border border-gray-200 text-gray-700 text-xs font-medium uppercase rounded-full dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300'>
                   {
                     getFullName({
-                      firstName: user.data?.first_name,
-                      lastName: user.data?.last_name
+                      firstName: data?.user?.data?.first_name,
+                      lastName: data?.user?.data?.last_name
                     }).initials
                   }
                 </span>
@@ -64,14 +56,16 @@ const UserCardRequest = ({
                 <h3 className='font-medium text-gray-800 dark:text-neutral-200'>
                   {
                     getFullName({
-                      firstName: user.data?.first_name,
-                      lastName: user.data?.last_name
+                      firstName: data?.user?.data?.first_name,
+                      lastName: data?.user?.data?.last_name
                     }).fullName
                   }
                 </h3>
               </div>
               <div className='inline-flex items-center gap-x-2'>
-                <p className='text-xs sm:text-sm text-gray-500 dark:text-neutral-500'>никнейм: {user.data?.username}</p>
+                <p className='text-xs sm:text-sm text-gray-500 dark:text-neutral-500'>
+                  никнейм: {data?.user?.data?.username}
+                </p>
               </div>
             </div>
             {/* End Content */}
@@ -83,10 +77,10 @@ const UserCardRequest = ({
           <div className='flex justify-end items-center gap-x-4'>
             <div className='whitespace-nowrap'>
               <p className='text-xs sm:text-sm text-gray-500 dark:text-neutral-500'>
-                {processedBy?.createdAt?.toLocaleString('ru-RU', {
-                  day: '2-digit',
-                  month: '2-digit',
+                {new Date(data?.createdAt).toLocaleDateString('ru-RU', {
                   year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
                   hour: '2-digit',
                   minute: '2-digit'
                 })}
