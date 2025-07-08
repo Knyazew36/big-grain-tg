@@ -48,7 +48,7 @@ export const useUserDelete = () => {
       await $api.post(`${apiDomain}/user/remove/${id}`)
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['user', 'employees'] })
+      queryClient.invalidateQueries({ queryKey: ['employees'] })
       hapticFeedback.notificationOccurred('success')
     },
     onError: () => {

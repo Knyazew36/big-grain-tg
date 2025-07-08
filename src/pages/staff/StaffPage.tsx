@@ -1,5 +1,5 @@
 import { Page } from '@/components/Page'
-import { useUsersEmployees } from '@/entitites/user/api/user.api'
+import { useUserDelete, useUsersEmployees } from '@/entitites/user/api/user.api'
 import UserCard from '@/entitites/user/ui/user-card/UserCard'
 import UserTable from '@/entitites/user/ui/user-table/UserTable'
 import Empty from '@/shared/empty/ui/Empty'
@@ -11,7 +11,7 @@ import Loader from '@/shared/loader/ui/Loader'
 
 const StaffPage = () => {
   const { data: employees, isLoading } = useUsersEmployees()
-
+  const { isPending } = useUserDelete()
   const [searchTerm, setSearchTerm] = useState('')
   const [view, setView] = useState<'tile' | 'table'>('tile')
 
@@ -27,7 +27,7 @@ const StaffPage = () => {
         item.data?.first_name?.toLowerCase().includes(term) ||
         item.data?.last_name?.toLowerCase().includes(term)
     )
-  }, [employees, searchTerm])
+  }, [employees, searchTerm, isPending])
 
   if (isLoading) return <Loader />
 
