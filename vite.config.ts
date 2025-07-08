@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
   // base: '/reactjs-template/',
+
   css: {
     preprocessorOptions: {
       scss: {
@@ -31,7 +32,12 @@ export default defineConfig({
   },
   publicDir: './public',
   server: {
-    // Exposes your dev server and makes it accessible for the devices in the same network.
-    host: true
+    host: true,
+    port: process.env.NODE_ENV === 'development' ? 10004 : undefined
   }
+  // server: {
+  //   // Exposes your dev server and makes it accessible for the devices in the same network.
+  //   host: true,
+  //   port: 10004
+  // }
 })

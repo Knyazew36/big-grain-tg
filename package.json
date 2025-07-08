@@ -5,12 +5,13 @@
   "type": "module",
   "homepage": "https://telegram-mini-apps.github.io/reactjs-template",
   "scripts": {
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "dev:https": "cross-env HTTPS=true vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "deploy": "./deploy.sh",
+    "deploy-dev": "./deploy-dev.sh"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
