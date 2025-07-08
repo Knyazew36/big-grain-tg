@@ -10,7 +10,7 @@ import React from 'react'
 import { hapticFeedback, initData, isTMA, mockTelegramEnv, retrieveRawInitData } from '@telegram-apps/sdk'
 
 const initDataRaw = import.meta.env.DEV
-  ? 'user=%7B%22id%22%3A239676985%2C%22first_name%22%3A%22%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%22%2C%22last_name%22%3A%22%D0%9A%D0%BD%D1%8F%D0%B7%D0%B5%D0%B2%22%2C%22username%22%3A%22Knyaz_sv%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FdVwpqY8rwKcDgyKCeVKKd95SfUDZ89Fhpw-zbGDB6Rg.svg%22%7D&chat_instance=7502372238548063129&chat_type=sender&auth_date=1751790161&signature=Szh_gpoKumi_xXzB6SQnjTocL4xhnVj-WfnG9nt9CTM1nqDG3yhSdG99woFmNgftCRAokUWDxqS0oS5HL7btBA&hash=39b7a07d4cc8dfe0c8797252b655b2f4610f7185626eca9ab57199017ff454e7'
+  ? 'user=%7B%22id%22%3A239676985%2C%22first_name%22%3A%22%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9%22%2C%22last_name%22%3A%22%D0%9A%D0%BD%D1%8F%D0%B7%D0%B5%D0%B2%22%2C%22username%22%3A%22Knyaz_sv%22%2C%22language_code%22%3A%22ru%22%2C%22is_premium%22%3Atrue%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FdVwpqY8rwKcDgyKCeVKKd95SfUDZ89Fhpw-zbGDB6Rg.svg%22%7D&chat_instance=-7589269444137015133&chat_type=private&auth_date=1752000400&signature=EGxwneu6PTpmeO-5LWFh_XOVEn47SzySKlbbYRDaqTpCwzimswXQexjQwfz0QI2jE90ZPfbM4fGxCPJPWl2gCw&hash=3feee421068dece620fffe4c4732d9ccfcd1adfda1f38516f25927daa1fafdd0'
   : isTMA()
   ? retrieveRawInitData()
   : ''

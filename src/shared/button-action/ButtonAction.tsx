@@ -14,6 +14,22 @@ interface IProps {
 }
 const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick, disabledSuccess, disabledCancel, isLoading }) => {
   const navigate = useNavigate()
+
+  const handleSuccessClick = () => {
+    onSuccessClick?.()
+    hapticFeedback.impactOccurred('light')
+  }
+
+  const handleCancelClick = () => {
+    onCancelClick?.()
+    hapticFeedback.impactOccurred('light')
+  }
+
+  const handleCloseClick = () => {
+    navigate(-1)
+    hapticFeedback.impactOccurred('light')
+  }
+
   return (
     <>
       <div className='sticky left-0 right-0 bottom-0 w-max  p-6 z-50  max-w-md mx-auto hs-removing:translate-y-5 hs-removing:opacity-0 transition duration-300'>
@@ -37,10 +53,7 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick, disabledSucce
                   <button
                     disabled={disabledCancel}
                     className='text-stone-300 disabled:opacity-50 disabled:pointer-events-none decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-neutral-400'
-                    onClick={() => {
-                      onCancelClick()
-                      hapticFeedback.impactOccurred('light')
-                    }}
+                    onClick={handleCancelClick}
                   >
                     Очистить
                   </button>
@@ -48,7 +61,7 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick, disabledSucce
                 <div className='w-px h-4 bg-stone-700 dark:bg-neutral-700'></div>
                 <button
                   disabled={disabledSuccess}
-                  onClick={onSuccessClick}
+                  onClick={handleSuccessClick}
                   className='text-green-400 disabled:opacity-50 disabled:pointer-events-none decoration-2 font-medium text-sm hover:underline focus:outline-hidden focus:underline dark:text-green-500'
                 >
                   Сохранить
@@ -56,10 +69,7 @@ const ButtonAction: FC<IProps> = ({ onSuccessClick, onCancelClick, disabledSucce
 
                 {/* Close Button */}
                 <button
-                  onClick={() => {
-                    navigate(-1)
-                    hapticFeedback.impactOccurred('light')
-                  }}
+                  onClick={handleCloseClick}
                   type='button'
                   className='size-8 inline-flex justify-center items-center gap-x-2 rounded-full text-stone-400 hover:bg-stone-700 focus:outline-hidden focus:bg-stone-700 disabled:opacity-50 disabled:pointer-events-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
                   aria-label='Close'
