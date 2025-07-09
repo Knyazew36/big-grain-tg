@@ -33,18 +33,31 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const v = e.target.value === '' ? undefined : Number(e.target.value)
-    if (v === undefined) {
-      onChange(undefined)
-    } else if (isNaN(v)) {
-      onChange(0)
+    // Удаляем все символы, кроме цифр и знака минус (если min < 0)
+    let inputValue = e.target.value
+    // Если разрешены отрицательные значения, разрешаем минус на первом месте
+    if (min !== undefined && min < 0) {
+      inputValue = inputValue.replace(/[^\d-]/g, '')
+      // Не допускаем более одного минуса и только в начале
+      inputValue = inputValue.replace(/(?!^)-/g, '')
     } else {
-      if (min !== undefined && v < min) {
-        onChange(min)
-      } else if (max !== undefined && v > max) {
-        onChange(max)
+      inputValue = inputValue.replace(/\D/g, '')
+    }
+    // Обновляем значение input
+    if (inputValue === '') {
+      onChange(undefined)
+    } else {
+      const v = Number(inputValue)
+      if (isNaN(v)) {
+        onChange(0)
       } else {
-        onChange(v)
+        if (min !== undefined && v < min) {
+          onChange(min)
+        } else if (max !== undefined && v > max) {
+          onChange(max)
+        } else {
+          onChange(v)
+        }
       }
     }
   }
