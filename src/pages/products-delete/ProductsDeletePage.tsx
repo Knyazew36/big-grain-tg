@@ -7,6 +7,7 @@ import InputDefault from '@/shared/ui/input-default/ui/InputDefault'
 import Loader from '@/shared/loader/ui/Loader'
 import ProductCreate from '../products/create/ProductCreate'
 import Empty from '@/shared/empty/ui/Empty'
+import ProductCardChangeForm from '../products/card/ProductCardChangeForm'
 
 export const ProductsDeletePage = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -41,17 +42,9 @@ export const ProductsDeletePage = () => {
         <div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8'>
           {filteredData.length > 0 ? (
             filteredData.map(card => (
-              <ProductsCardChange
-                withSwitch
-                withDelete
-                withInputNumber
-                withSaveButton={{}}
-                inputNumberLabel='Изменить минимальный остаток на складе'
+              <ProductCardChangeForm
                 key={card.id}
-                value={card.minThreshold}
                 data={card}
-                isActive={card.active}
-                onChangeActive={active => updateProduct({ id: card.id, dto: { active } })}
               />
             ))
           ) : (
