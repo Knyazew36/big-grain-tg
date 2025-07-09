@@ -12,7 +12,6 @@ import { Navigate } from 'react-router-dom'
 const AuthPage = () => {
   const user = initDataUser()
   const { open } = useBottomSheetStore()
-  const [isButtonLoading, setIsButtonLoading] = useState(false)
 
   const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
 
