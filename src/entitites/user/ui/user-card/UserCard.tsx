@@ -7,7 +7,7 @@ import { useUpdateUser } from '../../api/user.api'
 import LoaderSection from '@/shared/loader/ui/LoaderSection'
 import UserDelete from '../delete/UserDelete'
 
-const UserCard = ({ data }: { data: IUser }) => {
+const UserCard = ({ data, role }: { data: IUser; role: Role }) => {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       role: data.role

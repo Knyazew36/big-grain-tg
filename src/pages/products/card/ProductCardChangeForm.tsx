@@ -74,6 +74,7 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
       onSubmit={handleSubmit(onSubmit)}
       className={clsx(
         'flex flex-col gap-y-3 relative overflow-hidden lg:gap-y-5 p-4 md:p-5 bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800'
+        // !data.active && 'opacity-50 '
       )}
     >
       {isLoading && <LoaderSection />}
@@ -98,77 +99,79 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
         </div>
       </div>
 
-      <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
-        <div className='sm:col-span-3'>
-          <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>Название</label>
+      <div className={clsx('flex flex-col gap-y-3', !data.active && 'opacity-30')}>
+        <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
+          <div className='sm:col-span-3'>
+            <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>Название</label>
+          </div>
+          {/* End Col */}
+          <div className='sm:col-span-9'>
+            <Controller
+              control={control}
+              name='name'
+              rules={{ required: 'Название обязательно' }}
+              render={({ field }) => (
+                <InputDefault
+                  {...field}
+                  error={errors.name?.message}
+                  placeholder='Название'
+                />
+              )}
+            />
+          </div>
+          {/* End Col */}
         </div>
-        {/* End Col */}
-        <div className='sm:col-span-9'>
-          <Controller
-            control={control}
-            name='name'
-            rules={{ required: 'Название обязательно' }}
-            render={({ field }) => (
-              <InputDefault
-                {...field}
-                error={errors.name?.message}
-                placeholder='Название'
-              />
-            )}
-          />
+        <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
+          <div className='sm:col-span-3'>
+            <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>
+              Единица измерения
+            </label>
+          </div>
+          {/* End Col */}
+          <div className='sm:col-span-9'>
+            <Controller
+              control={control}
+              name='unit'
+              rules={{ required: 'Единица измерения обязательна' }}
+              render={({ field }) => (
+                <InputDefault
+                  {...field}
+                  error={errors.unit?.message}
+                  placeholder='Единица измерения'
+                />
+              )}
+            />
+          </div>
+          {/* End Col */}
         </div>
-        {/* End Col */}
-      </div>
-      <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
-        <div className='sm:col-span-3'>
-          <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>
-            Единица измерения
-          </label>
-        </div>
-        {/* End Col */}
-        <div className='sm:col-span-9'>
-          <Controller
-            control={control}
-            name='unit'
-            rules={{ required: 'Единица измерения обязательна' }}
-            render={({ field }) => (
-              <InputDefault
-                {...field}
-                error={errors.unit?.message}
-                placeholder='Единица измерения'
-              />
-            )}
-          />
-        </div>
-        {/* End Col */}
-      </div>
 
-      <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
-        <div className='sm:col-span-3'>
-          <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>
-            Минимальный остаток на складе
-          </label>
+        <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
+          <div className='sm:col-span-3'>
+            <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>
+              Минимальный остаток на складе
+            </label>
+          </div>
+          {/* End Col */}
+          <div className='sm:col-span-9'>
+            <Controller
+              control={control}
+              name='minThreshold'
+              rules={{
+                // required: 'Мин. остаток обязателен',
+                min: { value: 0, message: 'Не может быть меньше 0' }
+              }}
+              render={({ field }) => (
+                <InputNumber
+                  {...field}
+                  min={0}
+                  disabled={isLoading}
+                />
+              )}
+            />
+            {errors.minThreshold && <p className='mt-1 text-xs text-red-500'>{errors.minThreshold.message}</p>}
+          </div>
+          {/* End Col */}
         </div>
-        {/* End Col */}
-        <div className='sm:col-span-9'>
-          <Controller
-            control={control}
-            name='minThreshold'
-            rules={{
-              // required: 'Мин. остаток обязателен',
-              min: { value: 0, message: 'Не может быть меньше 0' }
-            }}
-            render={({ field }) => (
-              <InputNumber
-                {...field}
-                min={0}
-                disabled={isLoading}
-              />
-            )}
-          />
-          {errors.minThreshold && <p className='mt-1 text-xs text-red-500'>{errors.minThreshold.message}</p>}
-        </div>
-        {/* End Col */}
       </div>
       <div className='flex justify-end mt-4'>
         <button

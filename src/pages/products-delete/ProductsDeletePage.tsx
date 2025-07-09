@@ -17,8 +17,13 @@ export const ProductsDeletePage = () => {
 
   const filteredData = useMemo(() => {
     const term = searchTerm.trim().toLowerCase()
-    if (!term) return data
-    return data.filter(item => item.name.toLowerCase().includes(term))
+    const filtered = term ? data.filter(item => item.name.toLowerCase().includes(term)) : data
+
+    // Активные товары должны быть перед неактивными
+    return filtered.sort((a, b) => {
+      if (a.active === b.active) return 0
+      return a.active ? -1 : 1 // если a активен, он раньше
+    })
   }, [data, searchTerm])
 
   if (isLoading) {

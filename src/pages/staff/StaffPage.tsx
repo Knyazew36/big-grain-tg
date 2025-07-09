@@ -8,9 +8,11 @@ import { hapticFeedback } from '@telegram-apps/sdk-react'
 import clsx from 'clsx'
 import React, { useMemo, useState } from 'react'
 import Loader from '@/shared/loader/ui/Loader'
+import { useAuthStore } from '@/entitites/auth/model/auth.store'
 
 const StaffPage = () => {
   const { data: employees, isLoading } = useUsersEmployees()
+  const { role } = useAuthStore()
   const { isPending } = useUserDelete()
   const [searchTerm, setSearchTerm] = useState('')
   const [view, setView] = useState<'tile' | 'table'>('tile')
@@ -91,6 +93,7 @@ const StaffPage = () => {
         filteredData.length > 0 &&
         filteredData.map(item => (
           <UserCard
+            role={role}
             key={item.id}
             data={item}
           />
