@@ -99,9 +99,6 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
       </div>
 
       <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
-        <div className='sm:col-span-3'>
-          <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>Название</label>
-        </div>
         {/* End Col */}
         <div className='sm:col-span-9'>
           <Controller
@@ -110,6 +107,8 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
             rules={{ required: 'Название обязательно' }}
             render={({ field }) => (
               <InputDefault
+                label='Название'
+                disabled={!data.active}
                 {...field}
                 error={errors.name?.message}
                 placeholder='Название'
@@ -120,11 +119,6 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
         {/* End Col */}
       </div>
       <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
-        <div className='sm:col-span-3'>
-          <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>
-            Единица измерения
-          </label>
-        </div>
         {/* End Col */}
         <div className='sm:col-span-9'>
           <Controller
@@ -134,6 +128,8 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
             render={({ field }) => (
               <InputDefault
                 {...field}
+                disabled={!data.active}
+                label='    Единица измерения'
                 error={errors.unit?.message}
                 placeholder='Единица измерения'
               />
@@ -144,11 +140,6 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
       </div>
 
       <div className='grid sm:grid-cols-12 gap-y-1.5 sm:gap-y-0 sm:gap-x-5'>
-        <div className='sm:col-span-3'>
-          <label className='sm:mt-2.5 inline-block text-sm text-gray-500 dark:text-neutral-500'>
-            Минимальный остаток на складе
-          </label>
-        </div>
         {/* End Col */}
         <div className='sm:col-span-9'>
           <Controller
@@ -160,9 +151,10 @@ const ProductCardChangeForm: FC<IProductsCard> = ({ data }) => {
             }}
             render={({ field }) => (
               <InputNumber
+                label='Минимальный остаток на складе'
                 {...field}
+                disabled={isLoading || !data.active}
                 min={0}
-                disabled={isLoading}
               />
             )}
           />

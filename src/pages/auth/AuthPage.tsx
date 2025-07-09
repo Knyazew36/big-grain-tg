@@ -18,28 +18,28 @@ const AuthPage = () => {
 
   console.log('auth page', role)
 
-  const handleRequestAccess = async () => {
-    hapticFeedback.impactOccurred('rigid')
-    if (user?.id) {
-      try {
-        setIsButtonLoading(true)
-        await requestAccess(user.id.toString())
-        open({
-          isOpen: true,
-          title: 'Доступ запрошен',
-          description: 'Дождитесь рассмотрения, вам будет выслано уведомление'
-        })
-        hapticFeedback.notificationOccurred('success')
-      } catch (error) {
-        console.error('Error requesting access:', error)
-        open({ isOpen: true, title: 'Ошибка', description: (error as Error).message })
-        hapticFeedback.notificationOccurred('error')
-      }
-      setIsButtonLoading(false)
-    } else {
-      console.error('User ID not available')
-    }
-  }
+  // const handleRequestAccess = async () => {
+  //   hapticFeedback.impactOccurred('rigid')
+  //   if (user?.id) {
+  //     try {
+  //       setIsButtonLoading(true)
+  //       await requestAccess(user.id.toString())
+  //       open({
+  //         isOpen: true,
+  //         title: 'Доступ запрошен',
+  //         description: 'Дождитесь рассмотрения, вам будет выслано уведомление'
+  //       })
+  //       hapticFeedback.notificationOccurred('success')
+  //     } catch (error) {
+  //       console.error('Error requesting access:', error)
+  //       open({ isOpen: true, title: 'Ошибка', description: (error as Error).message })
+  //       hapticFeedback.notificationOccurred('error')
+  //     }
+  //     setIsButtonLoading(false)
+  //   } else {
+  //     console.error('User ID not available')
+  //   }
+  // }
 
   if (isLoading) return <Loader />
 
@@ -105,12 +105,10 @@ const AuthPage = () => {
                 <div className='text-center'>
                   <h2 className='font-medium text-xl text-gray-800 dark:text-neutral-200'>Доступ запрещен</h2>
                   <p className='mt-1 text-sm text-gray-500 dark:text-neutral-500'>
-                    Чтобы зайти в бот вы должны быть сотрудником компании, чтобы запросить доступ, нажмите кнопку ниже,
-                    уведомление придет администратору бота и после рассмотрения и одобрения заявки бот будет вам
-                    доступен
+                    Чтобы зайти в бот вы должны быть сотрудником компании.
                   </p>
                 </div>
-                <button
+                {/* <button
                   className='py-3 h-13 px-4 relative w-full inline-flex justify-center items-center gap-x-1.5 sm:text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-900 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300'
                   onClick={handleRequestAccess}
                 >
@@ -135,7 +133,7 @@ const AuthPage = () => {
                   )}
 
                   {isButtonLoading && <Spinner />}
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

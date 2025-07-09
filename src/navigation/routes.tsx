@@ -17,6 +17,7 @@ import AuthPage from '@/pages/auth/AuthPage'
 import StaffPage from '@/pages/staff/StaffPage'
 import UserRequestPage from '@/pages/user-request/UserRequestPage'
 import NotificationsSettingPage from '@/pages/notifications-setting/NotificationsSettingPage'
+import AddUserPage from '@/pages/add-user/ui/AddUserPage'
 
 interface Route {
   path: string
@@ -29,6 +30,7 @@ export const routes: Route[] = [
   { path: '/', Component: AuthPage, title: 'Auth' },
   { path: '/menu', Component: MenuPage },
   { path: '/staff', Component: StaffPage, title: 'Staff' },
+  { path: '/add-user', Component: AddUserPage, title: 'Add User' },
   { path: '/products', Component: ProductsPage, title: 'Init Data' },
   { path: '/products-delete', Component: ProductsDeletePage, title: 'Init Data' },
   { path: '/create-product', Component: CreateProductPage, title: 'Init Data' },

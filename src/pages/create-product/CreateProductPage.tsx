@@ -58,27 +58,27 @@ const CreateProductPage = () => {
     <Page back>
       <PageHeader title='Создать товар' />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='flex flex-col gap-y-3 relative overflow-hidden lg:gap-y-5 p-4 md:p-5 bg-white border border-gray-200 shadow-2xs rounded-xl dark:bg-neutral-900 dark:border-neutral-800'
+      >
         {/* Body */}
         <div className=' space-y-5 gap-2 flex flex-col'>
-          <label>
-            <div className='block mb-2 text-sm font-medium text-gray-800 dark:text-white'>Название</div>
-            <Controller
-              control={control}
-              name='name'
-              rules={{ required: 'Название обязательно' }}
-              render={({ field }) => (
-                <InputDefault
-                  {...field}
-                  placeholder='Товар'
-                  error={errors.name?.message}
-                />
-              )}
-            />
-          </label>
+          <Controller
+            control={control}
+            name='name'
+            rules={{ required: 'Название обязательно' }}
+            render={({ field }) => (
+              <InputDefault
+                label='Название'
+                {...field}
+                placeholder='Товар'
+                error={errors.name?.message}
+              />
+            )}
+          />
 
           <label>
-            <div className='block mb-2 text-sm font-medium text-gray-800 dark:text-white'>Сейчас на складе</div>
             <Controller
               control={control}
               name='quantity'
@@ -86,32 +86,29 @@ const CreateProductPage = () => {
                 min: { value: 0, message: 'Не может быть меньше 0' }
               }}
               render={({ field }) => (
-                <div className='bg-white border border-gray-200 rounded-lg dark:bg-neutral-700 dark:border-neutral-700'>
-                  <InputNumber {...field} />
-                </div>
+                <InputNumber
+                  label='Сейчас на складе'
+                  {...field}
+                />
               )}
             />
             {errors.minThreshold && <p className='mt-1 text-xs text-red-500'>{errors.minThreshold.message}</p>}
           </label>
 
+          <Controller
+            control={control}
+            name='unit'
+            rules={{ required: 'Единица измерения обязательна' }}
+            render={({ field }) => (
+              <InputDefault
+                label='Единица измерения'
+                {...field}
+                placeholder='Единица измерения'
+                error={errors.unit?.message}
+              />
+            )}
+          />
           <label>
-            <div className='block mb-2 text-sm font-medium text-gray-800 dark:text-white'>Единица измерения</div>
-
-            <Controller
-              control={control}
-              name='unit'
-              rules={{ required: 'Единица измерения обязательна' }}
-              render={({ field }) => (
-                <InputDefault
-                  {...field}
-                  placeholder='Единица измерения'
-                  error={errors.unit?.message}
-                />
-              )}
-            />
-          </label>
-          <label>
-            <div className='block mb-2 text-sm font-medium text-gray-800 dark:text-white'>Минимальный остаток</div>
             <Controller
               control={control}
               name='minThreshold'
@@ -120,9 +117,10 @@ const CreateProductPage = () => {
                 min: { value: 0, message: 'Не может быть меньше 0' }
               }}
               render={({ field }) => (
-                <div className='bg-white border border-gray-200 rounded-lg dark:bg-neutral-700 dark:border-neutral-700'>
-                  <InputNumber {...field} />
-                </div>
+                <InputNumber
+                  label='Минимальный остаток'
+                  {...field}
+                />
               )}
             />
             {errors.minThreshold && <p className='mt-1 text-xs text-red-500'>{errors.minThreshold.message}</p>}
