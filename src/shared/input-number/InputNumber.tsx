@@ -75,6 +75,7 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
             value={value === 0 ? '' : value ?? ''}
             onChange={handleInputChange}
             disabled={disabled}
+            inputMode='decimal'
             placeholder='0'
           />
           <div className='flex justify-end items-center gap-x-1.5'>
