@@ -75,11 +75,17 @@ $api.interceptors.response.use(
     logErrorDetails(error as AxiosError)
     toast(error?.response?.data?.message || error?.message, {
       style: { backgroundColor: '#FB2C36', color: '#fff' },
-      description: React.createElement(
-        'pre',
-        { className: 'mt-2 w-[320px] rounded-md bg-neutral-950 p-4' },
-        React.createElement('code', { className: 'text-white' }, JSON.stringify(error.response?.data ?? {}, null, 2))
-      )
+      description: import.meta.env.DEV
+        ? React.createElement(
+            'pre',
+            { className: 'mt-2 w-[320px] rounded-md bg-neutral-950 p-4' },
+            React.createElement(
+              'code',
+              { className: 'text-white' },
+              JSON.stringify(error.response?.data ?? {}, null, 2)
+            )
+          )
+        : error?.response?.data?.message || error?.message
     })
 
     throw error
