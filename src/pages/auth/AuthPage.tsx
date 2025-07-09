@@ -12,36 +12,38 @@ import { Navigate } from 'react-router-dom'
 const AuthPage = () => {
   const user = initDataUser()
   const { open } = useBottomSheetStore()
+  const [isButtonLoading, setIsButtonLoading] = useState(false)
 
   const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
 
-  // const handleRequestAccess = async () => {
-  //   hapticFeedback.impactOccurred('rigid')
-  //   if (user?.id) {
-  //     try {
-  //       setIsButtonLoading(true)
-  //       await requestAccess(user.id.toString())
-  //       open({
-  //         isOpen: true,
-  //         title: 'Доступ запрошен',
-  //         description: 'Дождитесь рассмотрения, вам будет выслано уведомление'
-  //       })
-  //       hapticFeedback.notificationOccurred('success')
-  //     } catch (error) {
-  //       console.error('Error requesting access:', error)
-  //       open({ isOpen: true, title: 'Ошибка', description: (error as Error).message })
-  //       hapticFeedback.notificationOccurred('error')
-  //     }
-  //     setIsButtonLoading(false)
-  //   } else {
-  //     console.error('User ID not available')
-  //   }
-  // }
+  console.log('auth page', role)
+
+  const handleRequestAccess = async () => {
+    hapticFeedback.impactOccurred('rigid')
+    if (user?.id) {
+      try {
+        setIsButtonLoading(true)
+        await requestAccess(user.id.toString())
+        open({
+          isOpen: true,
+          title: 'Доступ запрошен',
+          description: 'Дождитесь рассмотрения, вам будет выслано уведомление'
+        })
+        hapticFeedback.notificationOccurred('success')
+      } catch (error) {
+        console.error('Error requesting access:', error)
+        open({ isOpen: true, title: 'Ошибка', description: (error as Error).message })
+        hapticFeedback.notificationOccurred('error')
+      }
+      setIsButtonLoading(false)
+    } else {
+      console.error('User ID not available')
+    }
+  }
 
   if (isLoading) return <Loader />
 
   if (role !== Role.BLOCKED && role !== Role.GUEST) return <Navigate to='/menu' />
-
   return (
     <>
       {/* ========== HEADER ========== */}

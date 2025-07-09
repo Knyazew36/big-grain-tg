@@ -75,7 +75,7 @@ export const useUserRole = (id: string) => {
     queryKey: ['user-role', id],
     queryFn: async () => {
       const res = await $api.get(`${apiDomain}/user/${id}/role`)
-      const role = res.data.user?.role
+      const role = res.data.data?.role
       if (role) {
         setRole(role)
       }
