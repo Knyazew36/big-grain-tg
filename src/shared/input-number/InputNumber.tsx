@@ -13,9 +13,19 @@ export interface InputNumberProps extends Omit<React.InputHTMLAttributes<HTMLInp
   min?: number
   /** Максимальное значение */
   max?: number
+  label?: string
 }
 
-const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, min, max, disabled, ...inputProps }) => {
+const InputNumber: React.FC<InputNumberProps> = ({
+  value,
+  onChange,
+  step = 1,
+  min,
+  max,
+  disabled,
+  label,
+  ...inputProps
+}) => {
   const handleDecrement = () => {
     const currentValue = value ?? 0
     const next = currentValue - step
@@ -63,7 +73,13 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
   }
 
   return (
-    <>
+    <div className='flex flex-col gap-1 w-full'>
+      {label && (
+        <label className='sm:mt-2.5 inline-block text-sm bg-transparent text-gray-500 dark:text-neutral-500'>
+          {label}
+        </label>
+      )}
+
       {/* Input Number */}
       <div className='py-2 px-3 bg-white border w-full border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700'>
         <div className='w-full flex justify-between items-center gap-x-3'>
@@ -128,7 +144,7 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
         </div>
       </div>
       {/* End Input Number */}
-    </>
+    </div>
   )
 }
 

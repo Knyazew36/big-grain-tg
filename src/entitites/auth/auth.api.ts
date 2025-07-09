@@ -132,3 +132,16 @@ export const useDeclineAccessRequest = () => {
     }
   })
 }
+
+export const allowedPhoneService = async ({ phone }: { phone: string }): Promise<any> => {
+  try {
+    const response: AxiosResponse<BaseResponse<{ phone: string }[]>> = await $api.post(
+      `${apiDomain}/allowed-phones/add`,
+      { phone }
+    )
+    return response.data.data
+  } catch (error: any) {
+    const message = error?.response?.data?.message || 'Ошибка добавления телефона'
+    throw new Error(message)
+  }
+}

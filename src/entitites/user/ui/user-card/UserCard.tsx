@@ -22,7 +22,7 @@ const UserCard = ({ data, role }: { data: IUser; role: Role }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex relative  flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-800 dark:border-neutral-700 '
+      className='flex relative  flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-900 dark:border-neutral-700 '
     >
       {data.role !== Role.OWNER && (
         <div className='absolute top-2 left-2'>

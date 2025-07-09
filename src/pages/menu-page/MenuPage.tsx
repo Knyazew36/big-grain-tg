@@ -140,6 +140,35 @@ const MenuPage: FC = () => {
       )
     },
     {
+      to: '/add-user',
+      title: 'Добавить сотрудников',
+      color: 'lime',
+      isBlocked: isOperator,
+      icon: (
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='24'
+          height='24'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          className='shrink-0 size-5 xl:w-6 xl:h-6 text-lime-600 dark:text-lime-500'
+        >
+          <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
+          <path d='M16 3.128a4 4 0 0 1 0 7.744' />
+          <path d='M22 21v-2a4 4 0 0 0-3-3.87' />
+          <circle
+            cx='9'
+            cy='7'
+            r='4'
+          />
+        </svg>
+      )
+    },
+    {
       to: '',
       title: 'Уведомления',
       color: 'neutral',
@@ -162,48 +191,48 @@ const MenuPage: FC = () => {
           <path d='M12 5v14' />
         </svg>
       )
-    },
-    {
-      to: '/user-request',
-      title: 'Запросы на доступ',
-      isLoading: isLoading,
-      color: 'fuchsia',
-      isBlocked: isOperator,
-      withNotification: !isOperator && accessRequests && accessRequests?.length > 0,
-      icon: (
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width={24}
-          height={24}
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth={2}
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          className='shrink-0 size-5 xl:w-6 xl:h-6 text-fuchsia-600 dark:text-fuchsia-500'
-        >
-          <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
-          <circle
-            cx={9}
-            cy={7}
-            r={4}
-          />
-          <line
-            x1={19}
-            x2={19}
-            y1={8}
-            y2={14}
-          />
-          <line
-            x1={22}
-            x2={16}
-            y1={11}
-            y2={11}
-          />
-        </svg>
-      )
     }
+    // {
+    //   to: '/user-request',
+    //   title: 'Запросы на доступ',
+    //   isLoading: isLoading,
+    //   color: 'fuchsia',
+    //   isBlocked: isOperator,
+    //   withNotification: !isOperator && accessRequests && accessRequests?.length > 0,
+    //   icon: (
+    //     <svg
+    //       xmlns='http://www.w3.org/2000/svg'
+    //       width={24}
+    //       height={24}
+    //       viewBox='0 0 24 24'
+    //       fill='none'
+    //       stroke='currentColor'
+    //       strokeWidth={2}
+    //       strokeLinecap='round'
+    //       strokeLinejoin='round'
+    //       className='shrink-0 size-5 xl:w-6 xl:h-6 text-fuchsia-600 dark:text-fuchsia-500'
+    //     >
+    //       <path d='M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' />
+    //       <circle
+    //         cx={9}
+    //         cy={7}
+    //         r={4}
+    //       />
+    //       <line
+    //         x1={19}
+    //         x2={19}
+    //         y1={8}
+    //         y2={14}
+    //       />
+    //       <line
+    //         x1={22}
+    //         x2={16}
+    //         y1={11}
+    //         y2={11}
+    //       />
+    //     </svg>
+    //   )
+    // }
   ]
 
   return (
