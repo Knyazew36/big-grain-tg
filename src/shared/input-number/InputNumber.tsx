@@ -50,69 +50,71 @@ const InputNumber: React.FC<InputNumberProps> = ({ value, onChange, step = 1, mi
   }
 
   return (
-    <div className='bg-white w-full border border-gray-200 rounded-lg dark:bg-neutral-700 dark:border-neutral-700'>
-      <div className='w-full flex justify-between items-center gap-x-1'>
-        <div className='grow py-2 px-3'>
+    <>
+      {/* Input Number */}
+      <div className='py-2 px-3 bg-white border w-full border-gray-200 rounded-lg dark:bg-neutral-900 dark:border-neutral-700'>
+        <div className='w-full flex justify-between items-center gap-x-3'>
           <input
             {...inputProps}
-            type='number'
-            aria-roledescription='Number field'
             className='w-full p-0 bg-transparent border-0 text-gray-800 focus:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none dark:text-white'
             style={{ MozAppearance: 'textfield' }}
+            type='number'
             value={value === 0 ? '' : value ?? ''}
             onChange={handleInputChange}
             disabled={disabled}
+            placeholder='0'
           />
-        </div>
-        <div className='flex items-center -gap-y-px divide-x divide-gray-200 border-s border-gray-200 dark:divide-neutral-700 dark:border-neutral-700'>
-          <button
-            type='button'
-            onClick={handleDecrement}
-            disabled={disabled || (min !== undefined && (value ?? 0) <= min)}
-            className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-medium last:rounded-e-lg bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
-            aria-label='Decrease'
-          >
-            <svg
-              className='shrink-0 size-3.5'
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
+          <div className='flex justify-end items-center gap-x-1.5'>
+            <button
+              type='button'
+              className='size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
+              tabIndex={-1}
+              onClick={handleDecrement}
+              disabled={disabled || (min !== undefined && (value ?? 0) <= min)}
             >
-              <path d='M5 12h14' />
-            </svg>
-          </button>
-          <button
-            type='button'
-            onClick={handleIncrement}
-            disabled={disabled || (max !== undefined && (value ?? 0) >= max)}
-            className='size-10 inline-flex justify-center items-center gap-x-2 text-sm font-medium last:rounded-e-lg bg-white text-gray-800 hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
-            aria-label='Increase'
-          >
-            <svg
-              className='shrink-0 size-3.5'
-              xmlns='http://www.w3.org/2000/svg'
-              width='24'
-              height='24'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
+              <svg
+                className='shrink-0 size-3.5'
+                xmlns='http://www.w3.org/2000/svg'
+                width={24}
+                height={24}
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth={2}
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M5 12h14' />
+              </svg>
+            </button>
+            <button
+              type='button'
+              className='size-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-full border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
+              tabIndex={-1}
+              onClick={handleIncrement}
+              disabled={disabled || (max !== undefined && (value ?? 0) >= max)}
             >
-              <path d='M5 12h14' />
-              <path d='M12 5v14' />
-            </svg>
-          </button>
+              <svg
+                className='shrink-0 size-3.5'
+                xmlns='http://www.w3.org/2000/svg'
+                width={24}
+                height={24}
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='currentColor'
+                strokeWidth={2}
+                strokeLinecap='round'
+                strokeLinejoin='round'
+              >
+                <path d='M5 12h14' />
+                <path d='M12 5v14' />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+      {/* End Input Number */}
+    </>
   )
 }
 
