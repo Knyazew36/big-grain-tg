@@ -74,13 +74,22 @@ export const useUserRole = (id: string) => {
   return useQuery<Role>({
     queryKey: ['user-role', id],
     queryFn: async () => {
-      const res = await $api.get(`${apiDomain}/user/${id}/role`)
-      const role = res.data.data?.role
-      if (role) {
-        setRole(role)
+      try {
+        const res = await $api.get(`${apiDomain}/user/${id}/role`)
+        const role = res.data.data?.role
+        if (role) {
+          setRole(role)
+        }
+        return role
+      } catch (error) {
+        console.error('Error fetching user role:', error)
+        // В случае ошибки возвращаем GUEST как роль по умолчанию
+        setRole(Role.GUEST)
+        return Role.GUEST
       }
-      return role
     },
-    enabled: !!id
+    enabled: !!id,
+    retry: 2,
+    retryDelay: 1000
   })
 }

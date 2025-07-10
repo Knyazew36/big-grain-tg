@@ -6,6 +6,7 @@ import { hapticFeedback } from '@telegram-apps/sdk-react'
 import AlertProductLowStock from '@/widgets/alert-product-low-stock/AlertProductLowStock'
 
 import { useAuthStore } from '@/entitites/auth/model/auth.store'
+import { Role } from '@/entitites/user/model/user.type'
 
 import MenuButton, { IMenuButton } from './menu-button/MenuButton'
 import { useAccessRequests } from '@/entitites/auth/auth.api'
@@ -18,10 +19,24 @@ const MenuPage: FC = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!isAdmin && !isOwner && !isIT && !isOperator) {
+    // Перенаправляем на главную страницу если у пользователя нет прав доступа
+    // Но только если роль уже загружена (не undefined)
+    if (role && role !== Role.ADMIN && role !== Role.OWNER && role !== Role.IT && role !== Role.OPERATOR) {
       navigate('/')
     }
-  }, [role])
+  }, [role, navigate])
+
+  // Если роль еще не загружена, показываем загрузку
+  if (!role) {
+    return (
+      <div className='flex items-center justify-center min-h-screen'>
+        <div className='text-center'>
+          <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto'></div>
+          <p className='mt-2 text-sm text-gray-500'>Загрузка...</p>
+        </div>
+      </div>
+    )
+  }
 
   console.info(isAdmin, isOwner, isIT, isOperator, role)
 

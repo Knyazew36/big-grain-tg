@@ -14,9 +14,40 @@ const AuthPage = () => {
   const { open } = useBottomSheetStore()
   const [isButtonLoading, setIsButtonLoading] = useState(false)
 
-  const { data: role, isLoading } = useUserRole(user?.id?.toString() ?? '')
+  // Проверяем, что пользователь существует и у него есть ID
+  const userId = user?.id?.toString()
+  const { data: role, isLoading } = useUserRole(userId ?? '')
 
-  console.log('auth page', role)
+  console.log('auth page', role, 'user:', user)
+
+  // Если пользователь не найден, показываем сообщение об ошибке
+  if (!user || !userId) {
+    console.log('User not found or no ID')
+    return (
+      <div className='flex items-center justify-center min-h-screen'>
+        <div className='text-center'>
+          <h2 className='font-medium text-xl text-gray-800 dark:text-neutral-200'>Ошибка авторизации</h2>
+          <p className='mt-1 text-sm text-gray-500 dark:text-neutral-500'>
+            Не удалось получить данные пользователя. Попробуйте перезагрузить страницу.
+          </p>
+        </div>
+      </div>
+    )
+  }
+
+  if (isLoading) return <Loader />
+
+  console.log(
+    'Role check:',
+    role,
+    'Should redirect to menu:',
+    role && (role === Role.ADMIN || role === Role.OWNER || role === Role.IT || role === Role.OPERATOR)
+  )
+
+  // Перенаправляем на /menu только если у пользователя есть права доступа
+  if (role && (role === Role.ADMIN || role === Role.OWNER || role === Role.IT || role === Role.OPERATOR)) {
+    return <Navigate to='/menu' />
+  }
 
   const handleRequestAccess = async () => {
     hapticFeedback.impactOccurred('rigid')
@@ -41,9 +72,6 @@ const AuthPage = () => {
     }
   }
 
-  if (isLoading) return <Loader />
-
-  if (role !== Role.BLOCKED && role !== Role.GUEST) return <Navigate to='/menu' />
   return (
     <>
       {/* ========== HEADER ========== */}
