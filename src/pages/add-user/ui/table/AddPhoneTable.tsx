@@ -19,14 +19,14 @@ const AddPhoneTable = () => {
     getData()
   }, [])
 
-  if (isLoading) return <LoaderSection />
+  if (isLoading) return <LoaderSection className='min-h-30' />
 
   return (
     data &&
     (data.length > 0 ? (
       <>
         {/* List */}
-        <div className='divide-y divide-dashed divide-gray-200 dark:divide-neutral-700'>
+        <div className='divide-y divide-dashed divide-gray-200 dark:divide-neutral-700 '>
           {data.map(item => (
             <div
               className='py-3 grid grid-cols-2 gap-x-3'

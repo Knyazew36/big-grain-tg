@@ -3,7 +3,7 @@ import { IUser, Role } from '../../model/user.type'
 import { getFullName } from '@/shared/utils/getFullName'
 import Select from '@/shared/ui/select/ui/Select'
 import { Controller, useForm } from 'react-hook-form'
-import { useUpdateUser } from '../../api/user.api'
+import { useUpdateUser, useUserDelete } from '../../api/user.api'
 import LoaderSection from '@/shared/loader/ui/LoaderSection'
 import UserDelete from '../delete/UserDelete'
 
@@ -15,14 +15,14 @@ const UserCard = ({ data, role }: { data: IUser; role: Role }) => {
     mode: 'onChange'
   })
   const { mutate: updateUser, isPending } = useUpdateUser()
-
+  const { isPending: isDeletePending } = useUserDelete()
   const onSubmit = (data: any) => {
     updateUser({ id: data.id, dto: { role: data.role } })
   }
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='flex relative  flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-900 dark:border-neutral-700 '
+      className='flex relative overflow-hidden  flex-col mb-4 bg-white border border-gray-200 rounded-xl dark:bg-neutral-900 dark:border-neutral-700 '
     >
       {data.role !== Role.OWNER && (
         <div className='absolute top-2 left-2'>
@@ -248,7 +248,7 @@ const UserCard = ({ data, role }: { data: IUser; role: Role }) => {
 
       {data.role !== Role.OWNER && (
         <div className='py-3 overflow-hidden relative px-5 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-1 sm:gap-y-0 gap-x-2 text-center sm:text-start border-t border-gray-200 dark:border-neutral-700'>
-          {isPending && <LoaderSection />}
+          {isPending || (isDeletePending && <LoaderSection />)}
           <div>
             <p className='text-sm text-gray-500 dark:text-neutral-500'>Сменить роль</p>
           </div>

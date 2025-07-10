@@ -24,7 +24,6 @@ const $api = axios.create({
     Authorization: `tma ${initDataRaw}`
   }
 })
-
 // Интерцептор для запросов
 $api.interceptors.request.use(
   async config => {
