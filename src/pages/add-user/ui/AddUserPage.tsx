@@ -8,6 +8,7 @@ import React, { useState, useMemo } from 'react'
 import { toast } from 'sonner'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
 import { allowedPhoneService } from '@/entitites/auth/auth.api'
+import Spinner from '@/shared/spinner/Spinner'
 
 const AddUserPage = () => {
   const navigate = useNavigate()
@@ -168,15 +169,38 @@ const AddUserPage = () => {
           <button
             onClick={addPhoneField}
             type='button'
-            className='w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none'
+            className='py-1.5 self-end sm:py-2 w-max px-3 inline-flex justify-center items-center gap-x-2 text-sm sm:text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none focus:outline-hidden focus:bg-gray-50 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-700 dark:focus:bg-neutral-700'
           >
-            Добавить сотрудника
+            <svg
+              className='shrink-0 size-3'
+              xmlns='http://www.w3.org/2000/svg'
+              width={16}
+              height={16}
+              fill='currentColor'
+              viewBox='0 0 16 16'
+            >
+              <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M8 1C8.55228 1 9 1.44772 9 2V7L14 7C14.5523 7 15 7.44771 15 8C15 8.55228 14.5523 9 14 9L9 9V14C9 14.5523 8.55228 15 8 15C7.44772 15 7 14.5523 7 14V9.00001L2 9.00001C1.44772 9.00001 1 8.5523 1 8.00001C0.999999 7.44773 1.44771 7.00001 2 7.00001L7 7.00001V2C7 1.44772 7.44772 1 8 1Z'
+              />
+            </svg>
+            Добавить поле
           </button>
 
           <p className='mt-2 text-sm text-gray-500 dark:text-neutral-500 bg-gray-50 dark:bg-neutral-800 p-3 rounded-lg'>
             💡 Подсказка: Каждый телефон создаст отдельного сотрудника. Формат: +7 (999) 999-99-99
           </p>
         </div>
+
+        <button
+          onClick={handleSubmit}
+          disabled={!hasValidPhones || hasInvalidPhones}
+          type='button'
+          className='w-full py-3 px-4 inline-flex h-12 justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none'
+        >
+          {isLoading ? <Spinner /> : phoneValidation.length > 1 ? 'Добавить сотрудников' : 'Добавить сотрудника'}
+        </button>
       </div>
 
       <ButtonAction
