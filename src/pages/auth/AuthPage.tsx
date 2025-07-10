@@ -1,5 +1,4 @@
 import { Page } from '@/components/Page'
-import { requestAccess } from '@/entitites/auth/auth.api'
 import { useUserRole } from '@/entitites/user/api/user.api'
 import { Role } from '@/entitites/user/model/user.type'
 import { useBottomSheetStore } from '@/shared/bottom-sheet/model/store.bottom-sheet'
@@ -47,29 +46,6 @@ const AuthPage = () => {
   // Перенаправляем на /menu только если у пользователя есть права доступа
   if (role && (role === Role.ADMIN || role === Role.OWNER || role === Role.IT || role === Role.OPERATOR)) {
     return <Navigate to='/menu' />
-  }
-
-  const handleRequestAccess = async () => {
-    hapticFeedback.impactOccurred('rigid')
-    if (user?.id) {
-      try {
-        setIsButtonLoading(true)
-        await requestAccess(user.id.toString())
-        open({
-          isOpen: true,
-          title: 'Доступ запрошен',
-          description: 'Дождитесь рассмотрения, вам будет выслано уведомление'
-        })
-        hapticFeedback.notificationOccurred('success')
-      } catch (error) {
-        console.error('Error requesting access:', error)
-        open({ isOpen: true, title: 'Ошибка', description: (error as Error).message })
-        hapticFeedback.notificationOccurred('error')
-      }
-      setIsButtonLoading(false)
-    } else {
-      console.error('User ID not available')
-    }
   }
 
   return (

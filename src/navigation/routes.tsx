@@ -15,7 +15,6 @@ import CreateProductPage from '@/pages/create-product/CreateProductPage'
 import IncomingStatistics from '@/pages/incoming-statistics/IncomingStatistics'
 import AuthPage from '@/pages/auth/AuthPage'
 import StaffPage from '@/pages/staff/StaffPage'
-import UserRequestPage from '@/pages/user-request/UserRequestPage'
 import NotificationsSettingPage from '@/pages/notifications-setting/NotificationsSettingPage'
 import AddUserPage from '@/pages/add-user/ui/AddUserPage'
 
@@ -65,6 +64,5 @@ export const routes: Route[] = [
         />
       </svg>
     )
-  },
-  { path: '/user-request', Component: UserRequestPage, title: 'User Request' }
+  }
 ]
